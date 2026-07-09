@@ -3,3 +3,4 @@ venv
 gbif_download_request.json
 .env
 __pycache__
+scraper/fixtures

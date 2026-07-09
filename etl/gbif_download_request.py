@@ -1,18 +1,18 @@
 import json
-import pprint
+import os
 import time
 
 import pandas as pd
 import requests
+from dotenv import load_dotenv
 
-from etl.functions import load_dataset
+from etl.functions import filter_corrupted_rows, load_dataset
 
 RAW_FILE_PATH = 'datasets/vascan_data_raw.txt'
 GBIF_SPECIES_MATCH_FILE_PATH = 'datasets/gbif_species_match.csv'
 GBIF_SPECIES_MATCH_CLEANED_FILE_PATH = 'datasets/gbif_species_match_cleaned.csv'
 CLEANED_PROBLEMS_FILE_PATH = 'datasets/problems_cleaned.csv'
 GBIF_DOWNLOAD_REQ_TEMPLATE = 'gbif_download_request.json'
-
 
 def get_gbif_taxon_key(sci_name: str):
     url = "https://api.gbif.org/v2/species/match"
@@ -101,13 +101,77 @@ def format_download_request(taxon_key_df: pd.DataFrame):
     taxon_keys = set(taxon_key_df['usageKey'].astype(int).tolist())
     print(f"{len(taxon_keys)} unique taxon keys, from {len(taxon_key_df)} clean species rows")
     
+    if len(taxon_keys) != len(taxon_key_df):
+        key_counts = taxon_key_df["usageKey"].value_counts()
+        duplicated_keys = key_counts[key_counts > 1]
+
+        dupes = taxon_key_df[taxon_key_df["usageKey"].isin(duplicated_keys.index)].sort_values("usageKey")
+        print(dupes[["input_name", "usageKey", "matchType", "status"]])
+    
     request['predicate']['predicates'][0]['values'] = [str(k) for k in taxon_keys]
     return request
-    
+
+
+def send_download_request(formatted_request: dict):
+    resp = requests.post(
+        "https://api.gbif.org/v1/occurrence/download/request",
+        json=formatted_request,
+        auth=(os.getenv("GBIF_USER"), os.getenv("GBIF_PWD"))
+    )
+    resp.raise_for_status()
+    download_key = resp.text.strip()
+    print(f"Download queued: {download_key}")
+
+
+def add_vernacular_names_to_gbif():
+    # Load vascan data - only filter corrupted rows on scientific name column
+    # (French vernacular names have mojibake but we only need English names)
+    vascan_df = pd.read_csv(RAW_FILE_PATH, sep='\t', encoding='utf-8')
+    vascan_df = filter_corrupted_rows(vascan_df, columns=['Scientific name'])
+    vascan_df = vascan_df[['Scientific name', 'Vernacular en']].drop_duplicates(subset=['Scientific name'])
+
+    # Strip whitespace from both columns for matching
+    vascan_df['Scientific name'] = vascan_df['Scientific name'].str.strip()
+
+    # Load gbif data and apply filter_corrupted_rows
+    gbif_df = pd.read_csv(GBIF_SPECIES_MATCH_CLEANED_FILE_PATH)
+    gbif_df = filter_corrupted_rows(gbif_df)
+
+    # Drop vernacularName column if it exists (to re-merge)
+    if 'vernacularName' in gbif_df.columns:
+        gbif_df = gbif_df.drop(columns=['vernacularName'])
+
+    gbif_df['input_name'] = gbif_df['input_name'].str.strip()
+
+    # Create a lookup dictionary for faster matching
+    vernacular_lookup = dict(zip(vascan_df['Scientific name'], vascan_df['Vernacular en']))
+
+    # Add vernacular name by looking up input_name
+    gbif_df['vernacularName'] = gbif_df['input_name'].map(vernacular_lookup)
+
+    # Save back to the same file
+    gbif_df.to_csv(GBIF_SPECIES_MATCH_CLEANED_FILE_PATH, index=False)
+
+    matched_count = gbif_df['vernacularName'].notna().sum()
+    print(f"Added vernacular names to {matched_count}/{len(gbif_df)} rows")
+
 
 def main():
-    df = pd.read_csv(GBIF_SPECIES_MATCH_CLEANED_FILE_PATH)
-    print(format_download_request(df))
+    add_vernacular_names_to_gbif()
+
+    # gbif_df = pd.read_csv(GBIF_SPECIES_MATCH_CLEANED_FILE_PATH)
+    # gbif_df = filter_corrupted_rows(gbif_df)
+    # problems_df = pd.read_csv(CLEANED_PROBLEMS_FILE_PATH)
+
+    # # Remove rows from gbif_df where scientificName matches those in problems_df
+    # problem_names = set(problems_df['input_name'])
+    # gbif_df = gbif_df[~gbif_df['input_name'].isin(problem_names)]
+
+    # formatted_request = format_download_request(gbif_df)
+    
+    # load_dotenv()
+    # send_download_request(formatted_request)
+    
     
 
 if __name__ == '__main__':
