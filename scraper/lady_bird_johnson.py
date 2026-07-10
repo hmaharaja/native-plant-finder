@@ -7,6 +7,7 @@ from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 
+from .constants import LBJ_RAW_FILENAME
 from .http import HttpClient
 from .models import MatchStatus
 from .normalizer import normalize_traits
@@ -19,7 +20,7 @@ LOGGER = logging.getLogger(__name__)
 
 def run(input_path: Path, output_dir: Path, limit: int | None = None,
         delay: float = 1, timeout: float = 20, retries: int = 3) -> Counter:
-    raw_path = output_dir / "lbj_raw.jsonl"
+    raw_path = output_dir / LBJ_RAW_FILENAME
     records = load_records(raw_path)
     totals: Counter = Counter()
     client = HttpClient(timeout=timeout, delay=delay, retries=retries)

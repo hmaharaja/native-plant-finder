@@ -43,7 +43,7 @@ than matched fuzzily.
 Run the offline scraper tests with:
 
 ```powershell
-python -m unittest tests.test_lady_bird_johnson -v
+python -m unittest discover -s tests -v
 ```
 
 ## UX / Client Side

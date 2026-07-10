@@ -11,7 +11,7 @@ LOGGER = logging.getLogger(__name__)
 
 def _field(sections: dict, section: str, *names: str) -> str | None:
     values = sections.get(section, {})
-    lowered = {k.casefold(): v for k, v in values.items()}
+    lowered = {key.casefold(): value for key, value in values.items()}
     for name in names:
         value = lowered.get(name.casefold())
         if value:
@@ -56,15 +56,12 @@ def _height(value: str | None) -> tuple[float | None, float | None]:
             return float(fraction.group(1)) / float(fraction.group(2))
         return float(token)
 
-    tokens = re.findall(r"\d+-\d+/\d+|\d+/\d+|\d+(?:\.\d+)?", value)
+    numeric_token = r"\d+-\d+/\d+|\d+/\d+|\d+(?:\.\d+)?"
+    tokens = re.findall(numeric_token, value)
     nums = [number(token) for token in tokens]
     if not nums:
         return None, None
-    explicit_range = re.search(
-        r"(?:\d+-\d+/\d+|\d+/\d+|\d+(?:\.\d+)?)\s*(?:-|–|to)\s*"
-        r"(?:\d+-\d+/\d+|\d+/\d+|\d+(?:\.\d+)?)",
-        lower,
-    )
+    explicit_range = re.search(rf"(?:{numeric_token})\s*(?:[-–—]|to)\s*(?:{numeric_token})", lower)
     if explicit_range and len(nums) >= 2:
         return min(nums[0], nums[1]) * factor, max(nums[0], nums[1]) * factor
     return None, nums[0] * factor
@@ -79,7 +76,8 @@ def normalize_traits(sections: dict, matched_name: str | None, url: str) -> dict
     soil_description = _field(sections, growing, "Soil Description")
     soil_categories = None
     if soil_description:
-        known = [x for x in ("clay", "loam", "sand", "gravel", "rock", "caliche") if x in soil_description.casefold()]
+        known = [item for item in ("clay", "loam", "sand", "gravel", "rock", "caliche")
+                 if item in soil_description.casefold()]
         soil_categories = "|".join(known) or None
     return {
         "matched_scientific_name": matched_name,

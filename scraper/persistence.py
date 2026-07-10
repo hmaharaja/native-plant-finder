@@ -7,6 +7,7 @@ import os
 from pathlib import Path
 from typing import Callable
 
+from .constants import LBJ_REVIEW_FILENAME, LBJ_TRAITS_FILENAME
 from .models import MatchStatus
 
 LOGGER = logging.getLogger(__name__)
@@ -86,5 +87,5 @@ def write_csv_atomic(
 def generate_outputs(output_dir: Path, records: dict[str, dict]) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
     ordered = list(records.values())
-    write_csv_atomic(output_dir / "lbj_traits.csv", TRAIT_HEADERS, write_trait_rows, ordered)
-    write_csv_atomic(output_dir / "lbj_review.csv", REVIEW_HEADERS, write_review_rows, ordered)
+    write_csv_atomic(output_dir / LBJ_TRAITS_FILENAME, TRAIT_HEADERS, write_trait_rows, ordered)
+    write_csv_atomic(output_dir / LBJ_REVIEW_FILENAME, REVIEW_HEADERS, write_review_rows, ordered)
