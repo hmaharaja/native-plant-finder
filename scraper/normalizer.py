@@ -1,6 +1,12 @@
 from __future__ import annotations
 
+import logging
 import re
+from enum import EnumMeta
+
+from .models import Duration, GrowthHabit, Light, Moisture, WaterUse
+
+LOGGER = logging.getLogger(__name__)
 
 
 def _field(sections: dict, section: str, *names: str) -> str | None:
@@ -13,10 +19,21 @@ def _field(sections: dict, section: str, *names: str) -> str | None:
     return None
 
 
-def _list(value: str | None) -> str | None:
+def _list(value: str | None, enum: EnumMeta | None = None, field_name: str = "value") -> str | None:
     if not value:
         return None
-    items = [x.strip().casefold() for x in re.split(r"[,;/]|\band\b", value) if x.strip()]
+    known = {item.value: item.value for item in enum} if enum else {}
+    items: list[str] = []
+    for raw_item in re.split(r"[,;]|\band\b", value):
+        item = raw_item.strip()
+        if not item:
+            continue
+        normalized = item.casefold()
+        if enum and normalized not in known:
+            LOGGER.warning("Unmapped LBJ %s value: %r", field_name, item)
+            items.append(item)
+        else:
+            items.append(known.get(normalized, normalized))
     return "|".join(dict.fromkeys(items)) or None
 
 
@@ -67,13 +84,13 @@ def normalize_traits(sections: dict, matched_name: str | None, url: str) -> dict
     return {
         "matched_scientific_name": matched_name,
         "lbj_url": url,
-        "growth_habit": _list(_field(sections, plant, "Habit")),
-        "duration": _list(_field(sections, plant, "Duration")),
+        "growth_habit": _list(_field(sections, plant, "Habit"), GrowthHabit, "growth_habit"),
+        "duration": _list(_field(sections, plant, "Duration"), Duration, "duration"),
         "mature_height_min_ft": low,
         "mature_height_max_ft": high,
-        "light": _list(_field(sections, growing, "Light Requirement")),
-        "moisture": _list(_field(sections, growing, "Soil Moisture")),
-        "water_use": _list(_field(sections, growing, "Water Use")),
+        "light": _list(_field(sections, growing, "Light Requirement"), Light, "light"),
+        "moisture": _list(_field(sections, growing, "Soil Moisture"), Moisture, "moisture"),
+        "water_use": _list(_field(sections, growing, "Water Use"), WaterUse, "water_use"),
         "soil_categories": soil_categories,
         "soil_description": soil_description,
         "bloom_time": _list(_field(sections, bloom, "Bloom Time")),

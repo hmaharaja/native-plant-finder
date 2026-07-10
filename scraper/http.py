@@ -4,6 +4,7 @@ import time
 from typing import Callable
 
 import requests
+from requests import RequestException
 from requests.adapters import HTTPAdapter
 from urllib3.util import Retry
 
@@ -41,12 +42,27 @@ class HttpClient:
         self.session.mount("https://", adapter)
         self.sleep = sleep
         self._made_request = False
+        self._attempts = 0
+
+    @property
+    def attempts(self) -> int:
+        return self._attempts
+
+    def reset_attempts(self) -> None:
+        self._attempts = 0
 
     def request(self, method: str, url: str, **kwargs) -> requests.Response:
         if self._made_request and self.delay:
             self.sleep(self.delay)
         self._made_request = True
-        response = self.session.request(method, url, timeout=self.timeout, **kwargs)
+        self._attempts += 1
+        try:
+            response = self.session.request(method, url, timeout=self.timeout, **kwargs)
+        except RequestException:
+            self._attempts += max(self.retries - 1, 0)
+            raise
+        retries = getattr(getattr(response, "raw", None), "retries", None)
+        self._attempts += len(getattr(retries, "history", ()))
         response.raise_for_status()
         return response
 

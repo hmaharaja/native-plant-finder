@@ -28,7 +28,16 @@ def _names_from_text(text: str) -> tuple[str | None, str | None]:
 
 def parse_search_response(url: str, html: str) -> list[Candidate]:
     if RESULT_MARKER in url:
-        return [Candidate(url=url, direct_redirect=True)]
+        identity = parse_identity(html)
+        return [
+            Candidate(
+                url=url,
+                scientific_name=identity["scientific_name"],
+                synonyms=identity["synonyms"],
+                direct_redirect=True,
+                page_html=html,
+            )
+        ]
     soup = BeautifulSoup(html, "html.parser")
     found: dict[str, Candidate] = {}
     for link in soup.find_all("a", href=True):
@@ -63,6 +72,9 @@ def choose_verified(candidates: list[Candidate], canonical_name: str) -> Match:
     target = normalize_name(canonical_name)
     exact = [c for c in candidates if normalize_name(c.scientific_name) == target]
     synonyms = [c for c in candidates if target in map(normalize_name, c.synonyms)]
+    verified = {candidate.url for candidate in exact + synonyms}
+    if len(verified) > 1:
+        return Match(MatchStatus.AMBIGUOUS, reason="conflicting verified candidates", candidates=candidates)
     if len(exact) == 1:
         return Match(MatchStatus.MATCHED, exact[0], "exact scientific-name match",
                      {"matched_field": "scientific_name", "matched_value": exact[0].scientific_name}, candidates)
@@ -81,11 +93,6 @@ def find_match(client: HttpClient, canonical_name: str, vernacular_name: str | N
     for index, query in enumerate(queries):
         candidates = search(client, query)
         all_candidates.extend(candidates)
-        if len(candidates) == 1 and candidates[0].direct_redirect:
-            # The result page must supply the scientific identity before acceptance.
-            identity = parse_identity(client.get(candidates[0].url).text)
-            candidates[0].scientific_name = identity["scientific_name"]
-            candidates[0].synonyms = identity["synonyms"]
         result = choose_verified(candidates, canonical_name)
         if result.status == MatchStatus.UNMATCHED and candidates:
             # Search listings do not expose synonyms. Inspect result pages only
