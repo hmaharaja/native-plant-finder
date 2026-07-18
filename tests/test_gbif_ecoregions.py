@@ -13,6 +13,7 @@ from etl.gbif_ecoregions import (
     OCCURRENCE_MEMBER,
     OccurrenceArchiveError,
     aggregate_plant_ecoregions,
+    build_plant_ecoregion_csv_from_parquet,
     build_matched_occurrence_parquet,
     filter_occurrences,
     match_occurrences_to_plants,
@@ -298,7 +299,7 @@ class GbifEcoregionTransformTests(unittest.TestCase):
         )
 
         with patch.object(pd.DataFrame, "to_parquet"), patch(
-            "etl.gbif_ecoregions.build_plant_ecoregion_csv",
+            "etl.gbif_ecoregions.build_plant_ecoregion_csv_from_parquet",
             return_value=pd.DataFrame([{"usageKey": "100", "ecoregion_id": 7}]),
         ), self.assertLogs("etl.gbif_ecoregions", level="INFO") as logs:
             output = run_pipeline(
@@ -316,6 +317,62 @@ class GbifEcoregionTransformTests(unittest.TestCase):
         self.assertTrue(
             any("matched occurrence total before spatial join rows=1" in line for line in logs.output)
         )
+
+    def test_parquet_spatial_stage_aggregates_batches_without_full_join(self):
+        output_path = Path(self._testMethodName + ".csv")
+        self.addCleanup(lambda: output_path.unlink(missing_ok=True))
+        ecoregions = gpd.GeoDataFrame(
+            {
+                "ECOREGION_ID": [7],
+                "ECOREGION_NAME_EN": ["Fixture ecoregion"],
+                "geometry": [Polygon([(0, 0), (1, 0), (1, 1), (0, 1)])],
+            },
+            crs="EPSG:4326",
+        )
+        chunks = [
+            occurrence_df(
+                occurrence_row(
+                    gbifID="1",
+                    taxonKey="100",
+                    decimalLatitude="0.25",
+                    decimalLongitude="0.25",
+                    coordinateUncertaintyInMeters="10",
+                    basisOfRecord="HUMAN_OBSERVATION",
+                    year="2019",
+                    datasetKey="a",
+                )
+            ).assign(usageKey="100", input_name="Plant one"),
+            occurrence_df(
+                occurrence_row(
+                    gbifID="2",
+                    taxonKey="100",
+                    decimalLatitude="0.75",
+                    decimalLongitude="0.75",
+                    coordinateUncertaintyInMeters="30",
+                    basisOfRecord="PRESERVED_SPECIMEN",
+                    year="2021",
+                    datasetKey="b",
+                )
+            ).assign(usageKey="100", input_name="Plant one"),
+        ]
+
+        with patch("etl.gbif_ecoregions.gpd.read_file", return_value=ecoregions), patch(
+            "etl.gbif_ecoregions._existing_parquet_columns",
+            return_value=["gbifID", "decimalLatitude", "decimalLongitude"],
+        ), patch("etl.gbif_ecoregions.stream_parquet_chunks", return_value=iter(chunks)):
+            output = build_plant_ecoregion_csv_from_parquet(
+                "matched.parquet", "ecoregions.geojson", output_path, chunksize=1
+            )
+
+        self.assertEqual(len(output), 1)
+        row = output.iloc[0]
+        self.assertEqual(row["occurrence_count"], 2)
+        self.assertEqual(row["human_observation_count"], 1)
+        self.assertEqual(row["preserved_specimen_count"], 1)
+        self.assertEqual(row["coordinate_uncertainty_median_m"], 20)
+        self.assertEqual(row["first_year"], 2019)
+        self.assertEqual(row["last_year"], 2021)
+        self.assertEqual(row["dataset_count"], 2)
 
 
 if __name__ == "__main__":

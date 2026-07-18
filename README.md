@@ -58,6 +58,17 @@ python -m etl.gbif_ecoregions_cli `
   --log-level INFO
 ```
 
+If the matching stage completed and the run failed during the spatial join, reuse
+the existing Parquet checkpoint instead of reprocessing the GBIF zip:
+
+```powershell
+python -m etl.gbif_ecoregions_cli `
+  --ecoregions datasets/ecoregions.geojson `
+  --output-dir datasets/derived `
+  --skip-matching `
+  --log-level INFO
+```
+
 Outputs are written under `--output-dir`:
 
 - `gbif_matched_occurrences.parquet`: filtered and taxon-matched occurrence checkpoint.

@@ -2,8 +2,10 @@ from __future__ import annotations
 
 import logging
 import zipfile
+from collections import defaultdict
 from pathlib import Path
-from typing import Iterable
+import pyarrow.parquet as pq
+from typing import Iterable, Iterator
 
 import geopandas as gpd
 import pandas as pd
@@ -43,6 +45,19 @@ REQUIRED_OCCURRENCE_COLUMNS = [
 ]
 
 TAXON_KEY_COLUMNS = ["taxonKey", "acceptedTaxonKey", "speciesKey"]
+MATCHED_OCCURRENCE_COLUMNS = [
+    "gbifID",
+    "decimalLatitude",
+    "decimalLongitude",
+    "coordinateUncertaintyInMeters",
+    "basisOfRecord",
+    "year",
+    "datasetKey",
+    "usageKey",
+    "input_name",
+    "canonicalName",
+    "vernacularName",
+]
 
 
 class OccurrenceArchiveError(ValueError):
@@ -251,6 +266,146 @@ def aggregate_plant_ecoregions(joined: pd.DataFrame) -> pd.DataFrame:
     return result.sort_values(sort_columns).reset_index(drop=True)
 
 
+def _empty_plant_ecoregion_output() -> pd.DataFrame:
+    return pd.DataFrame(
+        columns=[
+            "usageKey",
+            "ecoregion_id",
+            "occurrence_count",
+            "human_observation_count",
+            "preserved_specimen_count",
+            "coordinate_uncertainty_min_m",
+            "coordinate_uncertainty_median_m",
+            "coordinate_uncertainty_max_m",
+            "first_year",
+            "last_year",
+            "dataset_count",
+            "input_name",
+            "canonicalName",
+            "vernacularName",
+            "ecoregion_name",
+        ]
+    )
+
+
+def _accumulate_joined_ecoregions(accumulator: dict, joined: pd.DataFrame) -> None:
+    rows = joined.copy()
+    rows["coordinateUncertaintyInMeters"] = pd.to_numeric(
+        rows["coordinateUncertaintyInMeters"], errors="coerce"
+    )
+    rows["year"] = pd.to_numeric(rows["year"], errors="coerce")
+
+    for (usage_key, ecoregion_id), group in rows.groupby(["usageKey", "ecoregion_id"], dropna=False):
+        state = accumulator[(usage_key, ecoregion_id)]
+        state["usageKey"] = usage_key
+        state["ecoregion_id"] = ecoregion_id
+        state["occurrence_count"] += group["gbifID"].nunique()
+        state["human_observation_count"] += group["basisOfRecord"].eq("HUMAN_OBSERVATION").sum()
+        state["preserved_specimen_count"] += group["basisOfRecord"].eq("PRESERVED_SPECIMEN").sum()
+
+        uncertainties = group["coordinateUncertaintyInMeters"].dropna()
+        if not uncertainties.empty:
+            state["uncertainties"].extend(uncertainties.tolist())
+
+        years = group["year"].dropna()
+        if not years.empty:
+            first_year = years.min()
+            last_year = years.max()
+            state["first_year"] = (
+                first_year if state["first_year"] is None else min(state["first_year"], first_year)
+            )
+            state["last_year"] = (
+                last_year if state["last_year"] is None else max(state["last_year"], last_year)
+            )
+
+        state["dataset_keys"].update(group["datasetKey"].dropna().astype(str))
+        for column in ["input_name", "canonicalName", "vernacularName", "ecoregion_name"]:
+            if state[column] is None and column in group.columns:
+                value = group[column].dropna()
+                if not value.empty:
+                    state[column] = value.iloc[0]
+
+
+def _plant_ecoregion_output_from_accumulator(accumulator: dict) -> pd.DataFrame:
+    if not accumulator:
+        return _empty_plant_ecoregion_output()
+
+    rows = []
+    for state in accumulator.values():
+        uncertainties = pd.Series(state["uncertainties"], dtype="float64")
+        rows.append(
+            {
+                "usageKey": state["usageKey"],
+                "ecoregion_id": state["ecoregion_id"],
+                "occurrence_count": state["occurrence_count"],
+                "human_observation_count": state["human_observation_count"],
+                "preserved_specimen_count": state["preserved_specimen_count"],
+                "coordinate_uncertainty_min_m": (
+                    uncertainties.min() if not uncertainties.empty else pd.NA
+                ),
+                "coordinate_uncertainty_median_m": (
+                    uncertainties.median() if not uncertainties.empty else pd.NA
+                ),
+                "coordinate_uncertainty_max_m": (
+                    uncertainties.max() if not uncertainties.empty else pd.NA
+                ),
+                "first_year": state["first_year"],
+                "last_year": state["last_year"],
+                "dataset_count": len(state["dataset_keys"]),
+                "input_name": state["input_name"],
+                "canonicalName": state["canonicalName"],
+                "vernacularName": state["vernacularName"],
+                "ecoregion_name": state["ecoregion_name"],
+            }
+        )
+    return pd.DataFrame(rows).sort_values(["usageKey", "ecoregion_id"]).reset_index(drop=True)
+
+
+def stream_parquet_chunks(
+    parquet_path: str | Path,
+    batch_size: int = 100_000,
+    columns: Iterable[str] | None = None,
+) -> Iterator[pd.DataFrame]:
+    """Yield Parquet row groups in bounded DataFrame batches."""
+    if batch_size < 1:
+        raise ValueError("batch_size must be a positive integer")
+
+    parquet_file = pq.ParquetFile(parquet_path)
+    for batch in parquet_file.iter_batches(batch_size=batch_size, columns=columns):
+        yield batch.to_pandas()
+
+
+def parquet_row_count(parquet_path: str | Path) -> int:
+    """Return Parquet row count from metadata without reading the data."""
+    return pq.ParquetFile(parquet_path).metadata.num_rows
+
+
+def _new_ecoregion_accumulator_state() -> dict:
+    return {
+        "usageKey": None,
+        "ecoregion_id": None,
+        "occurrence_count": 0,
+        "human_observation_count": 0,
+        "preserved_specimen_count": 0,
+        "uncertainties": [],
+        "first_year": None,
+        "last_year": None,
+        "dataset_keys": set(),
+        "input_name": None,
+        "canonicalName": None,
+        "vernacularName": None,
+        "ecoregion_name": None,
+    }
+
+
+def _existing_parquet_columns(parquet_path: str | Path, requested_columns: Iterable[str]) -> list[str]:
+    import pyarrow.parquet as pq
+
+    parquet_file = pq.ParquetFile(parquet_path)
+    existing = set(parquet_file.schema.names)
+    return [column for column in requested_columns if column in existing]
+
+
 def build_matched_occurrence_parquet(
     zip_path: str | Path,
     plants_csv_path: str | Path,
@@ -308,6 +463,41 @@ def build_plant_ecoregion_csv(
     return output
 
 
+def build_plant_ecoregion_csv_from_parquet(
+    matched_occurrences_parquet_path: str | Path,
+    ecoregions_geojson_path: str | Path,
+    output_csv_path: str | Path,
+    chunksize: int = 100_000,
+) -> pd.DataFrame:
+    """Spatially join a matched-occurrence Parquet checkpoint in bounded batches."""
+    ecoregions = gpd.read_file(ecoregions_geojson_path)
+    accumulator = defaultdict(_new_ecoregion_accumulator_state)
+    columns = _existing_parquet_columns(matched_occurrences_parquet_path, MATCHED_OCCURRENCE_COLUMNS)
+    spatial_rows = 0
+
+    for chunk_number, matched_chunk in enumerate(
+        stream_parquet_chunks(matched_occurrences_parquet_path, batch_size=chunksize, columns=columns),
+        start=1,
+    ):
+        joined = spatial_join_ecoregions(matched_chunk, ecoregions)
+        spatial_rows += len(joined)
+        _accumulate_joined_ecoregions(accumulator, joined)
+        LOGGER.info(
+            "spatial_chunk=%s matched_rows=%s joined_rows=%s cumulative_joined_rows=%s",
+            chunk_number,
+            len(matched_chunk),
+            len(joined),
+            spatial_rows,
+        )
+
+    output = _plant_ecoregion_output_from_accumulator(accumulator)
+    output_csv_path = Path(output_csv_path)
+    output_csv_path.parent.mkdir(parents=True, exist_ok=True)
+    output.to_csv(output_csv_path, index=False)
+    LOGGER.info("wrote plant ecoregions path=%s rows=%s", output_csv_path, len(output))
+    return output
+
+
 def run_pipeline(
     zip_path: str | Path = DEFAULT_ZIP_PATH,
     plants_csv_path: str | Path = DEFAULT_PLANTS_CSV_PATH,
@@ -325,9 +515,13 @@ def run_pipeline(
     matched = build_matched_occurrence_parquet(
         zip_path, plants_csv_path, parquet_path, chunksize=chunksize, limit=limit
     )
+    matched_count = len(matched)
+    del matched
     LOGGER.info(
         "matched occurrence total before spatial join rows=%s path=%s",
-        len(matched),
+        matched_count,
         parquet_path,
     )
-    return build_plant_ecoregion_csv(matched, ecoregions_geojson_path, csv_path)
+    return build_plant_ecoregion_csv_from_parquet(
+        parquet_path, ecoregions_geojson_path, csv_path, chunksize=chunksize
+    )

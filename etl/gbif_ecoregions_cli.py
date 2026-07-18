@@ -12,6 +12,8 @@ from etl.gbif_ecoregions import (
     DEFAULT_PLANT_ECOREGIONS_FILENAME,
     DEFAULT_PLANTS_CSV_PATH,
     DEFAULT_ZIP_PATH,
+    build_plant_ecoregion_csv_from_parquet,
+    parquet_row_count,
     run_pipeline,
 )
 
@@ -42,6 +44,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--chunksize", type=positive_int, default=100_000)
     parser.add_argument("--limit", type=positive_int)
     parser.add_argument(
+        "--skip-matching",
+        action="store_true",
+        help="Reuse the matched-occurrence Parquet checkpoint and run only the spatial stage.",
+    )
+    parser.add_argument(
         "--log-level",
         default="INFO",
         choices=["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"],
@@ -56,16 +63,32 @@ def main(argv: list[str] | None = None) -> int:
         format="%(levelname)s:%(name)s:%(message)s",
         stream=sys.stdout,
     )
-    output = run_pipeline(
-        zip_path=args.zip,
-        plants_csv_path=args.plants,
-        ecoregions_geojson_path=args.ecoregions,
-        output_dir=args.output_dir,
-        matched_occurrences_filename=args.matched_occurrences_filename,
-        plant_ecoregions_filename=args.plant_ecoregions_filename,
-        chunksize=args.chunksize,
-        limit=args.limit,
-    )
+    matched_occurrences_path = args.output_dir / args.matched_occurrences_filename
+    plant_ecoregions_path = args.output_dir / args.plant_ecoregions_filename
+    if args.skip_matching:
+        matched_count = parquet_row_count(matched_occurrences_path)
+        logging.getLogger("etl.gbif_ecoregions").info(
+            "matched occurrence total before spatial join rows=%s path=%s",
+            matched_count,
+            matched_occurrences_path,
+        )
+        output = build_plant_ecoregion_csv_from_parquet(
+            matched_occurrences_path,
+            args.ecoregions,
+            plant_ecoregions_path,
+            chunksize=args.chunksize,
+        )
+    else:
+        output = run_pipeline(
+            zip_path=args.zip,
+            plants_csv_path=args.plants,
+            ecoregions_geojson_path=args.ecoregions,
+            output_dir=args.output_dir,
+            matched_occurrences_filename=args.matched_occurrences_filename,
+            plant_ecoregions_filename=args.plant_ecoregions_filename,
+            chunksize=args.chunksize,
+            limit=args.limit,
+        )
     print(f"plant_ecoregion_rows={len(output)}")
     return 0
 

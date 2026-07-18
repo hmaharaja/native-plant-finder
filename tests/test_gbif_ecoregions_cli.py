@@ -71,6 +71,41 @@ class GbifEcoregionsCliTests(unittest.TestCase):
             limit=100,
         )
 
+    def test_main_skip_matching_uses_existing_parquet_checkpoint(self):
+        with patch("etl.gbif_ecoregions_cli.parquet_row_count", return_value=42), patch(
+            "etl.gbif_ecoregions_cli.build_plant_ecoregion_csv_from_parquet",
+            return_value=pd.DataFrame([{"usageKey": "100", "ecoregion_id": 7}]),
+        ) as build_csv, patch("etl.gbif_ecoregions_cli.run_pipeline") as run_pipeline, patch.object(
+            logging, "basicConfig"
+        ), patch(
+            "sys.stdout", new=io.StringIO()
+        ) as stdout:
+            exit_code = main(
+                [
+                    "--output-dir",
+                    "out",
+                    "--matched-occurrences-filename",
+                    "matched.parquet",
+                    "--plant-ecoregions-filename",
+                    "plants.csv",
+                    "--ecoregions",
+                    "ecoregions.geojson",
+                    "--chunksize",
+                    "50",
+                    "--skip-matching",
+                ]
+            )
+
+        self.assertEqual(exit_code, 0)
+        run_pipeline.assert_not_called()
+        build_csv.assert_called_once_with(
+            Path("out") / "matched.parquet",
+            Path("ecoregions.geojson"),
+            Path("out") / "plants.csv",
+            chunksize=50,
+        )
+        self.assertEqual(stdout.getvalue().strip(), "plant_ecoregion_rows=1")
+
 
 if __name__ == "__main__":
     unittest.main()
