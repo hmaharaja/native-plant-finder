@@ -85,6 +85,39 @@ Useful options:
 - `--matched-occurrences-filename`: override the Parquet output filename.
 - `--plant-ecoregions-filename`: override the CSV output filename.
 
+## App data ETL
+
+The app data ETL builds static JSON files for the GitHub Pages client. It
+prejoins `plant_ecoregions.csv` with both LBJ trait CSVs so the React app can
+fetch one ecoregion file without doing runtime joins.
+
+Run it from the repository root after the GBIF ecoregion ETL and LBJ scraper
+outputs exist:
+
+```powershell
+python -m etl.app_data_cli `
+  --plant-ecoregions datasets/derived/plant_ecoregions.csv `
+  --lbj-traits datasets/lbj/lbj_traits.csv `
+  --lbj-traits datasets/lbj_rerun/lbj_traits.csv `
+  --output-dir datasets/app_data `
+  --log-level INFO
+```
+
+Outputs are written under `--output-dir`:
+
+- `manifest.json`: ecoregion IDs, names, relative file paths, and plant counts.
+- `ecoregions/{ecoregionId}.json`: one app-ready JSON payload per ecoregion.
+
+Each ecoregion file includes `ecoregionId`, `ecoregionName`, `plantCount`, and
+a sorted `plants` list. Plant records use camelCase fields and include GBIF
+occurrence evidence plus LBJ traits. Pipe-delimited multi-value traits become
+arrays, missing scalar values become `null`, missing multi-value traits become
+empty arrays, and decimal values are rounded to two places.
+
+If the same `usageKey` appears in multiple LBJ trait inputs, later
+`--lbj-traits` files win. That makes the default command prefer
+`datasets/lbj_rerun/lbj_traits.csv` over `datasets/lbj/lbj_traits.csv`.
+
 ## Lady Bird Johnson traits scraper
 
 The LBJ scraper enriches the cleaned GBIF species-match CSV with gardening

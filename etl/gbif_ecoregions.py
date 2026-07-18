@@ -10,6 +10,8 @@ from typing import Iterable, Iterator
 import geopandas as gpd
 import pandas as pd
 
+from etl.functions import normalize_key
+
 
 LOGGER = logging.getLogger(__name__)
 
@@ -62,17 +64,6 @@ MATCHED_OCCURRENCE_COLUMNS = [
 
 class OccurrenceArchiveError(ValueError):
     """Raised when the GBIF occurrence archive cannot be read as expected."""
-
-
-def _normalize_key(value: object) -> str | None:
-    if pd.isna(value):
-        return None
-    text = str(value).strip()
-    if not text:
-        return None
-    if text.endswith(".0") and text[:-2].isdigit():
-        return text[:-2]
-    return text
 
 
 def validate_occurrence_archive(
@@ -154,7 +145,7 @@ def match_occurrences_to_plants(
         raise KeyError(f"plants is missing {plant_key_column}")
 
     plant_rows = plants.copy()
-    plant_rows[plant_key_column] = plant_rows[plant_key_column].map(_normalize_key)
+    plant_rows[plant_key_column] = plant_rows[plant_key_column].map(normalize_key)
     plant_rows = plant_rows[plant_rows[plant_key_column].notna()].drop_duplicates(
         subset=[plant_key_column]
     )
@@ -162,7 +153,7 @@ def match_occurrences_to_plants(
     occurrence_rows = occurrences.copy()
     occurrence_rows["_occurrence_row_id"] = range(len(occurrence_rows))
     for column in TAXON_KEY_COLUMNS:
-        occurrence_rows[column] = occurrence_rows[column].map(_normalize_key)
+        occurrence_rows[column] = occurrence_rows[column].map(normalize_key)
 
     long_keys = occurrence_rows.melt(
         id_vars=["_occurrence_row_id"],
@@ -399,8 +390,6 @@ def _new_ecoregion_accumulator_state() -> dict:
 
 
 def _existing_parquet_columns(parquet_path: str | Path, requested_columns: Iterable[str]) -> list[str]:
-    import pyarrow.parquet as pq
-
     parquet_file = pq.ParquetFile(parquet_path)
     existing = set(parquet_file.schema.names)
     return [column for column in requested_columns if column in existing]

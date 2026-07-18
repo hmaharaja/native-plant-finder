@@ -4,6 +4,17 @@ import pandas as pd
 import requests
 
 
+def normalize_key(value: object) -> str | None:
+    if pd.isna(value):
+        return None
+    text = str(value).strip()
+    if not text:
+        return None
+    if text.endswith(".0") and text[:-2].isdigit():
+        return text[:-2]
+    return text
+
+
 def filter_corrupted_rows(df: pd.DataFrame, columns=None):
     """Remove rows with UTF-8 mojibake (e.g., Ã— for ×)."""
     if columns is None:
