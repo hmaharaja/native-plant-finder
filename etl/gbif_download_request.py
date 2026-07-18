@@ -155,9 +155,22 @@ def add_vernacular_names_to_gbif():
     matched_count = gbif_df['vernacularName'].notna().sum()
     print(f"Added vernacular names to {matched_count}/{len(gbif_df)} rows")
 
+def pull_completed_gbif_download(download_key: str):
+    url = f"https://api.gbif.org/v1/occurrence/download/request/{download_key}"
+    
+    with requests.get(url, stream=True) as response:
+        # Ensure the request succeeded
+        response.raise_for_status()
 
+        with open("datasets/downloaded_occurrence_data.bin", "wb") as file:
+            # Step 3: Stream the content in blocks (e.g., 8192 bytes)
+            for chunk in response.iter_content(chunk_size=8192):
+                if chunk:  # Filter out keep-alive new chunks
+                    file.write(chunk)
+    
+     
 def main():
-    add_vernacular_names_to_gbif()
+    # add_vernacular_names_to_gbif()
 
     # gbif_df = pd.read_csv(GBIF_SPECIES_MATCH_CLEANED_FILE_PATH)
     # gbif_df = filter_corrupted_rows(gbif_df)
@@ -171,6 +184,9 @@ def main():
     
     # load_dotenv()
     # send_download_request(formatted_request)
+    
+    download_key = "0026180-260623161305970"
+    pull_completed_gbif_download(download_key)
     
     
 

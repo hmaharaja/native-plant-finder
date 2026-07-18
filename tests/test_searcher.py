@@ -32,6 +32,69 @@ class SearcherTests(unittest.TestCase):
         synonym = Candidate("x", scientific_name="New name", synonyms=["Old name"])
         self.assertEqual(choose_verified([synonym], "Old name").status, MatchStatus.SYNONYM_MATCHED)
 
+    def test_vernacular_redirect_allows_same_epithet_taxonomy_update(self):
+        candidate = Candidate(
+            "https://www.wildflower.org/plants/result.php?id_plant=CEMU2",
+            scientific_name="Centaurium muehlenbergii",
+            direct_redirect=True,
+        )
+
+        result = choose_verified(
+            [candidate],
+            "Zeltnera muehlenbergii",
+            allow_vernacular_redirect=True,
+        )
+
+        self.assertEqual(result.status, MatchStatus.SYNONYM_MATCHED)
+        self.assertEqual(result.evidence["matched_field"], "specific_epithet")
+
+    def test_vernacular_redirect_allows_genus_only_canonical(self):
+        candidate = Candidate(
+            "https://www.wildflower.org/plants/result.php?id_plant=GABR6",
+            scientific_name="Galium brevipes",
+            direct_redirect=True,
+        )
+
+        result = choose_verified([candidate], "Galium", allow_vernacular_redirect=True)
+
+        self.assertEqual(result.status, MatchStatus.MATCHED)
+        self.assertEqual(result.evidence["matched_field"], "genus")
+
+    def test_vernacular_redirect_rejects_different_genus_and_epithet(self):
+        candidate = Candidate(
+            "https://www.wildflower.org/plants/result.php?id_plant=MECA",
+            scientific_name="Meconella californica",
+            direct_redirect=True,
+        )
+
+        result = choose_verified(
+            [candidate],
+            "Mentha canadensis",
+            allow_vernacular_redirect=True,
+        )
+
+        self.assertEqual(result.status, MatchStatus.UNMATCHED)
+
+    def test_multiple_lbj_varieties_can_match_same_species_level_name(self):
+        candidates = [
+            Candidate(
+                "https://www.wildflower.org/plants/result.php?id_plant=PYINI",
+                display_name="Pycnanthemum incanum var. incanum",
+                scientific_name="Pycnanthemum incanum",
+            ),
+            Candidate(
+                "https://www.wildflower.org/plants/result.php?id_plant=PYINP",
+                display_name="Pycnanthemum incanum var. puberulum",
+                scientific_name="Pycnanthemum incanum",
+            ),
+        ]
+
+        result = choose_verified(candidates, "Pycnanthemum incanum")
+
+        self.assertEqual(result.status, MatchStatus.MATCHED)
+        self.assertEqual(result.candidate.url, candidates[0].url)
+        self.assertEqual(result.evidence["matching_candidate_count"], 2)
+
     def test_conflicting_verified_candidates_are_ambiguous(self):
         exact = Candidate("exact", scientific_name="Old name")
         synonym = Candidate("synonym", scientific_name="New name", synonyms=["Old name"])

@@ -25,26 +25,70 @@ The LBJ scraped data is to be added to the dataset via a join, to make the final
 
 ## Lady Bird Johnson traits scraper
 
-Run the sequential, resumable scraper from the repository root:
+The LBJ scraper enriches the cleaned GBIF species-match CSV with gardening
+traits from Lady Bird Johnson. It is sequential, resumable, and intended to be
+run as an ETL batch job.
+
+Run a full scrape from the repository root:
 
 ```powershell
 python -m scraper.lady_bird_johnson `
   --input datasets/gbif_species_match_cleaned.csv `
-  --output-dir datasets/lbj
+  --output-dir datasets/lbj `
+  --delay 1 `
+  --timeout 20 `
+  --retries 3 `
+  --log-level INFO
 ```
 
-It writes an append-only `lbj_raw.jsonl` checkpoint plus regenerated
-`lbj_traits.csv` and `lbj_review.csv` files. Re-running the command skips every
-`usageKey` already present in the checkpoint. Useful sampling and network
-options are `--limit 15`, `--delay 1`, `--timeout 20`, and `--retries 3`.
-Missing, ambiguous, and permanently failed rows are retained for review rather
-than matched fuzzily.
+Outputs are written under `--output-dir`:
+
+- `lbj_raw.jsonl`: append-only checkpoint/audit records.
+- `lbj_traits.csv`: normalized, join-ready matched traits.
+- `lbj_review.csv`: unmatched, ambiguous, malformed, or failed rows for review.
+
+Re-running the scraper with the same `--output-dir` resumes automatically. It
+loads `lbj_raw.jsonl`, skips completed `usageKey` values, processes only new
+rows, and regenerates the two CSV outputs from the checkpoint.
+
+To process the dataset in batches of 100 new rows, run the same command
+repeatedly with `--limit 100`:
+
+```powershell
+python -m scraper.lady_bird_johnson `
+  --input datasets/gbif_species_match_cleaned.csv `
+  --output-dir datasets/lbj `
+  --limit 100 `
+  --delay 1 `
+  --timeout 20 `
+  --retries 3 `
+  --log-level INFO
+```
+
+No offset is needed. The checkpoint file is the offset. Use the same
+`--output-dir` each time; changing it starts a separate scrape.
+
+Matching policy:
+
+- Search by vernacular name first, then fall back to canonical name.
+- Accept direct LBJ redirects.
+- Accept exact scientific-name matches.
+- Accept explicit LBJ synonym matches.
+- Send ambiguous, unmatched, failed, or non-verified rows to `lbj_review.csv`.
+- Do not infer missing traits; unknown trait categories are preserved and logged.
 
 Run the offline scraper tests with:
 
 ```powershell
 python -m unittest discover -s tests -v
 ```
+
+The live smoke-test fixture is:
+
+- `scraper/fixtures/live_sample.csv`
+- `scraper/fixtures/live_sample_expected_lbj_ids.json`
+
+Use it before a large scrape when changing matching/parsing behavior.
 
 ## UX / Client Side
 
