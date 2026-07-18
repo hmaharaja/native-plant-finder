@@ -23,6 +23,57 @@ The occurrence data is to be joined with the cleaned taxonomic data, and ecoregi
 
 The LBJ scraped data is to be added to the dataset via a join, to make the final enriched data.
 
+## GBIF ecoregion occurrence ETL
+
+The GBIF ecoregion ETL streams the downloaded GBIF occurrence zip, filters valid
+Canadian presence records, matches them to `gbif_species_match_cleaned.csv`, and
+spatially joins occurrence points to Environment Canada ecoregions.
+
+Install dependencies first:
+
+```powershell
+pip install -r requirements.txt
+```
+
+Run a quick smoke test from the repository root:
+
+```powershell
+python -m etl.gbif_ecoregions_cli `
+  --zip datasets/0026180-260623161305970.zip `
+  --plants datasets/gbif_species_match_cleaned.csv `
+  --ecoregions datasets/ecoregions.geojson `
+  --output-dir datasets/derived `
+  --limit 100 `
+  --log-level INFO
+```
+
+Run the full ETL by removing `--limit`:
+
+```powershell
+python -m etl.gbif_ecoregions_cli `
+  --zip datasets/0026180-260623161305970.zip `
+  --plants datasets/gbif_species_match_cleaned.csv `
+  --ecoregions datasets/ecoregions.geojson `
+  --output-dir datasets/derived `
+  --log-level INFO
+```
+
+Outputs are written under `--output-dir`:
+
+- `gbif_matched_occurrences.parquet`: filtered and taxon-matched occurrence checkpoint.
+- `plant_ecoregions.csv`: app-facing plant/ecoregion evidence table.
+
+The CLI logs progress after each chunk, including raw rows read, filtered rows,
+matched rows, and cumulative matched rows. It also logs total matched occurrences
+before the spatial join, so large runs do not look stalled.
+
+Useful options:
+
+- `--chunksize 100000`: number of raw occurrence rows streamed per chunk.
+- `--limit 100`: cap raw occurrence rows for quick testing.
+- `--matched-occurrences-filename`: override the Parquet output filename.
+- `--plant-ecoregions-filename`: override the CSV output filename.
+
 ## Lady Bird Johnson traits scraper
 
 The LBJ scraper enriches the cleaned GBIF species-match CSV with gardening
