@@ -61,7 +61,7 @@ python -m etl.gbif_ecoregions_cli `
   --log-level INFO
 ```
 
-If the matching stage completed and the run failed during the spatial join, reuse
+If the matching stage completed already, reuse
 the existing Parquet checkpoint instead of reprocessing the GBIF zip:
 
 ```powershell
@@ -112,14 +112,10 @@ Outputs are written under `--output-dir`:
 - `ecoregions/{ecoregionId}.json`: one app-ready JSON payload per ecoregion.
 
 Each ecoregion file includes `ecoregionId`, `ecoregionName`, `plantCount`, and
-a sorted `plants` list. Plant records use camelCase fields and include GBIF
-occurrence evidence plus LBJ traits. Pipe-delimited multi-value traits become
-arrays, missing scalar values become `null`, missing multi-value traits become
-empty arrays, and decimal values are rounded to two places.
+a sorted `plants` list.
 
 If the same `usageKey` appears in multiple LBJ trait inputs, later
-`--lbj-traits` files win. That makes the default command prefer
-`datasets/lbj_rerun/lbj_traits.csv` over `datasets/lbj/lbj_traits.csv`.
+`--lbj-traits` files win.
 
 ## Lady Bird Johnson traits scraper
 
@@ -163,7 +159,7 @@ python -m scraper.lady_bird_johnson `
   --log-level INFO
 ```
 
-No offset is needed. The checkpoint file is the offset. Use the same
+The checkpoint file is the offset. Use the same
 `--output-dir` each time; changing it starts a separate scrape.
 
 Matching policy:
