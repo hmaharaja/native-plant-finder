@@ -146,10 +146,7 @@ def add_vernacular_names_to_gbif():
     # Create a lookup dictionary for faster matching
     vernacular_lookup = dict(zip(vascan_df['Scientific name'], vascan_df['Vernacular en']))
 
-    # Add vernacular name by looking up input_name
     gbif_df['vernacularName'] = gbif_df['input_name'].map(vernacular_lookup)
-
-    # Save back to the same file
     gbif_df.to_csv(GBIF_SPECIES_MATCH_CLEANED_FILE_PATH, index=False)
 
     matched_count = gbif_df['vernacularName'].notna().sum()
@@ -185,7 +182,7 @@ def main():
     # load_dotenv()
     # send_download_request(formatted_request)
     
-    download_key = "0026180-260623161305970"
+    download_key = ""
     pull_completed_gbif_download(download_key)
     
     

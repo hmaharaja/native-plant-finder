@@ -4,6 +4,22 @@ import logging
 import re
 from enum import EnumMeta
 
+from dataset_columns import (
+    BLOOM_COLOR,
+    BLOOM_TIME,
+    DURATION,
+    GROWTH_HABIT,
+    LBJ_URL,
+    LIGHT,
+    MATCHED_SCIENTIFIC_NAME,
+    MATURE_HEIGHT_MAX_FT,
+    MATURE_HEIGHT_MIN_FT,
+    MOISTURE,
+    SOIL_CATEGORIES,
+    SOIL_DESCRIPTION,
+    WATER_USE,
+)
+
 from .models import Duration, GrowthHabit, Light, Moisture, WaterUse
 
 LOGGER = logging.getLogger(__name__)
@@ -80,17 +96,17 @@ def normalize_traits(sections: dict, matched_name: str | None, url: str) -> dict
                  if item in soil_description.casefold()]
         soil_categories = "|".join(known) or None
     return {
-        "matched_scientific_name": matched_name,
-        "lbj_url": url,
-        "growth_habit": _list(_field(sections, plant, "Habit"), GrowthHabit, "growth_habit"),
-        "duration": _list(_field(sections, plant, "Duration"), Duration, "duration"),
-        "mature_height_min_ft": low,
-        "mature_height_max_ft": high,
-        "light": _list(_field(sections, growing, "Light Requirement"), Light, "light"),
-        "moisture": _list(_field(sections, growing, "Soil Moisture"), Moisture, "moisture"),
-        "water_use": _list(_field(sections, growing, "Water Use"), WaterUse, "water_use"),
-        "soil_categories": soil_categories,
-        "soil_description": soil_description,
-        "bloom_time": _list(_field(sections, bloom, "Bloom Time")),
-        "bloom_color": _list(_field(sections, bloom, "Bloom Color")),
+        MATCHED_SCIENTIFIC_NAME: matched_name,
+        LBJ_URL: url,
+        GROWTH_HABIT: _list(_field(sections, plant, "Habit"), GrowthHabit, GROWTH_HABIT),
+        DURATION: _list(_field(sections, plant, "Duration"), Duration, DURATION),
+        MATURE_HEIGHT_MIN_FT: low,
+        MATURE_HEIGHT_MAX_FT: high,
+        LIGHT: _list(_field(sections, growing, "Light Requirement"), Light, LIGHT),
+        MOISTURE: _list(_field(sections, growing, "Soil Moisture"), Moisture, MOISTURE),
+        WATER_USE: _list(_field(sections, growing, "Water Use"), WaterUse, WATER_USE),
+        SOIL_CATEGORIES: soil_categories,
+        SOIL_DESCRIPTION: soil_description,
+        BLOOM_TIME: _list(_field(sections, bloom, "Bloom Time")),
+        BLOOM_COLOR: _list(_field(sections, bloom, "Bloom Color")),
     }

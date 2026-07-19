@@ -8,6 +8,18 @@ from typing import Iterable
 
 import pandas as pd
 
+from dataset_columns import (
+    APP_DATA_ARRAY_FIELDS,
+    APP_DATA_FIELD_MAP,
+    APP_DATA_FLOAT_FIELDS,
+    APP_DATA_INT_FIELDS,
+    APP_DATA_LBJ_TRAIT_COLUMNS,
+    CANONICAL_NAME,
+    ECOREGION_ID,
+    ECOREGION_NAME,
+    USAGE_KEY,
+    VERNACULAR_NAME,
+)
 from etl.functions import normalize_key
 
 
@@ -20,99 +32,22 @@ DEFAULT_LBJ_TRAITS_PATHS = [
 ]
 DEFAULT_OUTPUT_DIR = Path("datasets/app_data")
 
-PLANT_ECOREGION_COLUMNS = [
-    "usageKey",
-    "canonicalName",
-    "vernacularName",
-    "occurrence_count",
-    "human_observation_count",
-    "preserved_specimen_count",
-    "coordinate_uncertainty_median_m",
-    "first_year",
-    "last_year",
-    "ecoregion_id",
-    "ecoregion_name",
-]
-
-LBJ_TRAIT_COLUMNS = [
-    "usageKey",
-    "growth_habit",
-    "duration",
-    "mature_height_min_ft",
-    "mature_height_max_ft",
-    "light",
-    "moisture",
-    "water_use",
-    "soil_categories",
-    "bloom_time",
-    "bloom_color",
-    "lbj_url",
-]
-
-ARRAY_TRAIT_FIELDS = {
-    "growthHabit",
-    "light",
-    "moisture",
-    "soilCategories",
-    "bloomTime",
-    "bloomColor",
-}
-
-INT_FIELDS = {
-    "usageKey",
-    "occurrenceCount",
-    "humanObservationCount",
-    "preservedSpecimenCount",
-    "firstYear",
-    "lastYear",
-}
-
-FLOAT_FIELDS = {
-    "coordinateUncertaintyMedianM",
-    "matureHeightMinFt",
-    "matureHeightMaxFt",
-}
-
-FIELD_MAP = {
-    "usageKey": "usageKey",
-    "canonicalName": "canonicalName",
-    "vernacularName": "vernacularName",
-    "occurrence_count": "occurrenceCount",
-    "human_observation_count": "humanObservationCount",
-    "preserved_specimen_count": "preservedSpecimenCount",
-    "coordinate_uncertainty_median_m": "coordinateUncertaintyMedianM",
-    "first_year": "firstYear",
-    "last_year": "lastYear",
-    "growth_habit": "growthHabit",
-    "duration": "duration",
-    "mature_height_min_ft": "matureHeightMinFt",
-    "mature_height_max_ft": "matureHeightMaxFt",
-    "light": "light",
-    "moisture": "moisture",
-    "water_use": "waterUse",
-    "soil_categories": "soilCategories",
-    "bloom_time": "bloomTime",
-    "bloom_color": "bloomColor",
-    "lbj_url": "lbjUrl",
-}
-
-
 def read_lbj_traits(paths: Iterable[str | Path]) -> pd.DataFrame:
     """Read LBJ traits, preferring later files for duplicate usageKey values."""
     frames = []
     for path in paths:
         frame = pd.read_csv(path, dtype=str)
-        frame["usageKey"] = frame["usageKey"].map(normalize_key)
-        frame = frame[frame["usageKey"].notna()].copy()
+        frame[USAGE_KEY] = frame[USAGE_KEY].map(normalize_key)
+        frame = frame[frame[USAGE_KEY].notna()].copy()
         frames.append(frame)
 
     if not frames:
-        return pd.DataFrame(columns=LBJ_TRAIT_COLUMNS)
+        return pd.DataFrame(columns=APP_DATA_LBJ_TRAIT_COLUMNS)
 
     combined = pd.concat(frames, ignore_index=True)
-    available_columns = [column for column in LBJ_TRAIT_COLUMNS if column in combined.columns]
+    available_columns = [column for column in APP_DATA_LBJ_TRAIT_COLUMNS if column in combined.columns]
     combined = combined[available_columns]
-    return combined.drop_duplicates(subset=["usageKey"], keep="last").reset_index(drop=True)
+    return combined.drop_duplicates(subset=[USAGE_KEY], keep="last").reset_index(drop=True)
 
 
 def merge_plant_ecoregions_with_traits(
@@ -120,14 +55,14 @@ def merge_plant_ecoregions_with_traits(
     lbj_traits: pd.DataFrame,
 ) -> pd.DataFrame:
     rows = plant_ecoregions.copy()
-    rows["usageKey"] = rows["usageKey"].map(normalize_key)
+    rows[USAGE_KEY] = rows[USAGE_KEY].map(normalize_key)
 
     traits = lbj_traits.copy()
-    if "usageKey" in traits.columns:
-        traits["usageKey"] = traits["usageKey"].map(normalize_key)
+    if USAGE_KEY in traits.columns:
+        traits[USAGE_KEY] = traits[USAGE_KEY].map(normalize_key)
 
-    trait_columns = [column for column in LBJ_TRAIT_COLUMNS if column in traits.columns]
-    return rows.merge(traits[trait_columns], on="usageKey", how="left")
+    trait_columns = [column for column in APP_DATA_LBJ_TRAIT_COLUMNS if column in traits.columns]
+    return rows.merge(traits[trait_columns], on=USAGE_KEY, how="left")
 
 
 def _is_missing(value: object) -> bool:
@@ -166,13 +101,13 @@ def _to_scalar(value: object) -> str | None:
 
 def plant_record_from_row(row: pd.Series) -> dict:
     record = {}
-    for source, target in FIELD_MAP.items():
+    for source, target in APP_DATA_FIELD_MAP.items():
         value = row[source] if source in row.index else None
-        if target in ARRAY_TRAIT_FIELDS:
+        if target in APP_DATA_ARRAY_FIELDS:
             record[target] = _to_array(value)
-        elif target in INT_FIELDS:
+        elif target in APP_DATA_INT_FIELDS:
             record[target] = _to_number(value, integer=True)
-        elif target in FLOAT_FIELDS:
+        elif target in APP_DATA_FLOAT_FIELDS:
             record[target] = _to_number(value)
         else:
             record[target] = _to_scalar(value)
@@ -181,20 +116,20 @@ def plant_record_from_row(row: pd.Series) -> dict:
 
 def build_ecoregion_payloads(plant_traits: pd.DataFrame) -> list[dict]:
     rows = plant_traits.copy()
-    rows["_sort_vernacular"] = rows["vernacularName"].fillna("").str.lower()
-    rows["_sort_canonical"] = rows["canonicalName"].fillna("").str.lower()
-    rows["_sort_ecoregion_id"] = pd.to_numeric(rows["ecoregion_id"], errors="coerce")
+    rows["_sort_vernacular"] = rows[VERNACULAR_NAME].fillna("").str.lower()
+    rows["_sort_canonical"] = rows[CANONICAL_NAME].fillna("").str.lower()
+    rows["_sort_ecoregion_id"] = pd.to_numeric(rows[ECOREGION_ID], errors="coerce")
     rows = rows.sort_values(
-        ["_sort_ecoregion_id", "ecoregion_id", "_sort_vernacular", "_sort_canonical"]
+        ["_sort_ecoregion_id", ECOREGION_ID, "_sort_vernacular", "_sort_canonical"]
     )
 
     payloads = []
-    for ecoregion_id, group in rows.groupby("ecoregion_id", dropna=False, sort=False):
+    for ecoregion_id, group in rows.groupby(ECOREGION_ID, dropna=False, sort=False):
         ecoregion_id_value = _to_number(ecoregion_id, integer=True)
         plants = [plant_record_from_row(row) for _, row in group.iterrows()]
         ecoregion_name = (
-            _to_scalar(group["ecoregion_name"].dropna().iloc[0])
-            if group["ecoregion_name"].notna().any()
+            _to_scalar(group[ECOREGION_NAME].dropna().iloc[0])
+            if group[ECOREGION_NAME].notna().any()
             else None
         )
         payloads.append(
@@ -219,7 +154,11 @@ def write_app_data(
 
     merged = merge_plant_ecoregions_with_traits(plant_ecoregions, lbj_traits)
     trait_presence = merged[
-        [column for column in LBJ_TRAIT_COLUMNS if column in merged.columns and column != "usageKey"]
+        [
+            column
+            for column in APP_DATA_LBJ_TRAIT_COLUMNS
+            if column in merged.columns and column != USAGE_KEY
+        ]
     ]
     missing_lbj_traits = int(trait_presence.isna().all(axis=1).sum()) if not trait_presence.empty else len(merged)
 

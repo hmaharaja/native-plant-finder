@@ -1,0 +1,4 @@
+interface:
+  display_name: "Native Plant ETL"
+  short_description: "Run and maintain native plant ETL"
+  default_prompt: "Use $native-plant-etl to update or validate the native plant ETL pipeline."

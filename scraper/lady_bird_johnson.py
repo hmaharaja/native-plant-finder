@@ -7,6 +7,8 @@ from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 
+from dataset_columns import CANONICAL_NAME, LBJ_URL, USAGE_KEY, VERNACULAR_NAME
+
 from .constants import LBJ_RAW_FILENAME
 from .http import HttpClient
 from .models import MatchStatus
@@ -28,24 +30,24 @@ def run(input_path: Path, output_dir: Path, limit: int | None = None,
         rows = csv.DictReader(handle)
         considered = 0
         for row in rows:
-            key = str(row["usageKey"])
+            key = str(row[USAGE_KEY])
             if key in records:
                 totals["skipped"] += 1
-                LOGGER.info("Skipping completed usageKey=%s canonicalName=%s", key, row.get("canonicalName"))
+                LOGGER.info("Skipping completed usageKey=%s canonicalName=%s", key, row.get(CANONICAL_NAME))
                 continue
             if limit is not None and considered >= limit:
                 break
             considered += 1
-            LOGGER.info("Processing usageKey=%s canonicalName=%s", key, row.get("canonicalName"))
+            LOGGER.info("Processing usageKey=%s canonicalName=%s", key, row.get(CANONICAL_NAME))
             record = {
-                "usageKey": key,
-                "canonicalName": row.get("canonicalName"),
-                "vernacularName": row.get("vernacularName"),
+                USAGE_KEY: key,
+                CANONICAL_NAME: row.get(CANONICAL_NAME),
+                VERNACULAR_NAME: row.get(VERNACULAR_NAME),
                 "timestamp": datetime.now(timezone.utc).isoformat(),
             }
             client.reset_attempts()
             try:
-                match = find_match(client, row["canonicalName"], row.get("vernacularName"))
+                match = find_match(client, row[CANONICAL_NAME], row.get(VERNACULAR_NAME))
                 record["status"] = match.status.value
                 record["match"] = match.as_dict()
                 if match.candidate and match.status in (MatchStatus.MATCHED, MatchStatus.SYNONYM_MATCHED):
@@ -54,11 +56,11 @@ def run(input_path: Path, output_dir: Path, limit: int | None = None,
                     record["normalized_traits"] = normalize_traits(
                         page["sections"],
                         page["identity"]["scientific_name"] or match.candidate.scientific_name,
-                        page["lbj_url"],
+                        page[LBJ_URL],
                     )
             except Exception as exc:
                 record.update(status=MatchStatus.FAILED.value, error=f"{type(exc).__name__}: {exc}")
-                LOGGER.exception("Failed usageKey=%s canonicalName=%s", key, row.get("canonicalName"))
+                LOGGER.exception("Failed usageKey=%s canonicalName=%s", key, row.get(CANONICAL_NAME))
             record["attempts"] = client.attempts
             append_record(raw_path, record)
             records[key] = record
@@ -66,7 +68,7 @@ def run(input_path: Path, output_dir: Path, limit: int | None = None,
             LOGGER.info(
                 "Finished usageKey=%s canonicalName=%s status=%s attempts=%s",
                 key,
-                row.get("canonicalName"),
+                row.get(CANONICAL_NAME),
                 record["status"],
                 record["attempts"],
             )

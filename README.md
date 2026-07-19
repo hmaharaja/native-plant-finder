@@ -23,7 +23,10 @@ The occurrence data is to be joined with the cleaned taxonomic data, and ecoregi
 
 The LBJ scraped data is to be added to the dataset via a join, to make the final enriched data.
 
-## GBIF ecoregion occurrence ETL
+Shared CSV and JSON field names live in `dataset_columns.py`. Update that file
+first when changing data contracts used across `etl/` and `scraper/`.
+
+### GBIF ecoregion occurrence ETL
 
 The GBIF ecoregion ETL streams the downloaded GBIF occurrence zip, filters valid
 Canadian presence records, matches them to `gbif_species_match_cleaned.csv`, and
@@ -85,7 +88,7 @@ Useful options:
 - `--matched-occurrences-filename`: override the Parquet output filename.
 - `--plant-ecoregions-filename`: override the CSV output filename.
 
-## App data ETL
+### App data ETL
 
 The app data ETL builds static JSON files for the GitHub Pages client. It
 prejoins `plant_ecoregions.csv` with both LBJ trait CSVs so the React app can

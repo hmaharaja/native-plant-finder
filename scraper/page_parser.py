@@ -4,6 +4,8 @@ import re
 
 from bs4 import BeautifulSoup, NavigableString
 
+from dataset_columns import LBJ_URL
+
 SCIENTIFIC_NAME_PATTERN = re.compile(
     r"\b[A-Z][a-z-]+\s+[a-z][a-z-]+(?:\s+(?:var\.|subsp\.)\s+[a-z-]+)?\b"
 )
@@ -77,4 +79,4 @@ def scrape_page(client, url: str, html: str | None = None) -> dict[str, object]:
         response = client.get(url)
         html = response.text
         url = response.url
-    return {"lbj_url": url, "sections": parse_sections(html), "identity": parse_identity(html)}
+    return {LBJ_URL: url, "sections": parse_sections(html), "identity": parse_identity(html)}

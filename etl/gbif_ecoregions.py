@@ -10,6 +10,24 @@ from typing import Iterable, Iterator
 import geopandas as gpd
 import pandas as pd
 
+from dataset_columns import (
+    CANONICAL_NAME,
+    COORDINATE_UNCERTAINTY_MAX_M,
+    COORDINATE_UNCERTAINTY_MEDIAN_M,
+    COORDINATE_UNCERTAINTY_MIN_M,
+    DATASET_COUNT,
+    ECOREGION_ID,
+    ECOREGION_NAME,
+    FIRST_YEAR,
+    HUMAN_OBSERVATION_COUNT,
+    INPUT_NAME,
+    LAST_YEAR,
+    OCCURRENCE_COUNT,
+    PLANT_ECOREGION_COLUMNS,
+    PRESERVED_SPECIMEN_COUNT,
+    USAGE_KEY,
+    VERNACULAR_NAME,
+)
 from etl.functions import normalize_key
 
 
@@ -55,10 +73,10 @@ MATCHED_OCCURRENCE_COLUMNS = [
     "basisOfRecord",
     "year",
     "datasetKey",
-    "usageKey",
-    "input_name",
-    "canonicalName",
-    "vernacularName",
+    USAGE_KEY,
+    INPUT_NAME,
+    CANONICAL_NAME,
+    VERNACULAR_NAME,
 ]
 
 
@@ -138,7 +156,7 @@ def filter_occurrences(df: pd.DataFrame) -> pd.DataFrame:
 def match_occurrences_to_plants(
     occurrences: pd.DataFrame,
     plants: pd.DataFrame,
-    plant_key_column: str = "usageKey",
+    plant_key_column: str = USAGE_KEY,
 ) -> pd.DataFrame:
     """Attach cleaned plant rows by matching any GBIF interpreted taxon key column."""
     if plant_key_column not in plants.columns:
@@ -210,8 +228,8 @@ def spatial_join_ecoregions(
     joined = joined.drop(columns=["geometry", "index_right"])
     joined = joined.rename(
         columns={
-            ecoregion_id_column: "ecoregion_id",
-            ecoregion_name_column: "ecoregion_name",
+            ecoregion_id_column: ECOREGION_ID,
+            ecoregion_name_column: ECOREGION_NAME,
         }
     )
     return pd.DataFrame(joined)
@@ -228,54 +246,40 @@ def aggregate_plant_ecoregions(joined: pd.DataFrame) -> pd.DataFrame:
     rows["_human_observation"] = rows["basisOfRecord"].eq("HUMAN_OBSERVATION").astype(int)
     rows["_preserved_specimen"] = rows["basisOfRecord"].eq("PRESERVED_SPECIMEN").astype(int)
 
-    grouped = rows.groupby(["usageKey", "ecoregion_id"], dropna=False)
+    grouped = rows.groupby([USAGE_KEY, ECOREGION_ID], dropna=False)
     result = grouped.agg(
-        occurrence_count=("gbifID", "nunique"),
-        human_observation_count=("_human_observation", "sum"),
-        preserved_specimen_count=("_preserved_specimen", "sum"),
-        coordinate_uncertainty_min_m=("coordinateUncertaintyInMeters", "min"),
-        coordinate_uncertainty_median_m=("coordinateUncertaintyInMeters", "median"),
-        coordinate_uncertainty_max_m=("coordinateUncertaintyInMeters", "max"),
-        first_year=("year", "min"),
-        last_year=("year", "max"),
-        dataset_count=("datasetKey", "nunique"),
+        **{
+            OCCURRENCE_COUNT: ("gbifID", "nunique"),
+            HUMAN_OBSERVATION_COUNT: ("_human_observation", "sum"),
+            PRESERVED_SPECIMEN_COUNT: ("_preserved_specimen", "sum"),
+            COORDINATE_UNCERTAINTY_MIN_M: ("coordinateUncertaintyInMeters", "min"),
+            COORDINATE_UNCERTAINTY_MEDIAN_M: ("coordinateUncertaintyInMeters", "median"),
+            COORDINATE_UNCERTAINTY_MAX_M: ("coordinateUncertaintyInMeters", "max"),
+            FIRST_YEAR: ("year", "min"),
+            LAST_YEAR: ("year", "max"),
+            DATASET_COUNT: ("datasetKey", "nunique"),
+        }
     ).reset_index()
 
     optional_first_columns = [
-        "input_name",
-        "canonicalName",
-        "vernacularName",
-        "ecoregion_name",
+        INPUT_NAME,
+        CANONICAL_NAME,
+        VERNACULAR_NAME,
+        ECOREGION_NAME,
     ]
     first_values = grouped[
         [column for column in optional_first_columns if column in rows.columns]
     ].first().reset_index()
     if len(first_values.columns) > 2:
-        result = result.merge(first_values, on=["usageKey", "ecoregion_id"], how="left")
+        result = result.merge(first_values, on=[USAGE_KEY, ECOREGION_ID], how="left")
 
-    sort_columns = ["usageKey", "ecoregion_id"]
+    sort_columns = [USAGE_KEY, ECOREGION_ID]
     return result.sort_values(sort_columns).reset_index(drop=True)
 
 
 def _empty_plant_ecoregion_output() -> pd.DataFrame:
     return pd.DataFrame(
-        columns=[
-            "usageKey",
-            "ecoregion_id",
-            "occurrence_count",
-            "human_observation_count",
-            "preserved_specimen_count",
-            "coordinate_uncertainty_min_m",
-            "coordinate_uncertainty_median_m",
-            "coordinate_uncertainty_max_m",
-            "first_year",
-            "last_year",
-            "dataset_count",
-            "input_name",
-            "canonicalName",
-            "vernacularName",
-            "ecoregion_name",
-        ]
+        columns=PLANT_ECOREGION_COLUMNS
     )
 
 
@@ -286,13 +290,13 @@ def _accumulate_joined_ecoregions(accumulator: dict, joined: pd.DataFrame) -> No
     )
     rows["year"] = pd.to_numeric(rows["year"], errors="coerce")
 
-    for (usage_key, ecoregion_id), group in rows.groupby(["usageKey", "ecoregion_id"], dropna=False):
+    for (usage_key, ecoregion_id), group in rows.groupby([USAGE_KEY, ECOREGION_ID], dropna=False):
         state = accumulator[(usage_key, ecoregion_id)]
-        state["usageKey"] = usage_key
-        state["ecoregion_id"] = ecoregion_id
-        state["occurrence_count"] += group["gbifID"].nunique()
-        state["human_observation_count"] += group["basisOfRecord"].eq("HUMAN_OBSERVATION").sum()
-        state["preserved_specimen_count"] += group["basisOfRecord"].eq("PRESERVED_SPECIMEN").sum()
+        state[USAGE_KEY] = usage_key
+        state[ECOREGION_ID] = ecoregion_id
+        state[OCCURRENCE_COUNT] += group["gbifID"].nunique()
+        state[HUMAN_OBSERVATION_COUNT] += group["basisOfRecord"].eq("HUMAN_OBSERVATION").sum()
+        state[PRESERVED_SPECIMEN_COUNT] += group["basisOfRecord"].eq("PRESERVED_SPECIMEN").sum()
 
         uncertainties = group["coordinateUncertaintyInMeters"].dropna()
         if not uncertainties.empty:
@@ -302,15 +306,15 @@ def _accumulate_joined_ecoregions(accumulator: dict, joined: pd.DataFrame) -> No
         if not years.empty:
             first_year = years.min()
             last_year = years.max()
-            state["first_year"] = (
-                first_year if state["first_year"] is None else min(state["first_year"], first_year)
+            state[FIRST_YEAR] = (
+                first_year if state[FIRST_YEAR] is None else min(state[FIRST_YEAR], first_year)
             )
-            state["last_year"] = (
-                last_year if state["last_year"] is None else max(state["last_year"], last_year)
+            state[LAST_YEAR] = (
+                last_year if state[LAST_YEAR] is None else max(state[LAST_YEAR], last_year)
             )
 
         state["dataset_keys"].update(group["datasetKey"].dropna().astype(str))
-        for column in ["input_name", "canonicalName", "vernacularName", "ecoregion_name"]:
+        for column in [INPUT_NAME, CANONICAL_NAME, VERNACULAR_NAME, ECOREGION_NAME]:
             if state[column] is None and column in group.columns:
                 value = group[column].dropna()
                 if not value.empty:
@@ -326,30 +330,30 @@ def _plant_ecoregion_output_from_accumulator(accumulator: dict) -> pd.DataFrame:
         uncertainties = pd.Series(state["uncertainties"], dtype="float64")
         rows.append(
             {
-                "usageKey": state["usageKey"],
-                "ecoregion_id": state["ecoregion_id"],
-                "occurrence_count": state["occurrence_count"],
-                "human_observation_count": state["human_observation_count"],
-                "preserved_specimen_count": state["preserved_specimen_count"],
-                "coordinate_uncertainty_min_m": (
+                USAGE_KEY: state[USAGE_KEY],
+                ECOREGION_ID: state[ECOREGION_ID],
+                OCCURRENCE_COUNT: state[OCCURRENCE_COUNT],
+                HUMAN_OBSERVATION_COUNT: state[HUMAN_OBSERVATION_COUNT],
+                PRESERVED_SPECIMEN_COUNT: state[PRESERVED_SPECIMEN_COUNT],
+                COORDINATE_UNCERTAINTY_MIN_M: (
                     uncertainties.min() if not uncertainties.empty else pd.NA
                 ),
-                "coordinate_uncertainty_median_m": (
+                COORDINATE_UNCERTAINTY_MEDIAN_M: (
                     uncertainties.median() if not uncertainties.empty else pd.NA
                 ),
-                "coordinate_uncertainty_max_m": (
+                COORDINATE_UNCERTAINTY_MAX_M: (
                     uncertainties.max() if not uncertainties.empty else pd.NA
                 ),
-                "first_year": state["first_year"],
-                "last_year": state["last_year"],
-                "dataset_count": len(state["dataset_keys"]),
-                "input_name": state["input_name"],
-                "canonicalName": state["canonicalName"],
-                "vernacularName": state["vernacularName"],
-                "ecoregion_name": state["ecoregion_name"],
+                FIRST_YEAR: state[FIRST_YEAR],
+                LAST_YEAR: state[LAST_YEAR],
+                DATASET_COUNT: len(state["dataset_keys"]),
+                INPUT_NAME: state[INPUT_NAME],
+                CANONICAL_NAME: state[CANONICAL_NAME],
+                VERNACULAR_NAME: state[VERNACULAR_NAME],
+                ECOREGION_NAME: state[ECOREGION_NAME],
             }
         )
-    return pd.DataFrame(rows).sort_values(["usageKey", "ecoregion_id"]).reset_index(drop=True)
+    return pd.DataFrame(rows).sort_values([USAGE_KEY, ECOREGION_ID]).reset_index(drop=True)
 
 
 def stream_parquet_chunks(
@@ -373,19 +377,19 @@ def parquet_row_count(parquet_path: str | Path) -> int:
 
 def _new_ecoregion_accumulator_state() -> dict:
     return {
-        "usageKey": None,
-        "ecoregion_id": None,
-        "occurrence_count": 0,
-        "human_observation_count": 0,
-        "preserved_specimen_count": 0,
+        USAGE_KEY: None,
+        ECOREGION_ID: None,
+        OCCURRENCE_COUNT: 0,
+        HUMAN_OBSERVATION_COUNT: 0,
+        PRESERVED_SPECIMEN_COUNT: 0,
         "uncertainties": [],
-        "first_year": None,
-        "last_year": None,
+        FIRST_YEAR: None,
+        LAST_YEAR: None,
         "dataset_keys": set(),
-        "input_name": None,
-        "canonicalName": None,
-        "vernacularName": None,
-        "ecoregion_name": None,
+        INPUT_NAME: None,
+        CANONICAL_NAME: None,
+        VERNACULAR_NAME: None,
+        ECOREGION_NAME: None,
     }
 
 

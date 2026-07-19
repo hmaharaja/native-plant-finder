@@ -7,18 +7,16 @@ import os
 from pathlib import Path
 from typing import Callable
 
+from dataset_columns import LBJ_REVIEW_HEADERS, LBJ_TRAIT_FIELDS, LBJ_TRAIT_HEADERS, USAGE_KEY
+
 from .constants import LBJ_REVIEW_FILENAME, LBJ_TRAITS_FILENAME
 from .models import MatchStatus
 
 LOGGER = logging.getLogger(__name__)
 
-TRAIT_FIELDS = [
-    "matched_scientific_name", "lbj_url", "growth_habit", "duration",
-    "mature_height_min_ft", "mature_height_max_ft", "light", "moisture",
-    "water_use", "soil_categories", "soil_description", "bloom_time", "bloom_color",
-]
-TRAIT_HEADERS = ["usageKey", "canonicalName", "vernacularName", "match_status"] + TRAIT_FIELDS
-REVIEW_HEADERS = ["usageKey", "canonicalName", "vernacularName", "status", "reason", "error", "candidates"]
+TRAIT_FIELDS = LBJ_TRAIT_FIELDS
+TRAIT_HEADERS = LBJ_TRAIT_HEADERS
+REVIEW_HEADERS = LBJ_REVIEW_HEADERS
 
 
 def load_records(path: Path) -> dict[str, dict]:
@@ -31,7 +29,7 @@ def load_records(path: Path) -> dict[str, dict]:
             continue
         try:
             record = json.loads(line)
-            records[str(record["usageKey"])] = record
+            records[str(record[USAGE_KEY])] = record
         except json.JSONDecodeError as exc:
             is_partial_final_line = line_number == len(lines) and not line.endswith(("\n", "\r"))
             if is_partial_final_line:
@@ -39,7 +37,7 @@ def load_records(path: Path) -> dict[str, dict]:
                 continue
             raise ValueError(f"Malformed checkpoint JSON at {path}:{line_number}") from exc
         except KeyError as exc:
-            raise ValueError(f"Checkpoint record missing usageKey at {path}:{line_number}") from exc
+            raise ValueError(f"Checkpoint record missing {USAGE_KEY} at {path}:{line_number}") from exc
     return records
 
 
