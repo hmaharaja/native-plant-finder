@@ -1,0 +1,4 @@
+interface:
+  display_name: "frontend-design"
+  short_description: "Design the app's frontend features"
+  default_prompt: "Use $frontend-design to update any designs."
