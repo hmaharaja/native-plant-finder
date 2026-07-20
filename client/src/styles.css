@@ -1,22 +1,24 @@
 :root {
-  --bg: #f8fbf4;
-  --surface: #ffffff;
-  --surface-soft: #edf4e8;
-  --ink: #1f2d24;
-  --muted: #667568;
-  --line: #cedbc9;
-  --sage: #6f8e74;
-  --sage-dark: #385c45;
-  --clay: #bc6f55;
-  --clay-dark: #884733;
-  --focus: #1d6f78;
-  --error: #a1332c;
-  --shadow: 0 20px 50px rgba(56, 92, 69, 0.12);
-  --radius: 8px;
+  --paper: #f7f0df;
+  --cream: #fff8e8;
+  --cream-strong: #fff3d0;
+  --ink: #252414;
+  --ink-soft: #5f5b43;
+  --moss: #667642;
+  --moss-dark: #465626;
+  --leaf: #89986a;
+  --rust: #b76435;
+  --rust-dark: #814123;
+  --line: #2f2e1f;
+  --wash: rgba(255, 248, 232, 0.76);
+  --focus: #1f6f7d;
+  --error: #9d3326;
+  --shadow: 8px 8px 0 rgba(37, 36, 20, 0.12);
+  --radius: 3px;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Karla", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--ink);
-  background: var(--bg);
+  background: var(--paper);
 }
 
 * {
@@ -28,10 +30,18 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background:
-    linear-gradient(90deg, rgba(111, 142, 116, 0.07) 1px, transparent 1px),
-    radial-gradient(circle at 12% 8%, rgba(188, 111, 85, 0.15), transparent 30%),
-    linear-gradient(180deg, #fbfdf7 0%, var(--bg) 48%, #eef5e8 100%);
-  background-size: 38px 38px, auto, auto;
+    linear-gradient(135deg, rgba(102, 118, 66, 0.18) 0 22%, transparent 22% 100%),
+    linear-gradient(153deg, #f7efd8 0%, #fff8e8 43%, #dfe2bd 100%);
+}
+
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  opacity: 0.24;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.42'/%3E%3C/svg%3E");
 }
 
 button,
@@ -40,17 +50,16 @@ input {
 }
 
 button {
-  border: 0;
   cursor: pointer;
 }
 
 button:disabled {
   cursor: not-allowed;
-  opacity: 0.55;
+  opacity: 0.4;
 }
 
 a {
-  color: var(--sage-dark);
+  color: var(--moss-dark);
   text-underline-offset: 0.18em;
 }
 
@@ -61,6 +70,14 @@ input:focus-visible {
   outline-offset: 3px;
 }
 
+h1,
+h2,
+h3,
+p,
+dd {
+  overflow-wrap: anywhere;
+}
+
 .skip-link {
   position: absolute;
   left: 16px;
@@ -68,8 +85,9 @@ input:focus-visible {
   z-index: 10;
   transform: translateY(-140%);
   background: var(--ink);
-  color: white;
+  color: var(--cream);
   padding: 10px 14px;
+  border: 1px solid var(--line);
   border-radius: var(--radius);
 }
 
@@ -77,85 +95,164 @@ input:focus-visible {
   transform: translateY(0);
 }
 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .page-shell {
   width: min(1180px, calc(100% - 32px));
   margin: 0 auto;
-  padding: 28px 0 48px;
+  padding: 30px 0 54px;
 }
 
 .app-header {
-  display: flex;
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(170px, 276px);
+  gap: 28px;
   align-items: end;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 18px 0 30px;
+  min-height: 252px;
+  padding: 22px 0 34px;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 1;
 }
 
 .eyebrow {
-  margin: 0 0 8px;
-  color: var(--clay-dark);
+  margin: 0 0 18px;
+  color: var(--rust-dark);
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
   font-size: 0.78rem;
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: 0;
   text-transform: uppercase;
 }
 
-h1,
-h2,
-h3,
-p {
-  overflow-wrap: anywhere;
-}
-
 h1 {
-  max-width: 780px;
+  max-width: none;
   margin: 0;
-  font-size: clamp(2.1rem, 5vw, 4.4rem);
-  line-height: 0.95;
+  font-family: "Newsreader", Georgia, serif;
+  font-size: clamp(2.75rem, 6.2vw, 5.65rem);
+  font-weight: 500;
+  line-height: 0.92;
   letter-spacing: 0;
+  white-space: nowrap;
 }
 
-h2 {
-  margin: 0;
-  font-size: clamp(1.5rem, 3vw, 2.2rem);
+.hero-subline {
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+  margin: 16px 0 0;
+  font-family: "Newsreader", Georgia, serif;
+  font-size: clamp(1.32rem, 2.55vw, 2.28rem);
+  font-style: italic;
   line-height: 1.05;
-  letter-spacing: 0;
+  color: var(--ink-soft);
 }
 
-h3 {
+.hero-subline span {
+  position: relative;
+  color: var(--ink);
+}
+
+.hero-subline span::after {
+  position: absolute;
+  left: -0.08em;
+  right: -0.08em;
+  bottom: 0.08em;
+  z-index: -1;
+  height: 0.11em;
+  content: "";
+  background: var(--leaf);
+  opacity: 0.54;
+}
+
+.herbarium {
+  justify-self: end;
+  width: min(100%, 276px);
   margin: 0;
-  font-size: 1.13rem;
-  line-height: 1.2;
-  letter-spacing: 0;
+  pointer-events: none;
 }
 
-.header-stat,
-.result-count {
-  display: grid;
-  gap: 1px;
-  min-width: 104px;
-  padding: 12px 14px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.68);
+.herbarium svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  opacity: 0.62;
+  filter: drop-shadow(3px 4px 0 rgba(37, 36, 20, 0.04));
 }
 
-.header-stat span,
-.result-count span {
-  font-size: 1.5rem;
-  font-weight: 850;
-  line-height: 1;
+.herbarium figcaption {
+  margin-top: -18px;
+  color: rgba(78, 77, 68, 0.48);
+  font-family: "Newsreader", Georgia, serif;
+  font-size: 1.04rem;
+  font-style: italic;
+  text-align: right;
 }
 
-.header-stat small,
-.result-count small {
-  color: var(--muted);
+.specimen-stem,
+.specimen-vein,
+.tube {
+  fill: none;
+  stroke: #5f5d50;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.specimen-stem.main {
+  stroke-width: 2.2;
+}
+
+.specimen-stem.branch,
+.specimen-vein {
+  stroke-width: 1.35;
+}
+
+.specimen-leaf,
+.bract,
+.petal,
+.seed-head {
+  fill: rgba(247, 240, 223, 0.16);
+  stroke: #5f5d50;
+  stroke-linejoin: round;
+  stroke-width: 1.2;
+}
+
+.specimen-leaf.small {
+  fill: rgba(247, 240, 223, 0.12);
+}
+
+.tube {
+  stroke-width: 1;
+}
+
+.petal {
+  fill: rgba(95, 93, 80, 0.04);
+  stroke-width: 0.85;
+}
+
+.bract,
+.seed-head {
+  fill: rgba(95, 93, 80, 0.06);
+  stroke-width: 1;
 }
 
 .main-layout {
   display: grid;
-  grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.35fr);
-  gap: 24px;
+  grid-template-columns: minmax(280px, 0.82fr) minmax(0, 1.35fr);
+  gap: 22px;
   align-items: start;
 }
 
@@ -163,106 +260,161 @@ h3 {
 .results-panel {
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.82);
+  background: var(--wash);
   box-shadow: var(--shadow);
 }
 
 .search-panel {
   position: sticky;
   top: 18px;
-  padding: 22px;
+  padding: 20px;
+}
+
+.panel-intro h2,
+.results-header h2,
+.plantcard h3 {
+  margin: 0;
+  font-family: "Newsreader", Georgia, serif;
+  font-weight: 560;
+  letter-spacing: 0;
+}
+
+.panel-intro h2,
+.results-header h2 {
+  font-size: clamp(1.7rem, 3vw, 2.45rem);
+  line-height: 1;
 }
 
 .panel-intro p {
-  max-width: 46ch;
-  margin: 12px 0 0;
-  color: var(--muted);
-  line-height: 1.55;
-}
-
-.search-form {
-  display: grid;
-  gap: 10px;
-  margin-top: 24px;
-}
-
-.search-form label {
-  font-weight: 760;
-}
-
-.search-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 10px;
-}
-
-.search-row input {
-  width: 100%;
-  min-height: 48px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 0 14px;
-  color: var(--ink);
-  background: white;
-}
-
-.search-row button,
-.pagination button {
-  min-height: 44px;
-  border-radius: var(--radius);
-  padding: 0 18px;
-  color: white;
-  background: var(--sage-dark);
-  font-weight: 780;
-  transition:
-    transform 180ms var(--ease),
-    background 180ms var(--ease);
-}
-
-.search-row button:hover:not(:disabled),
-.pagination button:hover:not(:disabled) {
-  transform: translateY(-1px);
-  background: #244f35;
-}
-
-.status-line {
-  min-height: 24px;
-  margin: 18px 0 0;
-  color: var(--sage-dark);
-  font-weight: 760;
-}
-
-.error-message {
-  margin: 12px 0 0;
-  color: var(--error);
-  font-weight: 720;
-}
-
-.attribution {
-  margin: 18px 0 0;
-  color: var(--muted);
-  font-size: 0.88rem;
+  max-width: 42ch;
+  margin: 0;
+  color: var(--ink-soft);
   line-height: 1.45;
 }
 
+.search-form {
+  margin-top: 22px;
+}
+
+.searchcell {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  min-height: 54px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--cream);
+}
+
+.searchcell .ti {
+  padding-left: 14px;
+  color: var(--rust-dark);
+  font-size: 1.25rem;
+}
+
+.searchcell input {
+  width: 100%;
+  min-width: 0;
+  min-height: 52px;
+  border: 0;
+  padding: 0 12px;
+  color: var(--ink);
+  background: transparent;
+}
+
+.searchcell input::placeholder {
+  color: rgba(95, 91, 67, 0.76);
+}
+
+.searchcell button,
+.pagination button,
+.details-btn {
+  min-height: 42px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 0 16px;
+  color: var(--cream);
+  background: var(--moss);
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  transition:
+    background 170ms var(--ease),
+    color 170ms var(--ease),
+    transform 170ms var(--ease);
+}
+
+.searchcell button {
+  align-self: stretch;
+  min-height: 52px;
+  margin: -1px -1px -1px 0;
+}
+
+.searchcell button:hover:not(:disabled),
+.pagination button:hover:not(:disabled),
+.details-btn:hover {
+  background: var(--rust);
+}
+
+.status-line {
+  min-height: 22px;
+  margin: 14px 0 0;
+  color: var(--moss-dark);
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 0.78rem;
+}
+
+.error-message {
+  margin: 10px 0 0;
+  color: var(--error);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
 .results-panel {
-  padding: 22px;
+  padding: 20px;
 }
 
 .results-header {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 14px;
+  grid-template-columns: minmax(170px, 0.55fr) minmax(0, 1fr);
+  gap: 16px;
   align-items: start;
-  padding-bottom: 18px;
+  padding-bottom: 16px;
   border-bottom: 1px solid var(--line);
 }
 
-.matched-location {
-  grid-column: 1 / -1;
+.match-line {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 14px;
+}
+
+.match-line p {
   margin: 0;
-  color: var(--muted);
-  line-height: 1.4;
+  line-height: 1.35;
+}
+
+.match-line span,
+.count-line,
+.candidate-list small,
+.attrgrid dt,
+.pagination span {
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+.match-line span {
+  display: block;
+  color: var(--rust-dark);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.count-line {
+  grid-column: 1 / -1;
+  color: var(--ink-soft);
+  font-size: 0.78rem;
 }
 
 .candidate-list {
@@ -275,17 +427,25 @@ h3 {
   display: grid;
   gap: 4px;
   width: 100%;
-  min-height: 56px;
+  min-height: 58px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 12px 14px;
   text-align: left;
   color: var(--ink);
-  background: var(--surface-soft);
+  background: var(--cream);
+  transition:
+    background 170ms var(--ease),
+    transform 170ms var(--ease);
+}
+
+.candidate-list button:hover {
+  background: var(--cream-strong);
 }
 
 .candidate-list small {
-  color: var(--muted);
+  color: var(--ink-soft);
+  font-size: 0.76rem;
 }
 
 .empty-state {
@@ -293,7 +453,7 @@ h3 {
   display: grid;
   place-items: center;
   padding: 24px;
-  color: var(--muted);
+  color: var(--ink-soft);
   text-align: center;
 }
 
@@ -303,73 +463,96 @@ h3 {
   margin-top: 18px;
 }
 
-.plant-card {
+.plantcard {
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: var(--surface);
+  background: var(--cream);
   padding: 16px;
 }
 
-.plant-card-heading {
+.plantcard-head {
   display: flex;
   justify-content: space-between;
-  gap: 14px;
+  gap: 16px;
   align-items: start;
 }
 
-.plant-card-heading p {
-  margin: 5px 0 0;
-  color: var(--muted);
+.plantcard h3 {
+  font-size: 1.42rem;
+  line-height: 1.05;
+}
+
+.plantcard-head p {
+  margin: 6px 0 0;
+  color: var(--ink-soft);
+  font-family: "Newsreader", Georgia, serif;
+  font-size: 1.02rem;
   font-style: italic;
+  line-height: 1.2;
 }
 
-.plant-card-heading a {
+.details-btn {
+  display: inline-grid;
   flex: 0 0 auto;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 8px 10px;
-  text-decoration: none;
-  font-weight: 760;
-  background: var(--surface-soft);
+  place-items: center;
+  min-height: 36px;
+  padding: 0 12px;
 }
 
-.trait-grid {
+.attrgrid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
   margin: 16px 0 0;
 }
 
-.trait-grid div {
+.attrgrid div {
   min-width: 0;
+  border-top: 1px solid rgba(47, 46, 31, 0.32);
+  padding-top: 8px;
 }
 
-.trait-grid dt {
-  color: var(--clay-dark);
-  font-size: 0.76rem;
-  font-weight: 830;
+.attrgrid dt {
+  color: var(--rust-dark);
+  font-size: 0.72rem;
+  font-weight: 600;
   text-transform: uppercase;
 }
 
-.trait-grid dd {
-  margin: 3px 0 0;
+.attrgrid dd {
+  margin: 4px 0 0;
   color: var(--ink);
   line-height: 1.35;
 }
 
 .pagination {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(96px, auto) minmax(116px, auto) minmax(96px, auto);
+  gap: 12px;
   align-items: center;
   justify-content: center;
-  gap: 12px;
   margin-top: 20px;
 }
 
+.pagination button {
+  color: var(--ink);
+  background: var(--cream);
+}
+
 .pagination span {
-  min-width: 104px;
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  font-weight: 600;
   text-align: center;
-  color: var(--muted);
-  font-weight: 720;
+}
+
+@media (hover: hover) {
+  .plantcard:hover,
+  .candidate-list button:hover,
+  .details-btn:hover,
+  .pagination button:hover:not(:disabled) {
+    transform: translateY(-1px);
+  }
 }
 
 @media (max-width: 860px) {
@@ -379,7 +562,13 @@ h3 {
   }
 
   .app-header {
-    align-items: start;
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .herbarium {
+    width: min(78vw, 240px);
+    justify-self: start;
   }
 
   .main-layout {
@@ -391,30 +580,33 @@ h3 {
   }
 }
 
-@media (max-width: 560px) {
-  .app-header,
+@media (max-width: 620px) {
+  h1 {
+    font-size: clamp(2.12rem, 9.8vw, 3.28rem);
+  }
+
   .results-header,
-  .plant-card-heading,
+  .match-line,
+  .attrgrid,
   .pagination {
-    align-items: stretch;
-    flex-direction: column;
-  }
-
-  .app-header,
-  .plant-card-heading {
-    display: grid;
-  }
-
-  .search-row {
     grid-template-columns: 1fr;
   }
 
-  .trait-grid {
-    grid-template-columns: 1fr;
+  .plantcard-head {
+    display: grid;
   }
 
-  .pagination {
-    display: grid;
+  .details-btn {
+    justify-self: start;
+  }
+
+  .searchcell {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .searchcell button {
+    grid-column: 1 / -1;
+    margin: 0 -1px -1px;
   }
 }
 

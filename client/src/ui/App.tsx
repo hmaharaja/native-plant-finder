@@ -170,27 +170,29 @@ export function App() {
       </a>
       <div className="page-shell">
         <header className="app-header" aria-label="App header">
-          <div>
-            <p className="eyebrow">Canada native plants</p>
+          <div className="hero-copy">
+            <p className="eyebrow">Canada &middot; native plant lookup</p>
             <h1>{APP_TITLE}</h1>
+            <p className="hero-subline">
+              What grows where <span>you</span> are?
+            </p>
           </div>
-          <div className="header-stat" aria-label="Loaded data summary">
-            <span>{manifest?.ecoregionCount ?? "--"}</span>
-            <small>ecoregions</small>
-          </div>
+          <HerbariumIllustration />
         </header>
 
         <main id="main" className="main-layout">
-          <section className="search-panel" aria-labelledby="search-title">
+          <section className="search-panel" aria-label="Plant search">
             <div className="panel-intro">
-              <h2 id="search-title">Find plants for your region</h2>
               <p>
                 Enter a city or postal code.
               </p>
             </div>
             <form className="search-form" onSubmit={handleSubmit}>
-              <label htmlFor="location">City or postal code</label>
-              <div className="search-row">
+              <label className="visually-hidden" htmlFor="location">
+                City or postal code
+              </label>
+              <div className="searchcell">
+                <i className="ti ti-map-pin-filled" aria-hidden="true" />
                 <input
                   id="location"
                   name="location"
@@ -210,17 +212,15 @@ export function App() {
               {statusText(state)}
             </p>
             {error ? <p className="error-message">{error}</p> : null}
-            <p className="attribution">
-              Postal lookup by Zippopotam.us. Location search by{" "}
-              <a href="https://nominatim.openstreetmap.org/" rel="noreferrer" target="_blank">
-                Nominatim
-              </a>{" "}
-              and OpenStreetMap contributors.
-            </p>
           </section>
 
           <section className="results-panel" aria-labelledby="results-title">
-            <ResultsHeader payload={payload} searchContext={searchContext} />
+            <ResultsHeader
+              payload={payload}
+              searchContext={searchContext}
+              page={pagination.page}
+              pageCount={pagination.pageCount}
+            />
             {candidates.length > 1 ? <CandidateList candidates={candidates} onChoose={chooseCandidate} /> : null}
             {payload ? (
               <>
@@ -239,20 +239,94 @@ export function App() {
   );
 }
 
-function ResultsHeader({ payload, searchContext }: { payload: EcoregionPayload | null; searchContext: SearchContext | null }) {
+function HerbariumIllustration() {
+  const flowerHeads = [
+    { x: 120, y: 34, scale: 1, rotate: -8 },
+    { x: 91, y: 54, scale: 0.66, rotate: -22 },
+    { x: 151, y: 66, scale: 0.72, rotate: 18 }
+  ];
+
+  return (
+    <figure className="herbarium" aria-hidden="true">
+      <svg viewBox="0 0 240 220" role="img" focusable="false">
+        <path className="specimen-stem main" d="M114 202 C116 160, 116 114, 121 42" />
+        <path className="specimen-stem branch" d="M117 112 C101 91, 95 72, 92 56" />
+        <path className="specimen-stem branch" d="M119 124 C139 104, 148 83, 153 66" />
+        <path className="specimen-leaf" d="M111 143 C79 126, 61 103, 59 73 C91 82, 112 108, 111 143 Z" />
+        <path className="specimen-vein" d="M106 136 C92 115, 78 96, 63 78" />
+        <path className="specimen-leaf" d="M122 151 C154 137, 176 112, 185 78 C149 82, 127 110, 122 151 Z" />
+        <path className="specimen-vein" d="M128 142 C145 119, 163 98, 181 82" />
+        <path className="specimen-leaf small" d="M107 184 C82 179, 63 162, 54 139 C81 138, 102 155, 107 184 Z" />
+        <path className="specimen-vein" d="M101 178 C87 163, 73 151, 57 141" />
+        {flowerHeads.map((head) => (
+          <g
+            key={`${head.x}-${head.y}`}
+            className="monarda-head"
+            transform={`translate(${head.x} ${head.y}) rotate(${head.rotate}) scale(${head.scale})`}
+          >
+            <path className="bract" d="M-20 20 C-11 9, 10 9, 22 20 C9 27, -7 28, -20 20 Z" />
+            {Array.from({ length: 17 }).map((_, index) => {
+              const angle = -86 + index * 10.75;
+              const length = index % 3 === 0 ? 37 : 31;
+              const endX = Math.round(-length * Math.sin((angle * Math.PI) / 180));
+              const endY = Math.round(-length * Math.cos((angle * Math.PI) / 180));
+              return (
+                <path
+                  key={index}
+                  className="tube"
+                  d={`M0 14 C${-5 + index * 0.62} 1, ${-8 + index * 0.94} -12, ${endX} ${endY}`}
+                />
+              );
+            })}
+            {Array.from({ length: 13 }).map((_, index) => (
+              <path
+                key={`petal-${index}`}
+                className="petal"
+                d="M0 14 C-5 6, -4 -3, 0 -11 C5 -3, 5 6, 0 14 Z"
+                transform={`rotate(${-78 + index * 13})`}
+              />
+            ))}
+            <circle className="seed-head" r="11" cy="13" />
+          </g>
+        ))}
+      </svg>
+      <figcaption>Monarda fistulosa</figcaption>
+    </figure>
+  );
+}
+
+function ResultsHeader({
+  payload,
+  searchContext,
+  page,
+  pageCount
+}: {
+  payload: EcoregionPayload | null;
+  searchContext: SearchContext | null;
+  page: number;
+  pageCount: number;
+}) {
   return (
     <div className="results-header">
-      <div>
+      <div className="results-title-block">
         <p className="eyebrow">Native list</p>
-        <h2 id="results-title">{payload?.ecoregionName ?? "Results"}</h2>
+        <h2 id="results-title">Results</h2>
       </div>
       {payload ? (
-        <div className="result-count">
-          <span>{payload.plantCount.toLocaleString()}</span>
-          <small>plants</small>
+        <div className="match-line" aria-label="Matched ecoregion">
+          <p>
+            <span>Matched ecoregion:</span> {payload.ecoregionName}
+          </p>
+          {searchContext ? (
+            <p>
+              <span>Matched from</span> {searchContext.candidateLabel}
+            </p>
+          ) : null}
+          <p className="count-line">
+            {payload.plantCount.toLocaleString()} species found &middot; page {page} of {pageCount}
+          </p>
         </div>
       ) : null}
-      {searchContext ? <p className="matched-location">Matched from {searchContext.candidateLabel}</p> : null}
     </div>
   );
 }
@@ -291,28 +365,34 @@ function PlantList({ plants }: { plants: PlantRecord[] }) {
     <div className="plant-list">
       {plants.map((plant) => {
         const detailUrl = safePlantDetailUrl(plant.lbjUrl);
+        const traits = [
+          ["Growth", formatList(plant.growthHabit)],
+          ["Duration", plant.duration ?? "Unknown"],
+          ["Height", formatHeight(plant)],
+          ["Light", formatList(plant.light)],
+          ["Moisture", formatList(plant.moisture)],
+          ["Soil", formatList(plant.soilCategories)],
+          ["Bloom", formatMonthList(plant.bloomTime)],
+          ["Color", formatList(plant.bloomColor)]
+        ] as const;
+
         return (
-          <article className="plant-card" key={plant.usageKey ?? `${plant.canonicalName}-${plant.vernacularName}`}>
-            <div className="plant-card-heading">
+          <article className="plantcard" key={plant.usageKey ?? `${plant.canonicalName}-${plant.vernacularName}`}>
+            <div className="plantcard-head">
               <div>
                 <h3>{displayName(plant)}</h3>
                 <p>{scientificName(plant)}</p>
               </div>
               {detailUrl ? (
-                <a href={detailUrl} rel="noreferrer" target="_blank">
+                <a className="details-btn" href={detailUrl} rel="noreferrer" target="_blank">
                   Details
                 </a>
               ) : null}
             </div>
-            <dl className="trait-grid">
-              <Trait label="Growth" value={formatList(plant.growthHabit)} />
-              <Trait label="Duration" value={plant.duration ?? "Unknown"} />
-              <Trait label="Height" value={formatHeight(plant)} />
-              <Trait label="Light" value={formatList(plant.light)} />
-              <Trait label="Moisture" value={formatList(plant.moisture)} />
-              <Trait label="Soil" value={formatList(plant.soilCategories)} />
-              <Trait label="Bloom" value={formatMonthList(plant.bloomTime)} />
-              <Trait label="Color" value={formatList(plant.bloomColor)} />
+            <dl className="attrgrid">
+              {traits.map(([label, value]) => (
+                <Trait key={label} label={label} value={value} />
+              ))}
             </dl>
           </article>
         );
