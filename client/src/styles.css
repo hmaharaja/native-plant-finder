@@ -1,19 +1,19 @@
 :root {
-  --paper: #f7f0df;
-  --cream: #fff8e8;
-  --cream-strong: #fff3d0;
+  --paper: #fbf4e4;
+  --cream: #fff9ec;
+  --cream-strong: #fff2d2;
   --ink: #252414;
   --ink-soft: #5f5b43;
   --moss: #667642;
   --moss-dark: #465626;
-  --leaf: #89986a;
+  --leaf: #93a071;
   --rust: #b76435;
   --rust-dark: #814123;
   --line: #2f2e1f;
-  --wash: rgba(255, 248, 232, 0.76);
+  --wash: rgba(255, 249, 236, 0.84);
   --focus: #1f6f7d;
   --error: #9d3326;
-  --shadow: 8px 8px 0 rgba(37, 36, 20, 0.12);
+  --shadow: 8px 8px 0 rgba(84, 66, 33, 0.09);
   --radius: 3px;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
   font-family: "Karla", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -30,8 +30,10 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background:
-    linear-gradient(135deg, rgba(102, 118, 66, 0.18) 0 22%, transparent 22% 100%),
-    linear-gradient(153deg, #f7efd8 0%, #fff8e8 43%, #dfe2bd 100%);
+    radial-gradient(120% 75% at 18% -12%, rgba(235, 178, 72, 0.26) 0%, rgba(235, 178, 72, 0.11) 35%, transparent 68%),
+    linear-gradient(135deg, rgba(120, 135, 81, 0.13) 0 21%, transparent 21% 100%),
+    linear-gradient(155deg, #fbf1da 0%, #fff9ec 46%, #e6e6c4 100%);
+  background-attachment: fixed;
 }
 
 body::before {
@@ -40,7 +42,7 @@ body::before {
   z-index: -1;
   pointer-events: none;
   content: "";
-  opacity: 0.24;
+  opacity: 0.16;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.42'/%3E%3C/svg%3E");
 }
 
@@ -350,10 +352,14 @@ h1 {
   margin: -1px -1px -1px 0;
 }
 
-.searchcell button:hover:not(:disabled),
 .pagination button:hover:not(:disabled),
 .details-btn:hover {
   background: var(--rust);
+}
+
+.searchcell button:hover:not(:disabled),
+.searchcell button:active:not(:disabled) {
+  background: var(--moss);
 }
 
 .status-line {
