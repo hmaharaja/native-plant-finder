@@ -1,0 +1,4 @@
+interface:
+  display_name: "Validate Client Patch"
+  short_description: "Run client tests for safe frontend patches"
+  default_prompt: "Use $validate-client-patch to validate this client-side patch before finalizing it."
