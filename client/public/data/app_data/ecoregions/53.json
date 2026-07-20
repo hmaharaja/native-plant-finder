@@ -1,0 +1,4438 @@
+{
+  "ecoregionId": 53,
+  "ecoregionName": "Fort MacPherson Plain",
+  "plantCount": 139,
+  "plants": [
+    {
+      "usageKey": 5394172,
+      "canonicalName": "Taraxacum alaskanum",
+      "vernacularName": "Alaska dandelion",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 2004,
+      "lastYear": 2004,
+      "growthHabit": [],
+      "duration": null,
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": null,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [],
+      "bloomColor": [],
+      "lbjUrl": null
+    },
+    {
+      "usageKey": 5373017,
+      "canonicalName": "Salix alaxensis",
+      "vernacularName": "Alaska willow",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1972,
+      "lastYear": 1972,
+      "growthHabit": [
+        "shrub",
+        "tree"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 20,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "mar",
+        "apr",
+        "may",
+        "jun",
+        "jul"
+      ],
+      "bloomColor": [
+        "yellow",
+        "green",
+        "purple",
+        "brown",
+        "black"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAAL"
+    },
+    {
+      "usageKey": 2882527,
+      "canonicalName": "Arctous alpina",
+      "vernacularName": "alpine bearberry",
+      "occurrenceCount": 2,
+      "humanObservationCount": 2,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": 31875.5,
+      "firstYear": 2021,
+      "lastYear": 2022,
+      "growthHabit": [],
+      "duration": null,
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": null,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [],
+      "bloomColor": [],
+      "lbjUrl": null
+    },
+    {
+      "usageKey": 4107552,
+      "canonicalName": "Alopecurus magellanicus",
+      "vernacularName": "alpine foxtail",
+      "occurrenceCount": 2,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 2,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 2004,
+      "lastYear": 2004,
+      "growthHabit": [
+        "grass/grass-like"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 1.3333333333333333,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul"
+      ],
+      "bloomColor": [
+        "green",
+        "brown"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ALMA8"
+    },
+    {
+      "usageKey": 2949272,
+      "canonicalName": "Hedysarum americanum",
+      "vernacularName": "alpine hedysarum",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 2004,
+      "lastYear": 2004,
+      "growthHabit": [],
+      "duration": null,
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": null,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [],
+      "bloomColor": [],
+      "lbjUrl": null
+    },
+    {
+      "usageKey": 5345014,
+      "canonicalName": "Astragalus alpinus",
+      "vernacularName": "alpine milk-vetch",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 2004,
+      "lastYear": 2004,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": null,
+      "light": [
+        "sun"
+      ],
+      "moisture": [
+        "moist"
+      ],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "may",
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "white",
+        "pink",
+        "blue",
+        "purple"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ASAL7"
+    },
+    {
+      "usageKey": 3034555,
+      "canonicalName": "Bupleurum americanum",
+      "vernacularName": "American thoroughwax",
+      "occurrenceCount": 1,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": 4,
+      "firstYear": 2025,
+      "lastYear": 2025,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "annual",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 1.6666666666666663,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul",
+        "aug",
+        "sep"
+      ],
+      "bloomColor": [
+        "yellow"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=BUAM2"
+    },
+    {
+      "usageKey": 2975204,
+      "canonicalName": "Vicia americana",
+      "vernacularName": "American vetch",
+      "occurrenceCount": 6,
+      "humanObservationCount": 3,
+      "preservedSpecimenCount": 3,
+      "coordinateUncertaintyMedianM": 6,
+      "firstYear": 2006,
+      "lastYear": 2024,
+      "growthHabit": [
+        "vine"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": null,
+      "light": [
+        "sun"
+      ],
+      "moisture": [],
+      "waterUse": "low",
+      "soilCategories": [],
+      "bloomTime": [
+        "may",
+        "jun",
+        "jul"
+      ],
+      "bloomColor": [
+        "purple"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=VIAM"
+    },
+    {
+      "usageKey": 2964200,
+      "canonicalName": "Lupinus arcticus",
+      "vernacularName": "arctic lupine",
+      "occurrenceCount": 5,
+      "humanObservationCount": 3,
+      "preservedSpecimenCount": 2,
+      "coordinateUncertaintyMedianM": 546,
+      "firstYear": 1888,
+      "lastYear": 2021,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 1.5,
+      "light": [
+        "sun"
+      ],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "white",
+        "pink",
+        "yellow",
+        "blue",
+        "purple"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=LUAR2"
+    },
+    {
+      "usageKey": 2992051,
+      "canonicalName": "Rubus arcticus",
+      "vernacularName": "arctic raspberry",
+      "occurrenceCount": 1,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": 5,
+      "firstYear": 2026,
+      "lastYear": 2026,
+      "growthHabit": [
+        "herb",
+        "Subshrub"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 1,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "pink"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=RUARA3"
+    },
+    {
+      "usageKey": 3088323,
+      "canonicalName": "Petasites frigidus",
+      "vernacularName": "arctic sweet coltsfoot",
+      "occurrenceCount": 2,
+      "humanObservationCount": 2,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": 10,
+      "firstYear": 2019,
+      "lastYear": 2023,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 4,
+      "light": [],
+      "moisture": [
+        "moist"
+      ],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "apr",
+        "may"
+      ],
+      "bloomColor": [
+        "white"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PEFR5"
+    },
+    {
+      "usageKey": 3040184,
+      "canonicalName": "Populus balsamifera",
+      "vernacularName": "balsam poplar",
+      "occurrenceCount": 1,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": 4,
+      "firstYear": 2025,
+      "lastYear": 2025,
+      "growthHabit": [
+        "tree"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 130,
+      "light": [
+        "sun"
+      ],
+      "moisture": [
+        "moist"
+      ],
+      "waterUse": "high",
+      "soilCategories": [],
+      "bloomTime": [
+        "apr",
+        "may"
+      ],
+      "bloomColor": [
+        "yellow",
+        "green",
+        "brown"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=POBA2"
+    },
+    {
+      "usageKey": 5373073,
+      "canonicalName": "Salix niphoclada",
+      "vernacularName": "barren-ground willow",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1947,
+      "lastYear": 1947,
+      "growthHabit": [
+        "shrub"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 10,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul"
+      ],
+      "bloomColor": [
+        "yellow",
+        "green",
+        "brown",
+        "black"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SANI10"
+    },
+    {
+      "usageKey": 2722383,
+      "canonicalName": "Carex bigelowii",
+      "vernacularName": "Bigelow's sedge",
+      "occurrenceCount": 5,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 5,
+      "coordinateUncertaintyMedianM": 2148,
+      "firstYear": 1934,
+      "lastYear": 1971,
+      "growthHabit": [
+        "grass/grass-like"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 1.6666666666666663,
+      "light": [
+        "part shade"
+      ],
+      "moisture": [],
+      "waterUse": "medium",
+      "soilCategories": [],
+      "bloomTime": [
+        "jul"
+      ],
+      "bloomColor": [
+        "white",
+        "green"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CABI5"
+    },
+    {
+      "usageKey": 5284802,
+      "canonicalName": "Picea mariana",
+      "vernacularName": "black spruce",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1943,
+      "lastYear": 1943,
+      "growthHabit": [
+        "tree"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 75,
+      "light": [
+        "sun",
+        "part shade",
+        "shade"
+      ],
+      "moisture": [
+        "moist",
+        "wet"
+      ],
+      "waterUse": "high",
+      "soilCategories": [],
+      "bloomTime": [
+        "apr",
+        "may"
+      ],
+      "bloomColor": [
+        "red",
+        "yellow"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PIMA"
+    },
+    {
+      "usageKey": 5369125,
+      "canonicalName": "Potentilla arenosa",
+      "vernacularName": "bluff cinquefoil",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": 2141,
+      "firstYear": 1987,
+      "lastYear": 1987,
+      "growthHabit": [],
+      "duration": null,
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": null,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [],
+      "bloomColor": [],
+      "lbjUrl": null
+    },
+    {
+      "usageKey": 2798436,
+      "canonicalName": "Platanthera obtusata",
+      "vernacularName": "blunt-leaved orchid",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1943,
+      "lastYear": 1943,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 1.1666666666666663,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "white",
+        "yellow",
+        "green"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PLOB"
+    },
+    {
+      "usageKey": 5346296,
+      "canonicalName": "Astragalus bodinii",
+      "vernacularName": "Bodin's milk-vetch",
+      "occurrenceCount": 4,
+      "humanObservationCount": 3,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": 13,
+      "firstYear": 2006,
+      "lastYear": 2025,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": 1,
+      "matureHeightMaxFt": 4.5,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul",
+        "aug",
+        "sep"
+      ],
+      "bloomColor": [
+        "red",
+        "pink",
+        "purple",
+        "violet"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ASBO"
+    },
+    {
+      "usageKey": 2817363,
+      "canonicalName": "Malaxis paludosa",
+      "vernacularName": "bog adder's-mouth",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 2005,
+      "lastYear": 2005,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 0.8333333333333333,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "yellow",
+        "green"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=MAPA4"
+    },
+    {
+      "usageKey": 8073364,
+      "canonicalName": "Vaccinium uliginosum",
+      "vernacularName": "bog bilberry",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1943,
+      "lastYear": 1943,
+      "growthHabit": [
+        "shrub"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 2,
+      "light": [
+        "sun",
+        "part shade",
+        "shade"
+      ],
+      "moisture": [
+        "moist",
+        "wet"
+      ],
+      "waterUse": "medium",
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul"
+      ],
+      "bloomColor": [
+        "pink"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=VAUL"
+    },
+    {
+      "usageKey": 5341511,
+      "canonicalName": "Menyanthes trifoliata",
+      "vernacularName": "bog buckbean",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": 2141,
+      "firstYear": 1980,
+      "lastYear": 1980,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 1,
+      "light": [
+        "sun",
+        "part shade"
+      ],
+      "moisture": [
+        "wet"
+      ],
+      "waterUse": "high",
+      "soilCategories": [],
+      "bloomTime": [
+        "apr",
+        "may",
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "white"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=METR3"
+    },
+    {
+      "usageKey": 5333413,
+      "canonicalName": "Andromeda polifolia",
+      "vernacularName": "bog rosemary",
+      "occurrenceCount": 1,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 2020,
+      "lastYear": 2020,
+      "growthHabit": [
+        "shrub"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 3,
+      "light": [
+        "sun",
+        "part shade",
+        "shade"
+      ],
+      "moisture": [
+        "moist",
+        "wet"
+      ],
+      "waterUse": null,
+      "soilCategories": [
+        "sand"
+      ],
+      "bloomTime": [
+        "jun",
+        "jul"
+      ],
+      "bloomColor": [
+        "white",
+        "pink"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ANPO"
+    },
+    {
+      "usageKey": 2726416,
+      "canonicalName": "Carex magellanica",
+      "vernacularName": "boreal bog sedge",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1944,
+      "lastYear": 1944,
+      "growthHabit": [
+        "grass/grass-like"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": null,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "not applicable"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CAMA12"
+    },
+    {
+      "usageKey": 5361352,
+      "canonicalName": "Oxytropis borealis",
+      "vernacularName": "boreal locoweed",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 2004,
+      "lastYear": 2004,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 1.3333333333333333,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "mar",
+        "apr",
+        "may",
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "white",
+        "pink",
+        "yellow",
+        "blue",
+        "purple"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=OXBO"
+    },
+    {
+      "usageKey": 2730223,
+      "canonicalName": "Eriophorum brachyantherum",
+      "vernacularName": "closed-sheathed cottongrass",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": 2148,
+      "firstYear": 1971,
+      "lastYear": 1971,
+      "growthHabit": [
+        "grass/grass-like"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 2.333333333333333,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "white",
+        "brown",
+        "black"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ERBR6"
+    },
+    {
+      "usageKey": 2998290,
+      "canonicalName": "Rubus chamaemorus",
+      "vernacularName": "cloudberry",
+      "occurrenceCount": 1,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": 31250,
+      "firstYear": 2008,
+      "lastYear": 2008,
+      "growthHabit": [
+        "herb",
+        "Subshrub"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 1,
+      "light": [
+        "sun"
+      ],
+      "moisture": [
+        "dry"
+      ],
+      "waterUse": "high",
+      "soilCategories": [],
+      "bloomTime": [
+        "may",
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "white"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=RUCH"
+    },
+    {
+      "usageKey": 5415065,
+      "canonicalName": "Pinguicula vulgaris",
+      "vernacularName": "common butterwort",
+      "occurrenceCount": 1,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": 160,
+      "firstYear": 2008,
+      "lastYear": 2008,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 0.6666666666666666,
+      "light": [
+        "sun"
+      ],
+      "moisture": [
+        "wet"
+      ],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "apr",
+        "may",
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "purple"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PIVU"
+    },
+    {
+      "usageKey": 2684709,
+      "canonicalName": "Juniperus communis",
+      "vernacularName": "common juniper",
+      "occurrenceCount": 2,
+      "humanObservationCount": 2,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": 3,
+      "firstYear": 2025,
+      "lastYear": 2025,
+      "growthHabit": [
+        "tree"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 12,
+      "light": [
+        "sun"
+      ],
+      "moisture": [
+        "dry"
+      ],
+      "waterUse": "low",
+      "soilCategories": [
+        "sand"
+      ],
+      "bloomTime": [
+        "apr"
+      ],
+      "bloomColor": [
+        "yellow"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=JUCO6"
+    },
+    {
+      "usageKey": 5375083,
+      "canonicalName": "Arabis pycnocarpa",
+      "vernacularName": "cream-flowered rockcress",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1971,
+      "lastYear": 1971,
+      "growthHabit": [],
+      "duration": null,
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": null,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [],
+      "bloomColor": [],
+      "lbjUrl": null
+    },
+    {
+      "usageKey": 2728174,
+      "canonicalName": "Carex chordorrhiza",
+      "vernacularName": "creeping sedge",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1999,
+      "lastYear": 1999,
+      "growthHabit": [
+        "grass/grass-like"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 1.1666666666666663,
+      "light": [
+        "sun",
+        "part shade",
+        "shade"
+      ],
+      "moisture": [
+        "moist"
+      ],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "may",
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "not applicable"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CACH5"
+    },
+    {
+      "usageKey": 3033252,
+      "canonicalName": "Anemone multifida",
+      "vernacularName": "cut-leaved anemone",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1892,
+      "lastYear": 1892,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 2,
+      "light": [
+        "sun",
+        "part shade",
+        "shade"
+      ],
+      "moisture": [
+        "moist"
+      ],
+      "waterUse": "medium",
+      "soilCategories": [
+        "gravel"
+      ],
+      "bloomTime": [
+        "may",
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "white",
+        "pink",
+        "yellow"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ANMU"
+    },
+    {
+      "usageKey": 5587064,
+      "canonicalName": "Sabulina dawsonensis",
+      "vernacularName": "Dawson's stitchwort",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1965,
+      "lastYear": 1965,
+      "growthHabit": [],
+      "duration": null,
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": null,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [],
+      "bloomColor": [],
+      "lbjUrl": null
+    },
+    {
+      "usageKey": 5372732,
+      "canonicalName": "Salix pulchra",
+      "vernacularName": "diamond-leaved willow",
+      "occurrenceCount": 2,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 2,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1999,
+      "lastYear": 2005,
+      "growthHabit": [
+        "Subshrub",
+        "shrub",
+        "tree"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 15,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "apr",
+        "may",
+        "jun",
+        "jul"
+      ],
+      "bloomColor": [
+        "yellow",
+        "green",
+        "purple",
+        "brown",
+        "black"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAPU15"
+    },
+    {
+      "usageKey": 6299010,
+      "canonicalName": "Askellia pygmaea",
+      "vernacularName": "dwarf hawksbeard",
+      "occurrenceCount": 1,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": 31250,
+      "firstYear": 2008,
+      "lastYear": 2008,
+      "growthHabit": [],
+      "duration": null,
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": null,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [],
+      "bloomColor": [],
+      "lbjUrl": null
+    },
+    {
+      "usageKey": 5364129,
+      "canonicalName": "Dryas integrifolia",
+      "vernacularName": "entire-leaved mountain avens",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1943,
+      "lastYear": 1943,
+      "growthHabit": [
+        "herb",
+        "Subshrub"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 0.4166666666666666,
+      "light": [],
+      "moisture": [
+        "dry",
+        "moist"
+      ],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "white",
+        "yellow"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=DRIN4"
+    },
+    {
+      "usageKey": 5372820,
+      "canonicalName": "Salix pseudomonticola",
+      "vernacularName": "false mountain willow",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1972,
+      "lastYear": 1972,
+      "growthHabit": [
+        "shrub"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 20,
+      "light": [
+        "part shade",
+        "shade"
+      ],
+      "moisture": [
+        "moist"
+      ],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "apr",
+        "may",
+        "jun"
+      ],
+      "bloomColor": [
+        "green",
+        "brown"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAPS"
+    },
+    {
+      "usageKey": 7924597,
+      "canonicalName": "Equisetum arvense",
+      "vernacularName": "field horsetail",
+      "occurrenceCount": 2,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 2,
+      "coordinateUncertaintyMedianM": 2148,
+      "firstYear": 1971,
+      "lastYear": 1971,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 3,
+      "light": [
+        "sun",
+        "part shade",
+        "shade"
+      ],
+      "moisture": [
+        "moist",
+        "wet"
+      ],
+      "waterUse": "high",
+      "soilCategories": [],
+      "bloomTime": [
+        "mar",
+        "apr",
+        "may"
+      ],
+      "bloomColor": [
+        "not applicable"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=EQAR"
+    },
+    {
+      "usageKey": 6428353,
+      "canonicalName": "Chamaenerion angustifolium",
+      "vernacularName": "fireweed",
+      "occurrenceCount": 3,
+      "humanObservationCount": 3,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": 5,
+      "firstYear": 2024,
+      "lastYear": 2025,
+      "growthHabit": [],
+      "duration": null,
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": null,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [],
+      "bloomColor": [],
+      "lbjUrl": null
+    },
+    {
+      "usageKey": 2706052,
+      "canonicalName": "Hordeum jubatum",
+      "vernacularName": "foxtail barley",
+      "occurrenceCount": 4,
+      "humanObservationCount": 4,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": 44.5,
+      "firstYear": 2018,
+      "lastYear": 2025,
+      "growthHabit": [
+        "grass/grass-like"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 2.6666666666666665,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "may",
+        "jun",
+        "jul"
+      ],
+      "bloomColor": [
+        "white",
+        "green",
+        "purple"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=HOJU"
+    },
+    {
+      "usageKey": 2723030,
+      "canonicalName": "Carex membranacea",
+      "vernacularName": "fragile sedge",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 2004,
+      "lastYear": 2004,
+      "growthHabit": [
+        "grass/grass-like"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 2,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "green",
+        "brown"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CAME4"
+    },
+    {
+      "usageKey": 5331640,
+      "canonicalName": "Betula glandulosa",
+      "vernacularName": "glandular birch",
+      "occurrenceCount": 2,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 2,
+      "coordinateUncertaintyMedianM": 2148,
+      "firstYear": 1971,
+      "lastYear": 1971,
+      "growthHabit": [
+        "Subshrub",
+        "shrub"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 10,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "may",
+        "jun"
+      ],
+      "bloomColor": [
+        "green",
+        "brown"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=BEGL"
+    },
+    {
+      "usageKey": 2705511,
+      "canonicalName": "Glyceria pulchella",
+      "vernacularName": "graceful mannagrass",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1966,
+      "lastYear": 1966,
+      "growthHabit": [
+        "grass/grass-like"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 2,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "green",
+        "brown"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=GLPU2"
+    },
+    {
+      "usageKey": 8956987,
+      "canonicalName": "Alnus alnobetula",
+      "vernacularName": "green alder",
+      "occurrenceCount": 2,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1943,
+      "lastYear": 2019,
+      "growthHabit": [],
+      "duration": null,
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": null,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [],
+      "bloomColor": [],
+      "lbjUrl": null
+    },
+    {
+      "usageKey": 5373235,
+      "canonicalName": "Cochlearia groenlandica",
+      "vernacularName": "Greenland scurvygrass",
+      "occurrenceCount": 2,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 2,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 2004,
+      "lastYear": 2004,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "annual|perennial|biennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 1.3333333333333333,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "white"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=COGR6"
+    },
+    {
+      "usageKey": 3189756,
+      "canonicalName": "Plantago canescens",
+      "vernacularName": "grey pubescent plantain",
+      "occurrenceCount": 2,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": 5,
+      "firstYear": 1888,
+      "lastYear": 2025,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 1.1666666666666663,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "white"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PLCA3"
+    },
+    {
+      "usageKey": 3049489,
+      "canonicalName": "Draba cinerea",
+      "vernacularName": "grey-leaved draba",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1957,
+      "lastYear": 1957,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 0.8333333333333333,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul"
+      ],
+      "bloomColor": [
+        "white"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=DRCI"
+    },
+    {
+      "usageKey": 5372963,
+      "canonicalName": "Salix glauca",
+      "vernacularName": "grey-leaved willow",
+      "occurrenceCount": 9,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 9,
+      "coordinateUncertaintyMedianM": 2148,
+      "firstYear": 1892,
+      "lastYear": 1972,
+      "growthHabit": [
+        "tree"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 20,
+      "light": [
+        "sun"
+      ],
+      "moisture": [
+        "moist"
+      ],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "may",
+        "jun",
+        "jul"
+      ],
+      "bloomColor": [
+        "white"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAGL"
+    },
+    {
+      "usageKey": 2927278,
+      "canonicalName": "Stachys pilosa",
+      "vernacularName": "hairy hedge-nettle",
+      "occurrenceCount": 7,
+      "humanObservationCount": 6,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": 35,
+      "firstYear": 2006,
+      "lastYear": 2025,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 3,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul",
+        "aug",
+        "sep"
+      ],
+      "bloomColor": [
+        "white",
+        "pink",
+        "purple"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=STPI6"
+    },
+    {
+      "usageKey": 2722942,
+      "canonicalName": "Carex canescens",
+      "vernacularName": "hoary sedge",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1999,
+      "lastYear": 1999,
+      "growthHabit": [
+        "grass/grass-like"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 3,
+      "light": [
+        "sun",
+        "part shade",
+        "shade"
+      ],
+      "moisture": [
+        "moist"
+      ],
+      "waterUse": "high",
+      "soilCategories": [],
+      "bloomTime": [
+        "apr",
+        "may",
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "white",
+        "green",
+        "brown"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CACA11"
+    },
+    {
+      "usageKey": 2805404,
+      "canonicalName": "Spiranthes romanzoffiana",
+      "vernacularName": "hooded ladies'-tresses",
+      "occurrenceCount": 2,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 2,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1999,
+      "lastYear": 1999,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 1.8333333333333333,
+      "light": [
+        "part shade"
+      ],
+      "moisture": [],
+      "waterUse": "high",
+      "soilCategories": [],
+      "bloomTime": [
+        "jul",
+        "aug",
+        "sep",
+        "oct"
+      ],
+      "bloomColor": [
+        "white"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SPRO"
+    },
+    {
+      "usageKey": 5393899,
+      "canonicalName": "Taraxacum ceratophorum",
+      "vernacularName": "horned dandelion",
+      "occurrenceCount": 1,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": 1000000,
+      "firstYear": 2004,
+      "lastYear": 2004,
+      "growthHabit": [],
+      "duration": null,
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": null,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [],
+      "bloomColor": [],
+      "lbjUrl": null
+    },
+    {
+      "usageKey": 2882984,
+      "canonicalName": "Rhododendron groenlandicum",
+      "vernacularName": "Labrador tea",
+      "occurrenceCount": 2,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 2,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1943,
+      "lastYear": 1971,
+      "growthHabit": [],
+      "duration": null,
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": null,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [],
+      "bloomColor": [],
+      "lbjUrl": null
+    },
+    {
+      "usageKey": 2798033,
+      "canonicalName": "Platanthera huronensis",
+      "vernacularName": "Lake Huron green orchid",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1999,
+      "lastYear": 1999,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 3,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "white",
+        "green"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PLHU2"
+    },
+    {
+      "usageKey": 7554812,
+      "canonicalName": "Coptidium lapponicum",
+      "vernacularName": "Lapland buttercup",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1944,
+      "lastYear": 1944,
+      "growthHabit": [],
+      "duration": null,
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": null,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [],
+      "bloomColor": [],
+      "lbjUrl": null
+    },
+    {
+      "usageKey": 2704877,
+      "canonicalName": "Calamagrostis lapponica",
+      "vernacularName": "Lapland reedgrass",
+      "occurrenceCount": 10,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 10,
+      "coordinateUncertaintyMedianM": 2148,
+      "firstYear": 1971,
+      "lastYear": 2004,
+      "growthHabit": [
+        "grass/grass-like"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 3,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "green",
+        "purple",
+        "brown"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CALA6"
+    },
+    {
+      "usageKey": 5333436,
+      "canonicalName": "Chamaedaphne calyculata",
+      "vernacularName": "leatherleaf",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1943,
+      "lastYear": 1943,
+      "growthHabit": [
+        "shrub"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 5,
+      "light": [
+        "sun"
+      ],
+      "moisture": [
+        "wet"
+      ],
+      "waterUse": "high",
+      "soilCategories": [
+        "sand"
+      ],
+      "bloomTime": [
+        "apr",
+        "may"
+      ],
+      "bloomColor": [
+        "white"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CHCA2"
+    },
+    {
+      "usageKey": 2723156,
+      "canonicalName": "Carex diandra",
+      "vernacularName": "lesser panicled sedge",
+      "occurrenceCount": 2,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 2,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1944,
+      "lastYear": 1999,
+      "growthHabit": [
+        "grass/grass-like"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 3,
+      "light": [
+        "sun",
+        "part shade",
+        "shade"
+      ],
+      "moisture": [
+        "moist",
+        "wet"
+      ],
+      "waterUse": "high",
+      "soilCategories": [],
+      "bloomTime": [
+        "may",
+        "jun",
+        "jul",
+        "aug",
+        "sep"
+      ],
+      "bloomColor": [
+        "not applicable"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CADI4"
+    },
+    {
+      "usageKey": 8081789,
+      "canonicalName": "Salix arbusculoides",
+      "vernacularName": "little-tree willow",
+      "occurrenceCount": 2,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 2,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1888,
+      "lastYear": 1943,
+      "growthHabit": [
+        "tree"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 20,
+      "light": [
+        "part shade",
+        "shade"
+      ],
+      "moisture": [
+        "moist"
+      ],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "mar",
+        "apr"
+      ],
+      "bloomColor": [
+        "green",
+        "brown"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAAR3"
+    },
+    {
+      "usageKey": 2723340,
+      "canonicalName": "Carex livida",
+      "vernacularName": "livid sedge",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1999,
+      "lastYear": 1999,
+      "growthHabit": [
+        "grass/grass-like"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 1.8333333333333333,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "may",
+        "jun",
+        "jul"
+      ],
+      "bloomColor": [
+        "not applicable"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CALI"
+    },
+    {
+      "usageKey": 5405959,
+      "canonicalName": "Arnica lonchophylla",
+      "vernacularName": "long-leaved arnica",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1972,
+      "lastYear": 1972,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 1.6666666666666663,
+      "light": [
+        "sun"
+      ],
+      "moisture": [
+        "moist"
+      ],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "yellow"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ARLO5"
+    },
+    {
+      "usageKey": 5384620,
+      "canonicalName": "Stellaria longipes",
+      "vernacularName": "long-stalked starwort",
+      "occurrenceCount": 3,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 3,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 2004,
+      "lastYear": 2004,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": null,
+      "light": [
+        "part shade"
+      ],
+      "moisture": [],
+      "waterUse": "high",
+      "soilCategories": [],
+      "bloomTime": [
+        "apr"
+      ],
+      "bloomColor": [
+        "white"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=STLO2"
+    },
+    {
+      "usageKey": 2865280,
+      "canonicalName": "Triglochin palustris",
+      "vernacularName": "marsh arrowgrass",
+      "occurrenceCount": 2,
+      "humanObservationCount": 2,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": 132,
+      "firstYear": 2019,
+      "lastYear": 2019,
+      "growthHabit": [
+        "grass/grass-like"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 1.3333333333333333,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul",
+        "aug",
+        "sep"
+      ],
+      "bloomColor": [
+        "white"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=TRPA28"
+    },
+    {
+      "usageKey": 3020532,
+      "canonicalName": "Comarum palustre",
+      "vernacularName": "marsh cinquefoil",
+      "occurrenceCount": 2,
+      "humanObservationCount": 2,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 2019,
+      "lastYear": 2019,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 2,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "red",
+        "purple"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=COPA28"
+    },
+    {
+      "usageKey": 3032585,
+      "canonicalName": "Parnassia palustris",
+      "vernacularName": "marsh grass-of-Parnassus",
+      "occurrenceCount": 4,
+      "humanObservationCount": 3,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": 5.5,
+      "firstYear": 1971,
+      "lastYear": 2025,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 1.6666666666666663,
+      "light": [
+        "sun"
+      ],
+      "moisture": [],
+      "waterUse": "high",
+      "soilCategories": [],
+      "bloomTime": [
+        "jul"
+      ],
+      "bloomColor": [
+        "white"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PAPA8"
+    },
+    {
+      "usageKey": 7363445,
+      "canonicalName": "Tephroseris palustris",
+      "vernacularName": "marsh groundsel",
+      "occurrenceCount": 4,
+      "humanObservationCount": 3,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": 3,
+      "firstYear": 1972,
+      "lastYear": 2025,
+      "growthHabit": [],
+      "duration": null,
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": null,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [],
+      "bloomColor": [],
+      "lbjUrl": null
+    },
+    {
+      "usageKey": 2865260,
+      "canonicalName": "Scheuchzeria palustris",
+      "vernacularName": "marsh scheuchzeria",
+      "occurrenceCount": 2,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 2,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1999,
+      "lastYear": 1999,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 1.3333333333333333,
+      "light": [
+        "sun",
+        "part shade",
+        "shade"
+      ],
+      "moisture": [
+        "wet"
+      ],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "may"
+      ],
+      "bloomColor": [
+        "green",
+        "brown"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SCPA2"
+    },
+    {
+      "usageKey": 2926759,
+      "canonicalName": "Scutellaria galericulata",
+      "vernacularName": "marsh skullcap",
+      "occurrenceCount": 2,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": 5,
+      "firstYear": 1999,
+      "lastYear": 2025,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 2.6666666666666665,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul",
+        "aug",
+        "sep"
+      ],
+      "bloomColor": [
+        "blue",
+        "violet"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SCGA"
+    },
+    {
+      "usageKey": 3053168,
+      "canonicalName": "Rorippa palustris",
+      "vernacularName": "marsh yellowcress",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1999,
+      "lastYear": 1999,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "annual",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 4.5,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "mar",
+        "apr",
+        "may",
+        "jun",
+        "jul",
+        "aug",
+        "sep"
+      ],
+      "bloomColor": [
+        "yellow"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ROPA2"
+    },
+    {
+      "usageKey": 5384754,
+      "canonicalName": "Silene acaulis",
+      "vernacularName": "moss campion",
+      "occurrenceCount": 1,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": 31250,
+      "firstYear": 2008,
+      "lastYear": 2008,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 0.5,
+      "light": [
+        "sun"
+      ],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "pink",
+        "purple"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SIAC"
+    },
+    {
+      "usageKey": 2882835,
+      "canonicalName": "Vaccinium vitis-idaea",
+      "vernacularName": "mountain cranberry",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1943,
+      "lastYear": 1943,
+      "growthHabit": [
+        "Subshrub"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 1.1666666666666663,
+      "light": [
+        "sun",
+        "part shade",
+        "shade"
+      ],
+      "moisture": [
+        "moist",
+        "wet"
+      ],
+      "waterUse": null,
+      "soilCategories": [
+        "sand"
+      ],
+      "bloomTime": [],
+      "bloomColor": [
+        "white",
+        "red",
+        "pink"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=VAVIM"
+    },
+    {
+      "usageKey": 2725881,
+      "canonicalName": "Carex limosa",
+      "vernacularName": "mud sedge",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1999,
+      "lastYear": 1999,
+      "growthHabit": [
+        "grass/grass-like"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 2,
+      "light": [
+        "sun"
+      ],
+      "moisture": [
+        "moist",
+        "wet"
+      ],
+      "waterUse": "medium",
+      "soilCategories": [],
+      "bloomTime": [
+        "apr",
+        "may"
+      ],
+      "bloomColor": [
+        "not applicable"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CALI7"
+    },
+    {
+      "usageKey": 8138466,
+      "canonicalName": "Arnica angustifolia",
+      "vernacularName": "narrow-leaved arnica",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1965,
+      "lastYear": 1965,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 1.3333333333333333,
+      "light": [
+        "sun"
+      ],
+      "moisture": [
+        "dry"
+      ],
+      "waterUse": null,
+      "soilCategories": [
+        "sand",
+        "rock"
+      ],
+      "bloomTime": [
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "yellow"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ARAN5"
+    },
+    {
+      "usageKey": 2730127,
+      "canonicalName": "Eriophorum angustifolium",
+      "vernacularName": "narrow-leaved cottongrass",
+      "occurrenceCount": 4,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 4,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 2004,
+      "lastYear": 2004,
+      "growthHabit": [
+        "grass/grass-like"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 3,
+      "light": [
+        "sun"
+      ],
+      "moisture": [
+        "wet"
+      ],
+      "waterUse": "high",
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "white",
+        "yellow",
+        "brown"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ERAN6"
+    },
+    {
+      "usageKey": 5404691,
+      "canonicalName": "Saussurea angustifolia",
+      "vernacularName": "narrow-leaved sawwort",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1944,
+      "lastYear": 1944,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 1.6666666666666663,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "purple"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAAN3"
+    },
+    {
+      "usageKey": 2914338,
+      "canonicalName": "Galium boreale",
+      "vernacularName": "northern bedstraw",
+      "occurrenceCount": 2,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 2,
+      "coordinateUncertaintyMedianM": 2141,
+      "firstYear": 1892,
+      "lastYear": 1987,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 2,
+      "light": [
+        "sun",
+        "part shade",
+        "shade"
+      ],
+      "moisture": [
+        "moist"
+      ],
+      "waterUse": "medium",
+      "soilCategories": [
+        "rock"
+      ],
+      "bloomTime": [
+        "may",
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "white"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=GABO2"
+    },
+    {
+      "usageKey": 2702302,
+      "canonicalName": "Sparganium hyperboreum",
+      "vernacularName": "northern burreed",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 2005,
+      "lastYear": 2005,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 2.6666666666666665,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "white"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SPHY"
+    },
+    {
+      "usageKey": 2889770,
+      "canonicalName": "Geocaulon lividum",
+      "vernacularName": "northern comandra",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1943,
+      "lastYear": 1943,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 1,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jul"
+      ],
+      "bloomColor": [
+        "green",
+        "purple"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=GELI2"
+    },
+    {
+      "usageKey": 2701930,
+      "canonicalName": "Juncus alpinoarticulatus",
+      "vernacularName": "northern green rush",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1966,
+      "lastYear": 1966,
+      "growthHabit": [
+        "grass/grass-like"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 1.6666666666666663,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jul",
+        "aug",
+        "sep",
+        "oct",
+        "nov"
+      ],
+      "bloomColor": [
+        "yellow",
+        "green"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=JUAL4"
+    },
+    {
+      "usageKey": 2960863,
+      "canonicalName": "Hedysarum boreale",
+      "vernacularName": "northern hedysarum",
+      "occurrenceCount": 1,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 2019,
+      "lastYear": 2019,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 2,
+      "light": [
+        "sun"
+      ],
+      "moisture": [
+        "dry"
+      ],
+      "waterUse": "medium",
+      "soilCategories": [
+        "sand",
+        "rock"
+      ],
+      "bloomTime": [
+        "apr",
+        "may",
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "red",
+        "pink",
+        "purple"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=HEBO"
+    },
+    {
+      "usageKey": 6400569,
+      "canonicalName": "Rhododendron tomentosum",
+      "vernacularName": "northern Labrador tea",
+      "occurrenceCount": 3,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 3,
+      "coordinateUncertaintyMedianM": 2148,
+      "firstYear": 1943,
+      "lastYear": 1971,
+      "growthHabit": [],
+      "duration": null,
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": null,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [],
+      "bloomColor": [],
+      "lbjUrl": null
+    },
+    {
+      "usageKey": 3169326,
+      "canonicalName": "Androsace septentrionalis",
+      "vernacularName": "northern rock-jasmine",
+      "occurrenceCount": 1,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": 2927,
+      "firstYear": 2021,
+      "lastYear": 2021,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "annual",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 0.0833333333333333,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "apr",
+        "may",
+        "jun",
+        "jul",
+        "aug",
+        "sep"
+      ],
+      "bloomColor": [
+        "white"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ANSE4"
+    },
+    {
+      "usageKey": 5371864,
+      "canonicalName": "Cicuta virosa",
+      "vernacularName": "northern water-hemlock",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1999,
+      "lastYear": 1999,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 6,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "white"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CIVI5"
+    },
+    {
+      "usageKey": 2704691,
+      "canonicalName": "Puccinellia nuttalliana",
+      "vernacularName": "Nuttall's alkaligrass",
+      "occurrenceCount": 3,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 3,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1965,
+      "lastYear": 1965,
+      "growthHabit": [
+        "grass/grass-like"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 3,
+      "light": [
+        "sun"
+      ],
+      "moisture": [],
+      "waterUse": "medium",
+      "soilCategories": [],
+      "bloomTime": [
+        "apr",
+        "may"
+      ],
+      "bloomColor": [
+        "yellow"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PUNU2"
+    },
+    {
+      "usageKey": 2888310,
+      "canonicalName": "Orthilia secunda",
+      "vernacularName": "one-sided wintergreen",
+      "occurrenceCount": 3,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 2,
+      "coordinateUncertaintyMedianM": 12151,
+      "firstYear": 1943,
+      "lastYear": 2025,
+      "growthHabit": [
+        "Subshrub"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 0.8333333333333333,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "white",
+        "green"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ORSE"
+    },
+    {
+      "usageKey": 5332120,
+      "canonicalName": "Betula papyrifera",
+      "vernacularName": "paper birch",
+      "occurrenceCount": 2,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 2,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1943,
+      "lastYear": 1943,
+      "growthHabit": [
+        "tree"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 75,
+      "light": [
+        "sun",
+        "part shade",
+        "shade"
+      ],
+      "moisture": [
+        "moist"
+      ],
+      "waterUse": "high",
+      "soilCategories": [],
+      "bloomTime": [
+        "apr"
+      ],
+      "bloomColor": [
+        "yellow",
+        "green",
+        "brown"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=BEPA"
+    },
+    {
+      "usageKey": 3929080,
+      "canonicalName": "Pulsatilla nuttalliana",
+      "vernacularName": "prairie pasqueflower",
+      "occurrenceCount": 1,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": 5,
+      "firstYear": 2025,
+      "lastYear": 2025,
+      "growthHabit": [],
+      "duration": null,
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": null,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [],
+      "bloomColor": [],
+      "lbjUrl": null
+    },
+    {
+      "usageKey": 3121436,
+      "canonicalName": "Artemisia frigida",
+      "vernacularName": "prairie sagewort",
+      "occurrenceCount": 1,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": 3,
+      "firstYear": 2025,
+      "lastYear": 2025,
+      "growthHabit": [
+        "Subshrub"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 1.5,
+      "light": [
+        "sun"
+      ],
+      "moisture": [
+        "dry"
+      ],
+      "waterUse": "low",
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "yellow"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ARFR4"
+    },
+    {
+      "usageKey": 3002193,
+      "canonicalName": "Rosa acicularis",
+      "vernacularName": "prickly rose",
+      "occurrenceCount": 3,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 2,
+      "coordinateUncertaintyMedianM": 2148,
+      "firstYear": 1971,
+      "lastYear": 2019,
+      "growthHabit": [
+        "shrub"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 8,
+      "light": [
+        "sun",
+        "part shade"
+      ],
+      "moisture": [
+        "dry",
+        "moist",
+        "wet"
+      ],
+      "waterUse": "high",
+      "soilCategories": [
+        "rock"
+      ],
+      "bloomTime": [
+        "jun",
+        "jul"
+      ],
+      "bloomColor": [
+        "white",
+        "pink"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ROAC"
+    },
+    {
+      "usageKey": 7821030,
+      "canonicalName": "Polygonum aviculare",
+      "vernacularName": "prostrate knotweed",
+      "occurrenceCount": 1,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": 5,
+      "firstYear": 2019,
+      "lastYear": 2019,
+      "growthHabit": [],
+      "duration": null,
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": null,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [],
+      "bloomColor": [],
+      "lbjUrl": null
+    },
+    {
+      "usageKey": 4154191,
+      "canonicalName": "Bromus pumpellianus",
+      "vernacularName": "Pumpelly's brome",
+      "occurrenceCount": 2,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 2,
+      "coordinateUncertaintyMedianM": 2141,
+      "firstYear": 1987,
+      "lastYear": 2016,
+      "growthHabit": [],
+      "duration": null,
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": null,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [],
+      "bloomColor": [],
+      "lbjUrl": null
+    },
+    {
+      "usageKey": 2704883,
+      "canonicalName": "Calamagrostis purpurascens",
+      "vernacularName": "purple reedgrass",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": 2141,
+      "firstYear": 1987,
+      "lastYear": 1987,
+      "growthHabit": [
+        "grass/grass-like"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 2.6666666666666665,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "pink",
+        "purple"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CAPU"
+    },
+    {
+      "usageKey": 2882597,
+      "canonicalName": "Arctous rubra",
+      "vernacularName": "red bearberry",
+      "occurrenceCount": 1,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": 1542,
+      "firstYear": 2018,
+      "lastYear": 2018,
+      "growthHabit": [],
+      "duration": null,
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": null,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [],
+      "bloomColor": [],
+      "lbjUrl": null
+    },
+    {
+      "usageKey": 2704922,
+      "canonicalName": "Festuca rubra",
+      "vernacularName": "red fescue",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 2004,
+      "lastYear": 2004,
+      "growthHabit": [
+        "grass/grass-like"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 4,
+      "light": [
+        "sun"
+      ],
+      "moisture": [
+        "wet"
+      ],
+      "waterUse": "medium",
+      "soilCategories": [
+        "clay",
+        "loam"
+      ],
+      "bloomTime": [
+        "apr",
+        "may",
+        "jun",
+        "jul",
+        "aug",
+        "sep"
+      ],
+      "bloomColor": [
+        "yellow"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=FERU2"
+    },
+    {
+      "usageKey": 3082244,
+      "canonicalName": "Cornus sericea",
+      "vernacularName": "red-osier dogwood",
+      "occurrenceCount": 2,
+      "humanObservationCount": 2,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": 4,
+      "firstYear": 2024,
+      "lastYear": 2025,
+      "growthHabit": [
+        "shrub"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 12,
+      "light": [
+        "part shade"
+      ],
+      "moisture": [
+        "moist"
+      ],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "may",
+        "jun"
+      ],
+      "bloomColor": [
+        "white"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=COSE16"
+    },
+    {
+      "usageKey": 9586211,
+      "canonicalName": "Anemonastrum richardsonii",
+      "vernacularName": "Richardson's anemone",
+      "occurrenceCount": 1,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 2021,
+      "lastYear": 2021,
+      "growthHabit": [],
+      "duration": null,
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": null,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [],
+      "bloomColor": [],
+      "lbjUrl": null
+    },
+    {
+      "usageKey": 5301198,
+      "canonicalName": "Potamogeton richardsonii",
+      "vernacularName": "Richardson's pondweed",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1999,
+      "lastYear": 1999,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 3,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul",
+        "aug",
+        "sep",
+        "oct"
+      ],
+      "bloomColor": [
+        "yellow",
+        "green"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PORI2"
+    },
+    {
+      "usageKey": 10714947,
+      "canonicalName": "Oxybasis salina",
+      "vernacularName": "Rocky Mountain goosefoot",
+      "occurrenceCount": 2,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 2,
+      "coordinateUncertaintyMedianM": 27830,
+      "firstYear": 1995,
+      "lastYear": 2003,
+      "growthHabit": [],
+      "duration": null,
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": null,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [],
+      "bloomColor": [],
+      "lbjUrl": null
+    },
+    {
+      "usageKey": 5369874,
+      "canonicalName": "Geum rossii",
+      "vernacularName": "Ross' avens",
+      "occurrenceCount": 1,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": 2582515,
+      "firstYear": 2020,
+      "lastYear": 2020,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 1,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "yellow"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=GEROD"
+    },
+    {
+      "usageKey": 2706444,
+      "canonicalName": "Agrostis scabra",
+      "vernacularName": "rough bentgrass",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1965,
+      "lastYear": 1965,
+      "growthHabit": [
+        "grass/grass-like"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 3.5,
+      "light": [
+        "sun"
+      ],
+      "moisture": [
+        "dry"
+      ],
+      "waterUse": "medium",
+      "soilCategories": [
+        "sand"
+      ],
+      "bloomTime": [
+        "mar",
+        "apr"
+      ],
+      "bloomColor": [
+        "yellow"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=AGSC5"
+    },
+    {
+      "usageKey": 5365305,
+      "canonicalName": "Potentilla norvegica",
+      "vernacularName": "rough cinquefoil",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1999,
+      "lastYear": 1999,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "annual",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 3,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "yellow"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PONO3"
+    },
+    {
+      "usageKey": 8086623,
+      "canonicalName": "Symphyotrichum boreale",
+      "vernacularName": "rush aster",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 2003,
+      "lastYear": 2003,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 3,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "aug",
+        "sep",
+        "oct"
+      ],
+      "bloomColor": [
+        "white",
+        "pink",
+        "purple"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SYBO2"
+    },
+    {
+      "usageKey": 2722973,
+      "canonicalName": "Carex loliacea",
+      "vernacularName": "ryegrass sedge",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 2005,
+      "lastYear": 2005,
+      "growthHabit": [
+        "grass/grass-like"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 1.3333333333333333,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul"
+      ],
+      "bloomColor": [
+        "green",
+        "brown"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CALO4"
+    },
+    {
+      "usageKey": 5384598,
+      "canonicalName": "Stellaria humifusa",
+      "vernacularName": "saltmarsh starwort",
+      "occurrenceCount": 4,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 4,
+      "coordinateUncertaintyMedianM": 2206,
+      "firstYear": 2004,
+      "lastYear": 2004,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 0.8333333333333333,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "white"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=STHU"
+    },
+    {
+      "usageKey": 5372917,
+      "canonicalName": "Salix interior",
+      "vernacularName": "sandbar willow",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1947,
+      "lastYear": 1947,
+      "growthHabit": [
+        "shrub",
+        "tree"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 30,
+      "light": [
+        "sun",
+        "part shade",
+        "shade"
+      ],
+      "moisture": [
+        "dry",
+        "moist",
+        "wet"
+      ],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "apr",
+        "may",
+        "jun",
+        "jul"
+      ],
+      "bloomColor": [
+        "red",
+        "yellow",
+        "green",
+        "brown"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAIN3"
+    },
+    {
+      "usageKey": 2727003,
+      "canonicalName": "Carex marina",
+      "vernacularName": "sea sedge",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": 2148,
+      "firstYear": 1971,
+      "lastYear": 1971,
+      "growthHabit": [
+        "grass/grass-like"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 1,
+      "light": [],
+      "moisture": [
+        "moist"
+      ],
+      "waterUse": "high",
+      "soilCategories": [],
+      "bloomTime": [
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "not applicable"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CAMA34"
+    },
+    {
+      "usageKey": 3169899,
+      "canonicalName": "Gentianopsis detonsa",
+      "vernacularName": "sheared fringed-gentian",
+      "occurrenceCount": 2,
+      "humanObservationCount": 2,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": 4,
+      "firstYear": 2025,
+      "lastYear": 2025,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "annual|biennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 1.6666666666666663,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "white",
+        "blue"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=GEDE4"
+    },
+    {
+      "usageKey": 2725816,
+      "canonicalName": "Carex vaginata",
+      "vernacularName": "sheathed sedge",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1943,
+      "lastYear": 1943,
+      "growthHabit": [
+        "grass/grass-like"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 2,
+      "light": [],
+      "moisture": [
+        "moist",
+        "wet"
+      ],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul"
+      ],
+      "bloomColor": [
+        "not applicable"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CAVA2"
+    },
+    {
+      "usageKey": 2927853,
+      "canonicalName": "Polemonium pulcherrimum",
+      "vernacularName": "showy Jacob's-ladder",
+      "occurrenceCount": 2,
+      "humanObservationCount": 2,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": 5707,
+      "firstYear": 2007,
+      "lastYear": 2019,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 1.3333333333333333,
+      "light": [
+        "part shade"
+      ],
+      "moisture": [
+        "dry"
+      ],
+      "waterUse": null,
+      "soilCategories": [
+        "rock"
+      ],
+      "bloomTime": [
+        "may",
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "blue",
+        "purple"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=POPU3"
+    },
+    {
+      "usageKey": 5370380,
+      "canonicalName": "Dasiphora fruticosa",
+      "vernacularName": "shrubby cinquefoil",
+      "occurrenceCount": 2,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 2,
+      "coordinateUncertaintyMedianM": 2148,
+      "firstYear": 1971,
+      "lastYear": 1971,
+      "growthHabit": [
+        "shrub"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 4,
+      "light": [
+        "sun",
+        "part shade"
+      ],
+      "moisture": [],
+      "waterUse": "medium",
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul",
+        "aug",
+        "sep",
+        "oct",
+        "nov"
+      ],
+      "bloomColor": [
+        "yellow"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=DAFR6"
+    },
+    {
+      "usageKey": 5396081,
+      "canonicalName": "Eurybia sibirica",
+      "vernacularName": "Siberian aster",
+      "occurrenceCount": 8,
+      "humanObservationCount": 6,
+      "preservedSpecimenCount": 2,
+      "coordinateUncertaintyMedianM": 4,
+      "firstYear": 2006,
+      "lastYear": 2025,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 2,
+      "light": [
+        "sun"
+      ],
+      "moisture": [
+        "dry"
+      ],
+      "waterUse": null,
+      "soilCategories": [
+        "rock"
+      ],
+      "bloomTime": [
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "purple"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=EUSI13"
+    },
+    {
+      "usageKey": 3120223,
+      "canonicalName": "Achillea alpina",
+      "vernacularName": "Siberian yarrow",
+      "occurrenceCount": 3,
+      "humanObservationCount": 3,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": 4.5,
+      "firstYear": 2021,
+      "lastYear": 2025,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 2.5,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jul",
+        "aug",
+        "sep"
+      ],
+      "bloomColor": [
+        "white",
+        "yellow"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ACAL17"
+    },
+    {
+      "usageKey": 5367246,
+      "canonicalName": "Argentina anserina",
+      "vernacularName": "silverweed",
+      "occurrenceCount": 8,
+      "humanObservationCount": 5,
+      "preservedSpecimenCount": 3,
+      "coordinateUncertaintyMedianM": 5,
+      "firstYear": 2004,
+      "lastYear": 2025,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 0.75,
+      "light": [
+        "shade"
+      ],
+      "moisture": [
+        "moist"
+      ],
+      "waterUse": "high",
+      "soilCategories": [
+        "loam"
+      ],
+      "bloomTime": [
+        "may",
+        "jun",
+        "jul",
+        "aug",
+        "sep"
+      ],
+      "bloomColor": [
+        "yellow"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ARAN7"
+    },
+    {
+      "usageKey": 2702384,
+      "canonicalName": "Sparganium natans",
+      "vernacularName": "small burreed",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1999,
+      "lastYear": 1999,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 2,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul",
+        "aug",
+        "sep"
+      ],
+      "bloomColor": [
+        "green"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SPNA"
+    },
+    {
+      "usageKey": 3033243,
+      "canonicalName": "Anemone parviflora",
+      "vernacularName": "small-flowered anemone",
+      "occurrenceCount": 3,
+      "humanObservationCount": 2,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": 1217,
+      "firstYear": 1911,
+      "lastYear": 2021,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 1.1666666666666663,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "may",
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "white",
+        "blue"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ANPAG"
+    },
+    {
+      "usageKey": 3171713,
+      "canonicalName": "Pedicularis parviflora",
+      "vernacularName": "small-flowered lousewort",
+      "occurrenceCount": 2,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 2,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1999,
+      "lastYear": 1999,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "annual|perennial|biennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 2,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "pink",
+        "purple"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PEPA4"
+    },
+    {
+      "usageKey": 5372427,
+      "canonicalName": "Shepherdia canadensis",
+      "vernacularName": "soapberry",
+      "occurrenceCount": 1,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": 4,
+      "firstYear": 2024,
+      "lastYear": 2024,
+      "growthHabit": [
+        "shrub"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 10,
+      "light": [
+        "sun",
+        "part shade",
+        "shade"
+      ],
+      "moisture": [
+        "dry",
+        "moist"
+      ],
+      "waterUse": "medium",
+      "soilCategories": [
+        "rock"
+      ],
+      "bloomTime": [
+        "apr",
+        "may"
+      ],
+      "bloomColor": [
+        "yellow"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SHCA"
+    },
+    {
+      "usageKey": 9206474,
+      "canonicalName": "Triantha glutinosa",
+      "vernacularName": "sticky tofieldia",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1999,
+      "lastYear": 1999,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 1.6666666666666663,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "white"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=TRGL5"
+    },
+    {
+      "usageKey": 2986159,
+      "canonicalName": "Ribes triste",
+      "vernacularName": "swamp red currant",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1943,
+      "lastYear": 1943,
+      "growthHabit": [
+        "shrub"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 3,
+      "light": [
+        "sun",
+        "part shade",
+        "shade"
+      ],
+      "moisture": [
+        "moist"
+      ],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "may",
+        "jun",
+        "jul"
+      ],
+      "bloomColor": [
+        "white",
+        "red",
+        "green",
+        "purple"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=RITR"
+    },
+    {
+      "usageKey": 5414202,
+      "canonicalName": "Myrica gale",
+      "vernacularName": "sweet gale",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1999,
+      "lastYear": 1999,
+      "growthHabit": [
+        "shrub"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 6,
+      "light": [
+        "sun",
+        "part shade",
+        "shade"
+      ],
+      "moisture": [
+        "moist",
+        "wet"
+      ],
+      "waterUse": "medium",
+      "soilCategories": [],
+      "bloomTime": [
+        "jul",
+        "aug",
+        "sep"
+      ],
+      "bloomColor": [
+        "yellow",
+        "green",
+        "blue",
+        "brown"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=MYGA"
+    },
+    {
+      "usageKey": 2686231,
+      "canonicalName": "Larix laricina",
+      "vernacularName": "tamarack",
+      "occurrenceCount": 3,
+      "humanObservationCount": 3,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": 7813,
+      "firstYear": 2019,
+      "lastYear": 2022,
+      "growthHabit": [
+        "tree"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 75,
+      "light": [
+        "sun",
+        "shade"
+      ],
+      "moisture": [
+        "moist",
+        "wet"
+      ],
+      "waterUse": "medium",
+      "soilCategories": [],
+      "bloomTime": [
+        "apr"
+      ],
+      "bloomColor": [
+        "red",
+        "yellow",
+        "green",
+        "brown"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=LALA"
+    },
+    {
+      "usageKey": 5372987,
+      "canonicalName": "Salix planifolia",
+      "vernacularName": "tea-leaved willow",
+      "occurrenceCount": 2,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 2,
+      "coordinateUncertaintyMedianM": 2148,
+      "firstYear": 1971,
+      "lastYear": 1971,
+      "growthHabit": [
+        "Subshrub",
+        "shrub",
+        "tree"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 30,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "may",
+        "jun"
+      ],
+      "bloomColor": [
+        "yellow",
+        "green",
+        "purple",
+        "brown",
+        "black"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAPLP4"
+    },
+    {
+      "usageKey": 3121080,
+      "canonicalName": "Artemisia tilesii",
+      "vernacularName": "Tilesius wormwood",
+      "occurrenceCount": 1,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": 6,
+      "firstYear": 2025,
+      "lastYear": 2025,
+      "growthHabit": [
+        "herb",
+        "Subshrub"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 2.5,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jul",
+        "aug",
+        "sep"
+      ],
+      "bloomColor": [
+        "yellow"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ARTI"
+    },
+    {
+      "usageKey": 6413649,
+      "canonicalName": "Juncus bufonius",
+      "vernacularName": "toad rush",
+      "occurrenceCount": 2,
+      "humanObservationCount": 2,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": 10,
+      "firstYear": 2019,
+      "lastYear": 2019,
+      "growthHabit": [
+        "grass/grass-like"
+      ],
+      "duration": "annual",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": null,
+      "light": [
+        "sun"
+      ],
+      "moisture": [],
+      "waterUse": "medium",
+      "soilCategories": [],
+      "bloomTime": [
+        "mar",
+        "apr",
+        "may"
+      ],
+      "bloomColor": [
+        "green"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=JUBU"
+    },
+    {
+      "usageKey": 6391377,
+      "canonicalName": "Rumex triangulivalvis",
+      "vernacularName": "triangular-valve dock",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 2016,
+      "lastYear": 2016,
+      "growthHabit": [],
+      "duration": null,
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": null,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [],
+      "bloomColor": [],
+      "lbjUrl": null
+    },
+    {
+      "usageKey": 8059811,
+      "canonicalName": "Deschampsia cespitosa",
+      "vernacularName": "tufted hairgrass",
+      "occurrenceCount": 1,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 2019,
+      "lastYear": 2019,
+      "growthHabit": [
+        "grass/grass-like"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 5,
+      "light": [
+        "part shade"
+      ],
+      "moisture": [
+        "wet"
+      ],
+      "waterUse": "low",
+      "soilCategories": [],
+      "bloomTime": [
+        "jun"
+      ],
+      "bloomColor": [
+        "yellow"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=DECE"
+    },
+    {
+      "usageKey": 2730185,
+      "canonicalName": "Eriophorum vaginatum",
+      "vernacularName": "tussock cottongrass",
+      "occurrenceCount": 3,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 2,
+      "coordinateUncertaintyMedianM": 31250,
+      "firstYear": 1957,
+      "lastYear": 2008,
+      "growthHabit": [
+        "grass/grass-like"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 2,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "not applicable"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ERVA4"
+    },
+    {
+      "usageKey": 2722817,
+      "canonicalName": "Carex bicolor",
+      "vernacularName": "two-coloured sedge",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 2004,
+      "lastYear": 2004,
+      "growthHabit": [
+        "grass/grass-like"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 0.6666666666666666,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "green",
+        "brown"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CABI4"
+    },
+    {
+      "usageKey": 2703346,
+      "canonicalName": "Anthoxanthum nitens",
+      "vernacularName": "vanilla sweetgrass",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1965,
+      "lastYear": 1965,
+      "growthHabit": [],
+      "duration": null,
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": null,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [],
+      "bloomColor": [],
+      "lbjUrl": null
+    },
+    {
+      "usageKey": 2687937,
+      "canonicalName": "Equisetum fluviatile",
+      "vernacularName": "water horsetail",
+      "occurrenceCount": 1,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 2019,
+      "lastYear": 2019,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 3.5,
+      "light": [
+        "sun",
+        "part shade",
+        "shade"
+      ],
+      "moisture": [
+        "moist",
+        "wet"
+      ],
+      "waterUse": "high",
+      "soilCategories": [],
+      "bloomTime": [
+        "apr",
+        "may"
+      ],
+      "bloomColor": [
+        "not applicable"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=EQFL"
+    },
+    {
+      "usageKey": 2724150,
+      "canonicalName": "Carex aquatilis",
+      "vernacularName": "water sedge",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1944,
+      "lastYear": 1944,
+      "growthHabit": [
+        "grass/grass-like"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 5,
+      "light": [
+        "sun",
+        "part shade"
+      ],
+      "moisture": [
+        "moist",
+        "wet"
+      ],
+      "waterUse": "high",
+      "soilCategories": [],
+      "bloomTime": [
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "white",
+        "green",
+        "brown"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CAAQ"
+    },
+    {
+      "usageKey": 5284745,
+      "canonicalName": "Picea glauca",
+      "vernacularName": "white spruce",
+      "occurrenceCount": 1,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": 5,
+      "firstYear": 2024,
+      "lastYear": 2024,
+      "growthHabit": [
+        "tree"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 100,
+      "light": [
+        "sun",
+        "part shade",
+        "shade"
+      ],
+      "moisture": [
+        "dry",
+        "moist"
+      ],
+      "waterUse": "medium",
+      "soilCategories": [
+        "loam"
+      ],
+      "bloomTime": [
+        "apr",
+        "may"
+      ],
+      "bloomColor": [
+        "red",
+        "yellow"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PIGL"
+    },
+    {
+      "usageKey": 2706312,
+      "canonicalName": "Arctagrostis latifolia",
+      "vernacularName": "wide-leaved polargrass",
+      "occurrenceCount": 3,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 3,
+      "coordinateUncertaintyMedianM": 2148,
+      "firstYear": 1965,
+      "lastYear": 1971,
+      "growthHabit": [
+        "grass/grass-like"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 3,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul"
+      ],
+      "bloomColor": [
+        "white",
+        "red",
+        "green"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ARLAL6"
+    },
+    {
+      "usageKey": 5341411,
+      "canonicalName": "Monarda fistulosa",
+      "vernacularName": "wild bergamot",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1972,
+      "lastYear": 1972,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 5,
+      "light": [
+        "sun",
+        "part shade"
+      ],
+      "moisture": [
+        "dry",
+        "moist"
+      ],
+      "waterUse": "medium",
+      "soilCategories": [
+        "clay",
+        "sand"
+      ],
+      "bloomTime": [
+        "may",
+        "jun",
+        "jul",
+        "aug",
+        "sep"
+      ],
+      "bloomColor": [
+        "white",
+        "pink",
+        "purple"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=MOFI"
+    },
+    {
+      "usageKey": 2855860,
+      "canonicalName": "Allium schoenoprasum",
+      "vernacularName": "wild chives",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1972,
+      "lastYear": 1972,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 1.6666666666666663,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "white",
+        "pink",
+        "purple"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ALSC"
+    },
+    {
+      "usageKey": 3039274,
+      "canonicalName": "Elaeagnus commutata",
+      "vernacularName": "wolf-willow",
+      "occurrenceCount": 1,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": 4,
+      "firstYear": 2025,
+      "lastYear": 2025,
+      "growthHabit": [
+        "shrub"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 15,
+      "light": [
+        "sun",
+        "part shade",
+        "shade"
+      ],
+      "moisture": [
+        "dry"
+      ],
+      "waterUse": "low",
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul"
+      ],
+      "bloomColor": [
+        "yellow"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ELCO"
+    },
+    {
+      "usageKey": 2687929,
+      "canonicalName": "Equisetum sylvaticum",
+      "vernacularName": "woodland horsetail",
+      "occurrenceCount": 1,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 2019,
+      "lastYear": 2019,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 2.333333333333333,
+      "light": [
+        "sun",
+        "part shade",
+        "shade"
+      ],
+      "moisture": [
+        "moist"
+      ],
+      "waterUse": "low",
+      "soilCategories": [],
+      "bloomTime": [
+        "mar",
+        "apr",
+        "may"
+      ],
+      "bloomColor": [
+        "not applicable"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=EQSY"
+    },
+    {
+      "usageKey": 3004072,
+      "canonicalName": "Rosa woodsii",
+      "vernacularName": "Woods' rose",
+      "occurrenceCount": 1,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": 4,
+      "firstYear": 2025,
+      "lastYear": 2025,
+      "growthHabit": [
+        "shrub"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 15,
+      "light": [
+        "sun",
+        "part shade",
+        "shade"
+      ],
+      "moisture": [
+        "dry",
+        "moist"
+      ],
+      "waterUse": "medium",
+      "soilCategories": [
+        "clay",
+        "sand"
+      ],
+      "bloomTime": [
+        "may",
+        "jun",
+        "jul"
+      ],
+      "bloomColor": [
+        "pink"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ROWO"
+    },
+    {
+      "usageKey": 3032811,
+      "canonicalName": "Saxifraga hirculus",
+      "vernacularName": "yellow marsh saxifrage",
+      "occurrenceCount": 2,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 2,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 2004,
+      "lastYear": 2004,
+      "growthHabit": [
+        "herb"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 1.1666666666666663,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul",
+        "aug"
+      ],
+      "bloomColor": [
+        "orange",
+        "yellow"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAHI3"
+    },
+    {
+      "usageKey": 5370264,
+      "canonicalName": "Argentina subarctica",
+      "vernacularName": "Yukon silverweed",
+      "occurrenceCount": 1,
+      "humanObservationCount": 0,
+      "preservedSpecimenCount": 1,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 1947,
+      "lastYear": 1947,
+      "growthHabit": [],
+      "duration": null,
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": null,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [],
+      "bloomColor": [],
+      "lbjUrl": null
+    }
+  ]
+}

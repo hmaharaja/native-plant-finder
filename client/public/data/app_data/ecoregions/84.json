@@ -1,0 +1,261 @@
+{
+  "ecoregionId": 84,
+  "ecoregionName": "Winokupu Lake North",
+  "plantCount": 8,
+  "plants": [
+    {
+      "usageKey": 8925249,
+      "canonicalName": "Empetrum nigrum",
+      "vernacularName": "black crowberry",
+      "occurrenceCount": 1,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 2024,
+      "lastYear": 2024,
+      "growthHabit": [
+        "shrub"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 3,
+      "light": [
+        "sun"
+      ],
+      "moisture": [
+        "dry",
+        "moist",
+        "wet"
+      ],
+      "waterUse": "low",
+      "soilCategories": [],
+      "bloomTime": [
+        "may",
+        "jun",
+        "jul"
+      ],
+      "bloomColor": [
+        "pink",
+        "purple"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=EMNI"
+    },
+    {
+      "usageKey": 8073364,
+      "canonicalName": "Vaccinium uliginosum",
+      "vernacularName": "bog bilberry",
+      "occurrenceCount": 2,
+      "humanObservationCount": 2,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 2024,
+      "lastYear": 2024,
+      "growthHabit": [
+        "shrub"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 2,
+      "light": [
+        "sun",
+        "part shade",
+        "shade"
+      ],
+      "moisture": [
+        "moist",
+        "wet"
+      ],
+      "waterUse": "medium",
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul"
+      ],
+      "bloomColor": [
+        "pink"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=VAUL"
+    },
+    {
+      "usageKey": 5331640,
+      "canonicalName": "Betula glandulosa",
+      "vernacularName": "glandular birch",
+      "occurrenceCount": 1,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 2024,
+      "lastYear": 2024,
+      "growthHabit": [
+        "Subshrub",
+        "shrub"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 10,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "may",
+        "jun"
+      ],
+      "bloomColor": [
+        "green",
+        "brown"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=BEGL"
+    },
+    {
+      "usageKey": 2882984,
+      "canonicalName": "Rhododendron groenlandicum",
+      "vernacularName": "Labrador tea",
+      "occurrenceCount": 1,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": 977,
+      "firstYear": 2009,
+      "lastYear": 2009,
+      "growthHabit": [],
+      "duration": null,
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": null,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [],
+      "bloomColor": [],
+      "lbjUrl": null
+    },
+    {
+      "usageKey": 8147903,
+      "canonicalName": "Vaccinium boreale",
+      "vernacularName": "northern blueberry",
+      "occurrenceCount": 1,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 2024,
+      "lastYear": 2024,
+      "growthHabit": [
+        "Subshrub"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 0.3333333333333333,
+      "light": [
+        "sun"
+      ],
+      "moisture": [
+        "moist"
+      ],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [],
+      "bloomColor": [
+        "white",
+        "green"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=VABO"
+    },
+    {
+      "usageKey": 2688387,
+      "canonicalName": "Lycopodium lagopus",
+      "vernacularName": "one-cone clubmoss",
+      "occurrenceCount": 1,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 2024,
+      "lastYear": 2024,
+      "growthHabit": [
+        "herb",
+        "Subshrub"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 0.8333333333333333,
+      "light": [],
+      "moisture": [],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [],
+      "bloomColor": [
+        "not applicable"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=LYLA5"
+    },
+    {
+      "usageKey": 2882990,
+      "canonicalName": "Kalmia polifolia",
+      "vernacularName": "pale bog laurel",
+      "occurrenceCount": 1,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": null,
+      "firstYear": 2024,
+      "lastYear": 2024,
+      "growthHabit": [
+        "shrub"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 3,
+      "light": [
+        "sun",
+        "part shade",
+        "shade"
+      ],
+      "moisture": [
+        "wet"
+      ],
+      "waterUse": "medium",
+      "soilCategories": [],
+      "bloomTime": [
+        "may",
+        "jun"
+      ],
+      "bloomColor": [
+        "white",
+        "pink"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=KAPO"
+    },
+    {
+      "usageKey": 2883007,
+      "canonicalName": "Kalmia angustifolia",
+      "vernacularName": "sheep laurel",
+      "occurrenceCount": 1,
+      "humanObservationCount": 1,
+      "preservedSpecimenCount": 0,
+      "coordinateUncertaintyMedianM": 2931896,
+      "firstYear": 2019,
+      "lastYear": 2019,
+      "growthHabit": [
+        "shrub"
+      ],
+      "duration": "perennial",
+      "matureHeightMinFt": null,
+      "matureHeightMaxFt": 5,
+      "light": [
+        "part shade"
+      ],
+      "moisture": [
+        "wet"
+      ],
+      "waterUse": null,
+      "soilCategories": [],
+      "bloomTime": [
+        "jun",
+        "jul"
+      ],
+      "bloomColor": [
+        "red",
+        "purple"
+      ],
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=KAAN"
+    }
+  ]
+}

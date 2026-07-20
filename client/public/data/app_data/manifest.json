@@ -1,0 +1,1171 @@
+{
+  "ecoregionCount": 194,
+  "plantEcoregionCount": 105313,
+  "missingLbjTraitCount": 14289,
+  "ecoregions": [
+    {
+      "ecoregionId": 1,
+      "ecoregionName": "Ellesmere and Devon Island Ice Caps",
+      "path": "ecoregions/1.json",
+      "plantCount": 165
+    },
+    {
+      "ecoregionId": 5,
+      "ecoregionName": "Baffin Mountains",
+      "path": "ecoregions/5.json",
+      "plantCount": 231
+    },
+    {
+      "ecoregionId": 6,
+      "ecoregionName": "Baffin Island Coastal Lowlands",
+      "path": "ecoregions/6.json",
+      "plantCount": 105
+    },
+    {
+      "ecoregionId": 7,
+      "ecoregionName": "Torngat Mountains",
+      "path": "ecoregions/7.json",
+      "plantCount": 334
+    },
+    {
+      "ecoregionId": 8,
+      "ecoregionName": "Ellesmere Mountains",
+      "path": "ecoregions/8.json",
+      "plantCount": 122
+    },
+    {
+      "ecoregionId": 9,
+      "ecoregionName": "Eureka Hills",
+      "path": "ecoregions/9.json",
+      "plantCount": 160
+    },
+    {
+      "ecoregionId": 11,
+      "ecoregionName": "Sverdrup Islands Lowland",
+      "path": "ecoregions/11.json",
+      "plantCount": 124
+    },
+    {
+      "ecoregionId": 12,
+      "ecoregionName": "Parry Islands Plateau",
+      "path": "ecoregions/12.json",
+      "plantCount": 134
+    },
+    {
+      "ecoregionId": 13,
+      "ecoregionName": "Lancaster Plateau",
+      "path": "ecoregions/13.json",
+      "plantCount": 145
+    },
+    {
+      "ecoregionId": 14,
+      "ecoregionName": "Banks Island Coastal Plain",
+      "path": "ecoregions/14.json",
+      "plantCount": 164
+    },
+    {
+      "ecoregionId": 15,
+      "ecoregionName": "Banks Island Lowland",
+      "path": "ecoregions/15.json",
+      "plantCount": 208
+    },
+    {
+      "ecoregionId": 16,
+      "ecoregionName": "Amundsen Gulf Lowlands",
+      "path": "ecoregions/16.json",
+      "plantCount": 287
+    },
+    {
+      "ecoregionId": 17,
+      "ecoregionName": "Shaler Mountains",
+      "path": "ecoregions/17.json",
+      "plantCount": 79
+    },
+    {
+      "ecoregionId": 18,
+      "ecoregionName": "Victoria Islands Lowland",
+      "path": "ecoregions/18.json",
+      "plantCount": 172
+    },
+    {
+      "ecoregionId": 19,
+      "ecoregionName": "Prince of Wales Island Lowland",
+      "path": "ecoregions/19.json",
+      "plantCount": 49
+    },
+    {
+      "ecoregionId": 20,
+      "ecoregionName": "Boothia Peninsula Plateau",
+      "path": "ecoregions/20.json",
+      "plantCount": 103
+    },
+    {
+      "ecoregionId": 21,
+      "ecoregionName": "Gulf of Boothia Plain",
+      "path": "ecoregions/21.json",
+      "plantCount": 104
+    },
+    {
+      "ecoregionId": 22,
+      "ecoregionName": "Borden Peninsula Plateau",
+      "path": "ecoregions/22.json",
+      "plantCount": 169
+    },
+    {
+      "ecoregionId": 23,
+      "ecoregionName": "Melville Peninsula Plateau",
+      "path": "ecoregions/23.json",
+      "plantCount": 140
+    },
+    {
+      "ecoregionId": 24,
+      "ecoregionName": "Baffin Island Uplands",
+      "path": "ecoregions/24.json",
+      "plantCount": 175
+    },
+    {
+      "ecoregionId": 25,
+      "ecoregionName": "Foxe Basin Plain",
+      "path": "ecoregions/25.json",
+      "plantCount": 142
+    },
+    {
+      "ecoregionId": 26,
+      "ecoregionName": "Pangnirtung Upland",
+      "path": "ecoregions/26.json",
+      "plantCount": 172
+    },
+    {
+      "ecoregionId": 27,
+      "ecoregionName": "Hall Peninsula Upland",
+      "path": "ecoregions/27.json",
+      "plantCount": 68
+    },
+    {
+      "ecoregionId": 28,
+      "ecoregionName": "Meta Incognita Peninsula",
+      "path": "ecoregions/28.json",
+      "plantCount": 283
+    },
+    {
+      "ecoregionId": 29,
+      "ecoregionName": "Baffin Upland",
+      "path": "ecoregions/29.json",
+      "plantCount": 96
+    },
+    {
+      "ecoregionId": 30,
+      "ecoregionName": "Wager Bay Plateau",
+      "path": "ecoregions/30.json",
+      "plantCount": 279
+    },
+    {
+      "ecoregionId": 31,
+      "ecoregionName": "Northern Ungava Peninsula",
+      "path": "ecoregions/31.json",
+      "plantCount": 290
+    },
+    {
+      "ecoregionId": 32,
+      "ecoregionName": "Yukon Coastal Plain",
+      "path": "ecoregions/32.json",
+      "plantCount": 393
+    },
+    {
+      "ecoregionId": 33,
+      "ecoregionName": "Tuktoyaktuk Coastal Plain",
+      "path": "ecoregions/33.json",
+      "plantCount": 414
+    },
+    {
+      "ecoregionId": 34,
+      "ecoregionName": "Anderson River Plain",
+      "path": "ecoregions/34.json",
+      "plantCount": 234
+    },
+    {
+      "ecoregionId": 35,
+      "ecoregionName": "Dease Arm Plain",
+      "path": "ecoregions/35.json",
+      "plantCount": 261
+    },
+    {
+      "ecoregionId": 36,
+      "ecoregionName": "Coronation Hills",
+      "path": "ecoregions/36.json",
+      "plantCount": 336
+    },
+    {
+      "ecoregionId": 37,
+      "ecoregionName": "Bluenose Lake Plain",
+      "path": "ecoregions/37.json",
+      "plantCount": 148
+    },
+    {
+      "ecoregionId": 38,
+      "ecoregionName": "Bathurst Hills",
+      "path": "ecoregions/38.json",
+      "plantCount": 216
+    },
+    {
+      "ecoregionId": 39,
+      "ecoregionName": "Queen Maud Gulf Lowland",
+      "path": "ecoregions/39.json",
+      "plantCount": 142
+    },
+    {
+      "ecoregionId": 40,
+      "ecoregionName": "Chantrey Inlet Lowland",
+      "path": "ecoregions/40.json",
+      "plantCount": 101
+    },
+    {
+      "ecoregionId": 41,
+      "ecoregionName": "Takijuq Lake Upland",
+      "path": "ecoregions/41.json",
+      "plantCount": 252
+    },
+    {
+      "ecoregionId": 42,
+      "ecoregionName": "Garry Lake Lowland",
+      "path": "ecoregions/42.json",
+      "plantCount": 178
+    },
+    {
+      "ecoregionId": 43,
+      "ecoregionName": "Back River Plain",
+      "path": "ecoregions/43.json",
+      "plantCount": 186
+    },
+    {
+      "ecoregionId": 44,
+      "ecoregionName": "Dubawnt Lake Plain/Upland",
+      "path": "ecoregions/44.json",
+      "plantCount": 160
+    },
+    {
+      "ecoregionId": 45,
+      "ecoregionName": "Maguse River Upland",
+      "path": "ecoregions/45.json",
+      "plantCount": 304
+    },
+    {
+      "ecoregionId": 46,
+      "ecoregionName": "Southampton Island Plain",
+      "path": "ecoregions/46.json",
+      "plantCount": 299
+    },
+    {
+      "ecoregionId": 47,
+      "ecoregionName": "Central Ungava Peninsula",
+      "path": "ecoregions/47.json",
+      "plantCount": 408
+    },
+    {
+      "ecoregionId": 48,
+      "ecoregionName": "Ottawa Islands",
+      "path": "ecoregions/48.json",
+      "plantCount": 141
+    },
+    {
+      "ecoregionId": 49,
+      "ecoregionName": "Belcher Islands",
+      "path": "ecoregions/49.json",
+      "plantCount": 268
+    },
+    {
+      "ecoregionId": 50,
+      "ecoregionName": "Mackenzie Delta",
+      "path": "ecoregions/50.json",
+      "plantCount": 329
+    },
+    {
+      "ecoregionId": 51,
+      "ecoregionName": "Peel River Plateau",
+      "path": "ecoregions/51.json",
+      "plantCount": 313
+    },
+    {
+      "ecoregionId": 52,
+      "ecoregionName": "Great Bear Lake Plain",
+      "path": "ecoregions/52.json",
+      "plantCount": 417
+    },
+    {
+      "ecoregionId": 53,
+      "ecoregionName": "Fort MacPherson Plain",
+      "path": "ecoregions/53.json",
+      "plantCount": 139
+    },
+    {
+      "ecoregionId": 54,
+      "ecoregionName": "Colville Hills",
+      "path": "ecoregions/54.json",
+      "plantCount": 161
+    },
+    {
+      "ecoregionId": 55,
+      "ecoregionName": "Norman Range",
+      "path": "ecoregions/55.json",
+      "plantCount": 377
+    },
+    {
+      "ecoregionId": 56,
+      "ecoregionName": "Mackenzie River Plain",
+      "path": "ecoregions/56.json",
+      "plantCount": 299
+    },
+    {
+      "ecoregionId": 57,
+      "ecoregionName": "Grandin Plains",
+      "path": "ecoregions/57.json",
+      "plantCount": 188
+    },
+    {
+      "ecoregionId": 58,
+      "ecoregionName": "Franklin Mountains",
+      "path": "ecoregions/58.json",
+      "plantCount": 119
+    },
+    {
+      "ecoregionId": 59,
+      "ecoregionName": "Keller Lake Plain",
+      "path": "ecoregions/59.json",
+      "plantCount": 37
+    },
+    {
+      "ecoregionId": 60,
+      "ecoregionName": "Great Slave Lake Plain",
+      "path": "ecoregions/60.json",
+      "plantCount": 267
+    },
+    {
+      "ecoregionId": 61,
+      "ecoregionName": "Nahanni Plateau",
+      "path": "ecoregions/61.json",
+      "plantCount": 284
+    },
+    {
+      "ecoregionId": 62,
+      "ecoregionName": "Sibbeston Lake Plain",
+      "path": "ecoregions/62.json",
+      "plantCount": 341
+    },
+    {
+      "ecoregionId": 63,
+      "ecoregionName": "Horn Plateau",
+      "path": "ecoregions/63.json",
+      "plantCount": 206
+    },
+    {
+      "ecoregionId": 64,
+      "ecoregionName": "Hay River Lowland",
+      "path": "ecoregions/64.json",
+      "plantCount": 644
+    },
+    {
+      "ecoregionId": 65,
+      "ecoregionName": "Northern Alberta Uplands",
+      "path": "ecoregions/65.json",
+      "plantCount": 413
+    },
+    {
+      "ecoregionId": 66,
+      "ecoregionName": "Muskwa Plateau",
+      "path": "ecoregions/66.json",
+      "plantCount": 410
+    },
+    {
+      "ecoregionId": 68,
+      "ecoregionName": "Coppermine River Upland",
+      "path": "ecoregions/68.json",
+      "plantCount": 316
+    },
+    {
+      "ecoregionId": 69,
+      "ecoregionName": "Tazin Lake Upland",
+      "path": "ecoregions/69.json",
+      "plantCount": 582
+    },
+    {
+      "ecoregionId": 70,
+      "ecoregionName": "Kazan River Upland",
+      "path": "ecoregions/70.json",
+      "plantCount": 426
+    },
+    {
+      "ecoregionId": 71,
+      "ecoregionName": "Selwyn Lake Upland",
+      "path": "ecoregions/71.json",
+      "plantCount": 286
+    },
+    {
+      "ecoregionId": 72,
+      "ecoregionName": "La Grande Hills",
+      "path": "ecoregions/72.json",
+      "plantCount": 727
+    },
+    {
+      "ecoregionId": 73,
+      "ecoregionName": "Southern Ungava Peninsula",
+      "path": "ecoregions/73.json",
+      "plantCount": 504
+    },
+    {
+      "ecoregionId": 74,
+      "ecoregionName": "New Quebec Central Plateau",
+      "path": "ecoregions/74.json",
+      "plantCount": 615
+    },
+    {
+      "ecoregionId": 75,
+      "ecoregionName": "Ungava Bay Basin",
+      "path": "ecoregions/75.json",
+      "plantCount": 531
+    },
+    {
+      "ecoregionId": 76,
+      "ecoregionName": "George Plateau",
+      "path": "ecoregions/76.json",
+      "plantCount": 350
+    },
+    {
+      "ecoregionId": 77,
+      "ecoregionName": "Kingurutuk-Fraser Rivers",
+      "path": "ecoregions/77.json",
+      "plantCount": 225
+    },
+    {
+      "ecoregionId": 78,
+      "ecoregionName": "Smallwood Reservoir-Michikamau",
+      "path": "ecoregions/78.json",
+      "plantCount": 411
+    },
+    {
+      "ecoregionId": 79,
+      "ecoregionName": "Coastal Barrens",
+      "path": "ecoregions/79.json",
+      "plantCount": 403
+    },
+    {
+      "ecoregionId": 80,
+      "ecoregionName": "Mecatina River",
+      "path": "ecoregions/80.json",
+      "plantCount": 280
+    },
+    {
+      "ecoregionId": 82,
+      "ecoregionName": "Eagle Plateau",
+      "path": "ecoregions/82.json",
+      "plantCount": 79
+    },
+    {
+      "ecoregionId": 84,
+      "ecoregionName": "Winokupu Lake North",
+      "path": "ecoregions/84.json",
+      "plantCount": 8
+    },
+    {
+      "ecoregionId": 85,
+      "ecoregionName": "Goose River West",
+      "path": "ecoregions/85.json",
+      "plantCount": 8
+    },
+    {
+      "ecoregionId": 87,
+      "ecoregionName": "Athabasca Plain",
+      "path": "ecoregions/87.json",
+      "plantCount": 297
+    },
+    {
+      "ecoregionId": 88,
+      "ecoregionName": "Churchill River Upland",
+      "path": "ecoregions/88.json",
+      "plantCount": 506
+    },
+    {
+      "ecoregionId": 89,
+      "ecoregionName": "Hayes River Upland",
+      "path": "ecoregions/89.json",
+      "plantCount": 536
+    },
+    {
+      "ecoregionId": 90,
+      "ecoregionName": "Lac Seul Upland",
+      "path": "ecoregions/90.json",
+      "plantCount": 741
+    },
+    {
+      "ecoregionId": 91,
+      "ecoregionName": "Lake of the Woods",
+      "path": "ecoregions/91.json",
+      "plantCount": 980
+    },
+    {
+      "ecoregionId": 92,
+      "ecoregionName": "Rainy River",
+      "path": "ecoregions/92.json",
+      "plantCount": 617
+    },
+    {
+      "ecoregionId": 93,
+      "ecoregionName": "Thunder Bay-Quetico",
+      "path": "ecoregions/93.json",
+      "plantCount": 988
+    },
+    {
+      "ecoregionId": 94,
+      "ecoregionName": "Lake Nipigon",
+      "path": "ecoregions/94.json",
+      "plantCount": 963
+    },
+    {
+      "ecoregionId": 95,
+      "ecoregionName": "Big Trout Lake",
+      "path": "ecoregions/95.json",
+      "plantCount": 497
+    },
+    {
+      "ecoregionId": 96,
+      "ecoregionName": "Abitibi Plains",
+      "path": "ecoregions/96.json",
+      "plantCount": 1115
+    },
+    {
+      "ecoregionId": 97,
+      "ecoregionName": "Lac Temiscamingue Lowland",
+      "path": "ecoregions/97.json",
+      "plantCount": 1029
+    },
+    {
+      "ecoregionId": 98,
+      "ecoregionName": "Algonquin-Lake Nipissing",
+      "path": "ecoregions/98.json",
+      "plantCount": 1347
+    },
+    {
+      "ecoregionId": 99,
+      "ecoregionName": "Southern Laurentians",
+      "path": "ecoregions/99.json",
+      "plantCount": 1452
+    },
+    {
+      "ecoregionId": 100,
+      "ecoregionName": "Rupert River Plateau",
+      "path": "ecoregions/100.json",
+      "plantCount": 642
+    },
+    {
+      "ecoregionId": 101,
+      "ecoregionName": "Central Laurentians",
+      "path": "ecoregions/101.json",
+      "plantCount": 1178
+    },
+    {
+      "ecoregionId": 102,
+      "ecoregionName": "Anticosti Island",
+      "path": "ecoregions/102.json",
+      "plantCount": 661
+    },
+    {
+      "ecoregionId": 103,
+      "ecoregionName": "Mecatina Plateau",
+      "path": "ecoregions/103.json",
+      "plantCount": 883
+    },
+    {
+      "ecoregionId": 104,
+      "ecoregionName": "Paradise River",
+      "path": "ecoregions/104.json",
+      "plantCount": 194
+    },
+    {
+      "ecoregionId": 105,
+      "ecoregionName": "Lake Melville",
+      "path": "ecoregions/105.json",
+      "plantCount": 368
+    },
+    {
+      "ecoregionId": 106,
+      "ecoregionName": "Strait of Belle Isle",
+      "path": "ecoregions/106.json",
+      "plantCount": 443
+    },
+    {
+      "ecoregionId": 107,
+      "ecoregionName": "Northern Penninsula",
+      "path": "ecoregions/107.json",
+      "plantCount": 593
+    },
+    {
+      "ecoregionId": 108,
+      "ecoregionName": "Long Range Mountains",
+      "path": "ecoregions/108.json",
+      "plantCount": 402
+    },
+    {
+      "ecoregionId": 109,
+      "ecoregionName": "Southwestern Newfoundland",
+      "path": "ecoregions/109.json",
+      "plantCount": 677
+    },
+    {
+      "ecoregionId": 112,
+      "ecoregionName": "Central Newfoundland",
+      "path": "ecoregions/112.json",
+      "plantCount": 534
+    },
+    {
+      "ecoregionId": 113,
+      "ecoregionName": "Northeastern Newfoundland",
+      "path": "ecoregions/113.json",
+      "plantCount": 388
+    },
+    {
+      "ecoregionId": 114,
+      "ecoregionName": "Maritime Barrens",
+      "path": "ecoregions/114.json",
+      "plantCount": 542
+    },
+    {
+      "ecoregionId": 115,
+      "ecoregionName": "Avalon Forest",
+      "path": "ecoregions/115.json",
+      "plantCount": 92
+    },
+    {
+      "ecoregionId": 116,
+      "ecoregionName": "South Avalon-Burin Oceanic Barrens",
+      "path": "ecoregions/116.json",
+      "plantCount": 258
+    },
+    {
+      "ecoregionId": 117,
+      "ecoregionName": "Appalachians",
+      "path": "ecoregions/117.json",
+      "plantCount": 1516
+    },
+    {
+      "ecoregionId": 118,
+      "ecoregionName": "Northern New Brunswick Uplands",
+      "path": "ecoregions/118.json",
+      "plantCount": 980
+    },
+    {
+      "ecoregionId": 119,
+      "ecoregionName": "New Brunswick Highlands",
+      "path": "ecoregions/119.json",
+      "plantCount": 454
+    },
+    {
+      "ecoregionId": 120,
+      "ecoregionName": "Saint John River Valley",
+      "path": "ecoregions/120.json",
+      "plantCount": 719
+    },
+    {
+      "ecoregionId": 121,
+      "ecoregionName": "Southern New Brunswick Uplands",
+      "path": "ecoregions/121.json",
+      "plantCount": 978
+    },
+    {
+      "ecoregionId": 122,
+      "ecoregionName": "Maritime Lowlands",
+      "path": "ecoregions/122.json",
+      "plantCount": 1089
+    },
+    {
+      "ecoregionId": 123,
+      "ecoregionName": "Fundy Coast",
+      "path": "ecoregions/123.json",
+      "plantCount": 932
+    },
+    {
+      "ecoregionId": 124,
+      "ecoregionName": "Southwest Nova Scotia Uplands",
+      "path": "ecoregions/124.json",
+      "plantCount": 793
+    },
+    {
+      "ecoregionId": 125,
+      "ecoregionName": "Atlantic Coast",
+      "path": "ecoregions/125.json",
+      "plantCount": 780
+    },
+    {
+      "ecoregionId": 126,
+      "ecoregionName": "Annapolis-Minas Lowlands",
+      "path": "ecoregions/126.json",
+      "plantCount": 828
+    },
+    {
+      "ecoregionId": 127,
+      "ecoregionName": "South-central Nova Scotia Uplands",
+      "path": "ecoregions/127.json",
+      "plantCount": 697
+    },
+    {
+      "ecoregionId": 128,
+      "ecoregionName": "Nova Scotia Highlands",
+      "path": "ecoregions/128.json",
+      "plantCount": 933
+    },
+    {
+      "ecoregionId": 129,
+      "ecoregionName": "Cape Breton Highlands",
+      "path": "ecoregions/129.json",
+      "plantCount": 429
+    },
+    {
+      "ecoregionId": 130,
+      "ecoregionName": "Prince Edward Island",
+      "path": "ecoregions/130.json",
+      "plantCount": 779
+    },
+    {
+      "ecoregionId": 131,
+      "ecoregionName": "Îles-de-la-Madeleine",
+      "path": "ecoregions/131.json",
+      "plantCount": 561
+    },
+    {
+      "ecoregionId": 132,
+      "ecoregionName": "St. Lawrence Lowlands",
+      "path": "ecoregions/132.json",
+      "plantCount": 1672
+    },
+    {
+      "ecoregionId": 133,
+      "ecoregionName": "Frontenac Axis",
+      "path": "ecoregions/133.json",
+      "plantCount": 736
+    },
+    {
+      "ecoregionId": 134,
+      "ecoregionName": "Manitoulin-Lake Simcoe",
+      "path": "ecoregions/134.json",
+      "plantCount": 1613
+    },
+    {
+      "ecoregionId": 135,
+      "ecoregionName": "Lake Erie Lowland",
+      "path": "ecoregions/135.json",
+      "plantCount": 1557
+    },
+    {
+      "ecoregionId": 136,
+      "ecoregionName": "Slave River Lowland",
+      "path": "ecoregions/136.json",
+      "plantCount": 631
+    },
+    {
+      "ecoregionId": 137,
+      "ecoregionName": "Clear Hills Upland",
+      "path": "ecoregions/137.json",
+      "plantCount": 406
+    },
+    {
+      "ecoregionId": 138,
+      "ecoregionName": "Peace Lowland",
+      "path": "ecoregions/138.json",
+      "plantCount": 739
+    },
+    {
+      "ecoregionId": 139,
+      "ecoregionName": "Mid-Boreal Uplands",
+      "path": "ecoregions/139.json",
+      "plantCount": 905
+    },
+    {
+      "ecoregionId": 142,
+      "ecoregionName": "Wabasca Lowland",
+      "path": "ecoregions/142.json",
+      "plantCount": 414
+    },
+    {
+      "ecoregionId": 143,
+      "ecoregionName": "Western Boreal",
+      "path": "ecoregions/143.json",
+      "plantCount": 281
+    },
+    {
+      "ecoregionId": 145,
+      "ecoregionName": "Western Alberta Upland",
+      "path": "ecoregions/145.json",
+      "plantCount": 972
+    },
+    {
+      "ecoregionId": 148,
+      "ecoregionName": "Mid-Boreal Lowland",
+      "path": "ecoregions/148.json",
+      "plantCount": 633
+    },
+    {
+      "ecoregionId": 149,
+      "ecoregionName": "Boreal Transition",
+      "path": "ecoregions/149.json",
+      "plantCount": 842
+    },
+    {
+      "ecoregionId": 155,
+      "ecoregionName": "Interlake Plain",
+      "path": "ecoregions/155.json",
+      "plantCount": 822
+    },
+    {
+      "ecoregionId": 156,
+      "ecoregionName": "Aspen Parkland",
+      "path": "ecoregions/156.json",
+      "plantCount": 1209
+    },
+    {
+      "ecoregionId": 157,
+      "ecoregionName": "Moist Mixed Grassland",
+      "path": "ecoregions/157.json",
+      "plantCount": 832
+    },
+    {
+      "ecoregionId": 158,
+      "ecoregionName": "Fescue Grassland",
+      "path": "ecoregions/158.json",
+      "plantCount": 753
+    },
+    {
+      "ecoregionId": 159,
+      "ecoregionName": "Mixed Grassland",
+      "path": "ecoregions/159.json",
+      "plantCount": 725
+    },
+    {
+      "ecoregionId": 160,
+      "ecoregionName": "Cypress Upland",
+      "path": "ecoregions/160.json",
+      "plantCount": 633
+    },
+    {
+      "ecoregionId": 162,
+      "ecoregionName": "Lake Manitoba Plain",
+      "path": "ecoregions/162.json",
+      "plantCount": 796
+    },
+    {
+      "ecoregionId": 163,
+      "ecoregionName": "Southwest Manitoba Uplands",
+      "path": "ecoregions/163.json",
+      "plantCount": 290
+    },
+    {
+      "ecoregionId": 165,
+      "ecoregionName": "British-Richardson Mountains",
+      "path": "ecoregions/165.json",
+      "plantCount": 440
+    },
+    {
+      "ecoregionId": 166,
+      "ecoregionName": "Old Crow Basin",
+      "path": "ecoregions/166.json",
+      "plantCount": 259
+    },
+    {
+      "ecoregionId": 167,
+      "ecoregionName": "Old Crow Flats",
+      "path": "ecoregions/167.json",
+      "plantCount": 161
+    },
+    {
+      "ecoregionId": 168,
+      "ecoregionName": "North Ogilvie Mountains",
+      "path": "ecoregions/168.json",
+      "plantCount": 433
+    },
+    {
+      "ecoregionId": 169,
+      "ecoregionName": "Eagle Plains",
+      "path": "ecoregions/169.json",
+      "plantCount": 222
+    },
+    {
+      "ecoregionId": 170,
+      "ecoregionName": "Mackenzie Mountains",
+      "path": "ecoregions/170.json",
+      "plantCount": 538
+    },
+    {
+      "ecoregionId": 171,
+      "ecoregionName": "Selwyn Mountains",
+      "path": "ecoregions/171.json",
+      "plantCount": 540
+    },
+    {
+      "ecoregionId": 172,
+      "ecoregionName": "Klondike Plateau",
+      "path": "ecoregions/172.json",
+      "plantCount": 590
+    },
+    {
+      "ecoregionId": 173,
+      "ecoregionName": "St. Elias Mountains",
+      "path": "ecoregions/173.json",
+      "plantCount": 607
+    },
+    {
+      "ecoregionId": 174,
+      "ecoregionName": "Ruby Ranges",
+      "path": "ecoregions/174.json",
+      "plantCount": 704
+    },
+    {
+      "ecoregionId": 175,
+      "ecoregionName": "Yukon Plateau-Central",
+      "path": "ecoregions/175.json",
+      "plantCount": 468
+    },
+    {
+      "ecoregionId": 176,
+      "ecoregionName": "Yukon Plateau-North",
+      "path": "ecoregions/176.json",
+      "plantCount": 611
+    },
+    {
+      "ecoregionId": 177,
+      "ecoregionName": "Yukon Southern Lakes",
+      "path": "ecoregions/177.json",
+      "plantCount": 751
+    },
+    {
+      "ecoregionId": 178,
+      "ecoregionName": "Pelly Mountains",
+      "path": "ecoregions/178.json",
+      "plantCount": 464
+    },
+    {
+      "ecoregionId": 179,
+      "ecoregionName": "Yukon-Stikine Highlands",
+      "path": "ecoregions/179.json",
+      "plantCount": 696
+    },
+    {
+      "ecoregionId": 180,
+      "ecoregionName": "Boreal Mountains and Plateaus",
+      "path": "ecoregions/180.json",
+      "plantCount": 863
+    },
+    {
+      "ecoregionId": 181,
+      "ecoregionName": "Liard Basin",
+      "path": "ecoregions/181.json",
+      "plantCount": 602
+    },
+    {
+      "ecoregionId": 182,
+      "ecoregionName": "Hyland Highland",
+      "path": "ecoregions/182.json",
+      "plantCount": 632
+    },
+    {
+      "ecoregionId": 183,
+      "ecoregionName": "Northern Canadian Rocky Mountains",
+      "path": "ecoregions/183.json",
+      "plantCount": 682
+    },
+    {
+      "ecoregionId": 184,
+      "ecoregionName": "Mount Logan",
+      "path": "ecoregions/184.json",
+      "plantCount": 21
+    },
+    {
+      "ecoregionId": 185,
+      "ecoregionName": "Northern Coastal Mountains",
+      "path": "ecoregions/185.json",
+      "plantCount": 499
+    },
+    {
+      "ecoregionId": 187,
+      "ecoregionName": "Nass Basin",
+      "path": "ecoregions/187.json",
+      "plantCount": 269
+    },
+    {
+      "ecoregionId": 188,
+      "ecoregionName": "Queen Charlotte Ranges",
+      "path": "ecoregions/188.json",
+      "plantCount": 544
+    },
+    {
+      "ecoregionId": 189,
+      "ecoregionName": "Queen Charlotte Lowland",
+      "path": "ecoregions/189.json",
+      "plantCount": 316
+    },
+    {
+      "ecoregionId": 190,
+      "ecoregionName": "Nass Ranges",
+      "path": "ecoregions/190.json",
+      "plantCount": 573
+    },
+    {
+      "ecoregionId": 191,
+      "ecoregionName": "Coastal Gap",
+      "path": "ecoregions/191.json",
+      "plantCount": 718
+    },
+    {
+      "ecoregionId": 192,
+      "ecoregionName": "Pacific Ranges",
+      "path": "ecoregions/192.json",
+      "plantCount": 1124
+    },
+    {
+      "ecoregionId": 193,
+      "ecoregionName": "Western Vancouver Island",
+      "path": "ecoregions/193.json",
+      "plantCount": 867
+    },
+    {
+      "ecoregionId": 194,
+      "ecoregionName": "Eastern Vancouver Island",
+      "path": "ecoregions/194.json",
+      "plantCount": 1242
+    },
+    {
+      "ecoregionId": 195,
+      "ecoregionName": "Georgia-Puget Basin",
+      "path": "ecoregions/195.json",
+      "plantCount": 782
+    },
+    {
+      "ecoregionId": 196,
+      "ecoregionName": "Lower Mainland",
+      "path": "ecoregions/196.json",
+      "plantCount": 1250
+    },
+    {
+      "ecoregionId": 197,
+      "ecoregionName": "Cascade Ranges",
+      "path": "ecoregions/197.json",
+      "plantCount": 547
+    },
+    {
+      "ecoregionId": 198,
+      "ecoregionName": "Skeena Mountains",
+      "path": "ecoregions/198.json",
+      "plantCount": 535
+    },
+    {
+      "ecoregionId": 199,
+      "ecoregionName": "Omineca Mountains",
+      "path": "ecoregions/199.json",
+      "plantCount": 474
+    },
+    {
+      "ecoregionId": 200,
+      "ecoregionName": "Central Canadian Rocky Mountains",
+      "path": "ecoregions/200.json",
+      "plantCount": 755
+    },
+    {
+      "ecoregionId": 201,
+      "ecoregionName": "Bulkley Ranges",
+      "path": "ecoregions/201.json",
+      "plantCount": 335
+    },
+    {
+      "ecoregionId": 202,
+      "ecoregionName": "Fraser Plateau",
+      "path": "ecoregions/202.json",
+      "plantCount": 1130
+    },
+    {
+      "ecoregionId": 203,
+      "ecoregionName": "Fraser Basin",
+      "path": "ecoregions/203.json",
+      "plantCount": 843
+    },
+    {
+      "ecoregionId": 204,
+      "ecoregionName": "Chilcotin Ranges",
+      "path": "ecoregions/204.json",
+      "plantCount": 616
+    },
+    {
+      "ecoregionId": 205,
+      "ecoregionName": "Columbia Mountains and Highlands",
+      "path": "ecoregions/205.json",
+      "plantCount": 1357
+    },
+    {
+      "ecoregionId": 206,
+      "ecoregionName": "Western Continental Ranges",
+      "path": "ecoregions/206.json",
+      "plantCount": 940
+    },
+    {
+      "ecoregionId": 207,
+      "ecoregionName": "Eastern Continental Ranges",
+      "path": "ecoregions/207.json",
+      "plantCount": 1070
+    },
+    {
+      "ecoregionId": 208,
+      "ecoregionName": "Interior Transition Ranges",
+      "path": "ecoregions/208.json",
+      "plantCount": 1039
+    },
+    {
+      "ecoregionId": 209,
+      "ecoregionName": "Thompson-Okanagan Plateau",
+      "path": "ecoregions/209.json",
+      "plantCount": 1380
+    },
+    {
+      "ecoregionId": 210,
+      "ecoregionName": "Okanagan Range",
+      "path": "ecoregions/210.json",
+      "plantCount": 1108
+    },
+    {
+      "ecoregionId": 211,
+      "ecoregionName": "Okanagan Highland",
+      "path": "ecoregions/211.json",
+      "plantCount": 891
+    },
+    {
+      "ecoregionId": 212,
+      "ecoregionName": "Selkirk-Bitterroot Foothills",
+      "path": "ecoregions/212.json",
+      "plantCount": 812
+    },
+    {
+      "ecoregionId": 213,
+      "ecoregionName": "Southern Rocky Mountain Trench",
+      "path": "ecoregions/213.json",
+      "plantCount": 1051
+    },
+    {
+      "ecoregionId": 214,
+      "ecoregionName": "Northern Continental Divide",
+      "path": "ecoregions/214.json",
+      "plantCount": 1261
+    },
+    {
+      "ecoregionId": 215,
+      "ecoregionName": "Coastal Hudson Bay Lowland",
+      "path": "ecoregions/215.json",
+      "plantCount": 634
+    },
+    {
+      "ecoregionId": 216,
+      "ecoregionName": "Hudson Bay Lowland",
+      "path": "ecoregions/216.json",
+      "plantCount": 625
+    },
+    {
+      "ecoregionId": 217,
+      "ecoregionName": "James Bay Lowlands",
+      "path": "ecoregions/217.json",
+      "plantCount": 954
+    }
+  ]
+}

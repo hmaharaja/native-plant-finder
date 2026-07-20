@@ -32,12 +32,6 @@ The GBIF ecoregion ETL streams the downloaded GBIF occurrence zip, filters valid
 Canadian presence records, matches them to `gbif_species_match_cleaned.csv`, and
 spatially joins occurrence points to Environment Canada ecoregions.
 
-Install dependencies first:
-
-```powershell
-pip install -r requirements.txt
-```
-
 Run a quick smoke test from the repository root:
 
 ```powershell
@@ -145,20 +139,6 @@ Re-running the scraper with the same `--output-dir` resumes automatically. It
 loads `lbj_raw.jsonl`, skips completed `usageKey` values, processes only new
 rows, and regenerates the two CSV outputs from the checkpoint.
 
-To process the dataset in batches of 100 new rows, run the same command
-repeatedly with `--limit 100`:
-
-```powershell
-python -m scraper.lady_bird_johnson `
-  --input datasets/gbif_species_match_cleaned.csv `
-  --output-dir datasets/lbj `
-  --limit 100 `
-  --delay 1 `
-  --timeout 20 `
-  --retries 3 `
-  --log-level INFO
-```
-
 The checkpoint file is the offset. Use the same
 `--output-dir` each time; changing it starts a separate scrape.
 
@@ -171,19 +151,6 @@ Matching policy:
 - Send ambiguous, unmatched, failed, or non-verified rows to `lbj_review.csv`.
 - Do not infer missing traits; unknown trait categories are preserved and logged.
 
-Run the offline scraper tests with:
-
-```powershell
-python -m unittest discover -s tests -v
-```
-
-The live smoke-test fixture is:
-
-- `scraper/fixtures/live_sample.csv`
-- `scraper/fixtures/live_sample_expected_lbj_ids.json`
-
-Use it before a large scrape when changing matching/parsing behavior.
-
 ## UX / Client Side
 
 - User enters their postal code or city, which the server maps to an ecoregion via internal module
@@ -194,6 +161,37 @@ Use it before a large scrape when changing matching/parsing behavior.
 ## MVP
 
 - User enters their location and gets back a paginated list of plants showing the common name, scientific name, growth traits, and a link to more details
+
+## Client app
+
+The GitHub Pages client lives in `client/`. It is a static React + Vite app
+that fetches prebuilt JSON from `client/public/data`.
+
+Prepare client data after app data exists:
+
+```powershell
+python -m etl.client_data_cli
+```
+
+Run the client locally:
+
+```powershell
+cd client
+npm install
+npm run dev
+```
+
+Build and test:
+
+```powershell
+cd client
+npm run test
+npm run build
+```
+
+The v1 client uses Nominatim only on explicit location form submission, limits
+lookups to Canada, keeps lookups in browser memory only, and fetches one
+ecoregion plant JSON file per selected region.
 
 
 # Future Extensions

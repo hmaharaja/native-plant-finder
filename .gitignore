@@ -3,3 +3,7 @@ venv
 gbif_download_request.json
 .env
 __pycache__
+client/node_modules
+client/dist
+client/test-results
+client/playwright-report
