@@ -11,6 +11,13 @@ A tool to help everyday people find plants native to their region that can be pl
 - GitHub Pages (hosting)
 - JSON files (data storage, can be changed to SQLite if JSON proves too cumbersome)
 
+## UX / Client Side
+
+- User enters their postal code or city, which the server maps to an ecoregion via internal module
+- User can optionally enter filters for the soil type, soil depth, sun exposure, moisture level of their planting area, what growth habit they want to plant (flower, herb, tree, grass, etc)
+- User can optionally have different flows for if they plan to put these in pots or in the ground
+- Once the data is entered, the page just returns a paginated list of plants that work for their region and preferences
+
 ## Data Sources
 - VASCAN for taxonomic information about Canadian native plants, including scientific names, vernacular names, province-level categorization of native habitats, taxonomic growth habits (shrub/herb/tree)
 - GBIF API for taxon keys (aka usageKey), occurrence information for each plant included in the VASCAN data
@@ -32,45 +39,6 @@ The GBIF ecoregion ETL streams the downloaded GBIF occurrence zip, filters valid
 Canadian presence records, matches them to `gbif_species_match_cleaned.csv`, and
 spatially joins occurrence points to Environment Canada ecoregions.
 
-Run a quick smoke test from the repository root:
-
-```powershell
-python -m etl.gbif_ecoregions_cli `
-  --zip datasets/0026180-260623161305970.zip `
-  --plants datasets/gbif_species_match_cleaned.csv `
-  --ecoregions datasets/ecoregions.geojson `
-  --output-dir datasets/derived `
-  --limit 100 `
-  --log-level INFO
-```
-
-Run the full ETL by removing `--limit`:
-
-```powershell
-python -m etl.gbif_ecoregions_cli `
-  --zip datasets/0026180-260623161305970.zip `
-  --plants datasets/gbif_species_match_cleaned.csv `
-  --ecoregions datasets/ecoregions.geojson `
-  --output-dir datasets/derived `
-  --log-level INFO
-```
-
-If the matching stage completed already, reuse
-the existing Parquet checkpoint instead of reprocessing the GBIF zip:
-
-```powershell
-python -m etl.gbif_ecoregions_cli `
-  --ecoregions datasets/ecoregions.geojson `
-  --output-dir datasets/derived `
-  --skip-matching `
-  --log-level INFO
-```
-
-Outputs are written under `--output-dir`:
-
-- `gbif_matched_occurrences.parquet`: filtered and taxon-matched occurrence checkpoint.
-- `plant_ecoregions.csv`: app-facing plant/ecoregion evidence table.
-
 The CLI logs progress after each chunk, including raw rows read, filtered rows,
 matched rows, and cumulative matched rows. It also logs total matched occurrences
 before the spatial join, so large runs do not look stalled.
@@ -81,6 +49,7 @@ Useful options:
 - `--limit 100`: cap raw occurrence rows for quick testing.
 - `--matched-occurrences-filename`: override the Parquet output filename.
 - `--plant-ecoregions-filename`: override the CSV output filename.
+- `--skip-matching`: skip the matching phase and use the existing Parquet files to join.
 
 ### App data ETL
 
@@ -117,24 +86,6 @@ The LBJ scraper enriches the cleaned GBIF species-match CSV with gardening
 traits from Lady Bird Johnson. It is sequential, resumable, and intended to be
 run as an ETL batch job.
 
-Run a full scrape from the repository root:
-
-```powershell
-python -m scraper.lady_bird_johnson `
-  --input datasets/gbif_species_match_cleaned.csv `
-  --output-dir datasets/lbj `
-  --delay 1 `
-  --timeout 20 `
-  --retries 3 `
-  --log-level INFO
-```
-
-Outputs are written under `--output-dir`:
-
-- `lbj_raw.jsonl`: append-only checkpoint/audit records.
-- `lbj_traits.csv`: normalized, join-ready matched traits.
-- `lbj_review.csv`: unmatched, ambiguous, malformed, or failed rows for review.
-
 Re-running the scraper with the same `--output-dir` resumes automatically. It
 loads `lbj_raw.jsonl`, skips completed `usageKey` values, processes only new
 rows, and regenerates the two CSV outputs from the checkpoint.
@@ -150,17 +101,6 @@ Matching policy:
 - Accept explicit LBJ synonym matches.
 - Send ambiguous, unmatched, failed, or non-verified rows to `lbj_review.csv`.
 - Do not infer missing traits; unknown trait categories are preserved and logged.
-
-## UX / Client Side
-
-- User enters their postal code or city, which the server maps to an ecoregion via internal module
-- User can optionally enter filters for the soil type, soil depth, sun exposure, moisture level of their planting area, what growth habit they want to plant (flower, herb, tree, grass, etc)
-- User can optionally have different flows for if they plan to put these in pots or in the ground
-- Once the data is entered, the page just returns a paginated list of plants that work for their region and preferences
-
-## MVP
-
-- User enters their location and gets back a paginated list of plants showing the common name, scientific name, growth traits, and a link to more details
 
 ## Client app
 
@@ -192,7 +132,3 @@ npm run build
 The v1 client uses Nominatim only on explicit location form submission, limits
 lookups to Canada, keeps lookups in browser memory only, and fetches one
 ecoregion plant JSON file per selected region.
-
-
-# Future Extensions
-- Support USA by adding USDA plants via another ETL pipeline
