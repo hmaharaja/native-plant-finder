@@ -110,6 +110,13 @@ test("filters before and after search without duplicate geocoding and recovers f
   await expect(page.getByText("page 1 of 1")).toBeVisible();
   expect(getGeocodeRequests()).toBe(1);
 
+  await page.getByLabel("Minimum").fill("30");
+  await expect(page.getByRole("heading", { name: "No plants match these filters" })).toBeVisible();
+  await page.getByRole("button", { name: "Clear filters" }).click();
+  await expect(page.getByLabel("Minimum")).toHaveValue("");
+  await expect(page.getByLabel("Maximum")).toHaveValue("");
+  await expect(page.getByText("13 of 13 species")).toBeVisible();
+
   await page.getByLabel("Shade", { exact: true }).check();
   await expect(page.getByRole("heading", { name: "No plants match these filters" })).toBeVisible();
   await page.getByRole("button", { name: "Clear filters" }).click();

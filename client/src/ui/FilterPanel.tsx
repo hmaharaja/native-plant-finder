@@ -30,6 +30,11 @@ export function FilterPanel({ filters, onChange }: FilterPanelProps) {
     return () => media.removeEventListener("change", update);
   }, []);
 
+  useEffect(() => {
+    setMinimum(filters.matureHeight.minimumFt?.toString() ?? "");
+    setMaximum(filters.matureHeight.maximumFt?.toString() ?? "");
+  }, [filters.matureHeight.minimumFt, filters.matureHeight.maximumFt]);
+
   function toggleValue(category: FilterCategory, value: string, checked: boolean) {
     const current = filters[category] as readonly string[];
     onChange({ ...filters, [category]: checked ? [...current, value] : current.filter((item) => item !== value) });
