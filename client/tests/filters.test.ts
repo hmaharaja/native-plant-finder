@@ -6,9 +6,10 @@ import {
   FILTER_CATEGORY_CONFIG,
   filterPlants,
   GrowthHabitFilter,
-  heightRangesOverlap,
+  heightRangeFitsWithin,
   LightFilter,
   normalizeDelimitedValues,
+  parseOptionalHeight,
   plantMatchesFilters,
   validateMatureHeight
 } from "../src/filters";
@@ -55,8 +56,23 @@ describe("filter domain", () => {
 
   it("validates height boundaries", () => {
     expect(validateMatureHeight({ minimumFt: -1, maximumFt: null })).toMatch(/non-negative/);
+    expect(validateMatureHeight({ minimumFt: Number.NaN, maximumFt: null })).toMatch(/finite/);
+    expect(validateMatureHeight({ minimumFt: null, maximumFt: Number.POSITIVE_INFINITY })).toMatch(/finite/);
     expect(validateMatureHeight({ minimumFt: 4, maximumFt: 3 })).toMatch(/Minimum/);
-    expect(validateMatureHeight({ minimumFt: 2, maximumFt: 3 })).toBeNull();
+    expect(validateMatureHeight({ minimumFt: 2.25, maximumFt: 3.75 })).toBeNull();
+  });
+
+  it("parses optional decimal heights without interpreting untrusted text", () => {
+    expect(parseOptionalHeight("")).toBeNull();
+    expect(parseOptionalHeight("  ")).toBeNull();
+    expect(parseOptionalHeight("6.87")).toBe(6.87);
+    expect(parseOptionalHeight(".5")).toBe(0.5);
+    expect(parseOptionalHeight("5.")).toBe(5);
+    expect(parseOptionalHeight("-1")).toBeNaN();
+    expect(parseOptionalHeight("Infinity")).toBeNaN();
+    expect(parseOptionalHeight("1e3")).toBeNaN();
+    expect(parseOptionalHeight("<script>alert(1)</script>")).toBeNaN();
+    expect(parseOptionalHeight("5; DROP TABLE plants")).toBeNaN();
   });
 
   it("uses OR within categories and AND across categories case-insensitively", () => {
@@ -79,17 +95,89 @@ describe("filter domain", () => {
     ).toBe(true);
   });
 
-  it("matches overlapping and one-sided height ranges", () => {
+  it("requires a plant range to fit inclusively inside the requested range", () => {
     expect(
-      heightRangesOverlap(
-        { minimumFt: 5, maximumFt: null },
-        { minimumFt: null, maximumFt: 6 }
+      heightRangeFitsWithin(
+        { minimumFt: 5, maximumFt: 15 },
+        { minimumFt: 5, maximumFt: 15 }
       )
     ).toBe(true);
     expect(
-      heightRangesOverlap(
-        { minimumFt: null, maximumFt: 2 },
-        { minimumFt: 3, maximumFt: null }
+      heightRangeFitsWithin(
+        { minimumFt: 4.49, maximumFt: 15 },
+        { minimumFt: 5, maximumFt: 15 }
+      )
+    ).toBe(false);
+  });
+
+  it("applies a half-foot tolerance at both boundaries", () => {
+    const requested = { minimumFt: 5, maximumFt: 15 };
+    expect(heightRangeFitsWithin({ minimumFt: 4.5, maximumFt: 15.5 }, requested)).toBe(true);
+    expect(heightRangeFitsWithin({ minimumFt: 4.499, maximumFt: 15 }, requested)).toBe(false);
+    expect(heightRangeFitsWithin({ minimumFt: 5, maximumFt: 15.501 }, requested)).toBe(false);
+  });
+
+  it("supports maximum-only requested and recorded ranges", () => {
+    expect(
+      heightRangeFitsWithin(
+        { minimumFt: null, maximumFt: 4 },
+        { minimumFt: null, maximumFt: 3.5 }
+      )
+    ).toBe(true);
+    expect(
+      heightRangeFitsWithin(
+        { minimumFt: null, maximumFt: 4.01 },
+        { minimumFt: null, maximumFt: 3.5 }
+      )
+    ).toBe(false);
+  });
+
+  it("supports minimum-only filters while rejecting unbounded plants from finite maxima", () => {
+    expect(
+      heightRangeFitsWithin(
+        { minimumFt: 4.5, maximumFt: 20 },
+        { minimumFt: 5, maximumFt: null }
+      )
+    ).toBe(true);
+    expect(
+      heightRangeFitsWithin(
+        { minimumFt: 5, maximumFt: null },
+        { minimumFt: null, maximumFt: 20 }
+      )
+    ).toBe(false);
+    expect(
+      heightRangeFitsWithin(
+        { minimumFt: 5, maximumFt: null },
+        { minimumFt: 5, maximumFt: null }
+      )
+    ).toBe(true);
+  });
+
+  it("rejects malformed ranges and invalid tolerance values", () => {
+    expect(
+      heightRangeFitsWithin(
+        { minimumFt: -1, maximumFt: 2 },
+        { minimumFt: null, maximumFt: 4 }
+      )
+    ).toBe(false);
+    expect(
+      heightRangeFitsWithin(
+        { minimumFt: 1, maximumFt: 2 },
+        { minimumFt: 4, maximumFt: 3 }
+      )
+    ).toBe(false);
+    expect(
+      heightRangeFitsWithin(
+        { minimumFt: 1, maximumFt: 2 },
+        { minimumFt: 1, maximumFt: 2 },
+        Number.NaN
+      )
+    ).toBe(false);
+    expect(
+      heightRangeFitsWithin(
+        { minimumFt: 1, maximumFt: 2 },
+        { minimumFt: 1, maximumFt: 2 },
+        -0.5
       )
     ).toBe(false);
   });

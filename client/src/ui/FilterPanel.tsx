@@ -5,6 +5,7 @@ import {
   FILTER_CATEGORY_CONFIG,
   FilterCategory,
   type FilterState,
+  parseOptionalHeight,
   validateMatureHeight
 } from "../filters";
 import { titleCase } from "../formatters";
@@ -12,10 +13,6 @@ import { titleCase } from "../formatters";
 interface FilterPanelProps {
   filters: FilterState;
   onChange: (filters: FilterState) => void;
-}
-
-function parseOptionalHeight(value: string): number | null {
-  return value.trim() === "" ? null : Number(value);
 }
 
 export function FilterPanel({ filters, onChange }: FilterPanelProps) {

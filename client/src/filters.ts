@@ -55,6 +55,8 @@ export interface FilterCategoryConfig {
   readonly values: readonly string[];
 }
 
+export const HEIGHT_TOLERANCE_FT = 0.5;
+
 export const FILTER_CATEGORY_CONFIG: readonly FilterCategoryConfig[] = [
   { category: FilterCategory.GrowthHabit, label: "Growth habit", values: Object.values(GrowthHabitFilter) },
   { category: FilterCategory.Light, label: "Light", values: Object.values(LightFilter) },
@@ -92,18 +94,41 @@ export function validateMatureHeight(range: MatureHeightRange): string | null {
   return null;
 }
 
+export function parseOptionalHeight(value: string): number | null {
+  const trimmed = value.trim();
+  if (!trimmed) return null;
+  if (!/^(?:\d+(?:\.\d*)?|\.\d+)$/.test(trimmed)) return Number.NaN;
+  return Number(trimmed);
+}
+
 function matchesCategory(recorded: readonly string[], requested: readonly string[]): boolean {
   if (!requested.length) return true;
   const normalized = new Set(recorded.map((value) => value.trim().toLocaleLowerCase()));
   return requested.some((value) => normalized.has(value.toLocaleLowerCase()));
 }
 
-export function heightRangesOverlap(recorded: MatureHeightRange, requested: MatureHeightRange): boolean {
-  const recordedMinimum = recorded.minimumFt ?? Number.NEGATIVE_INFINITY;
+export function heightRangeFitsWithin(
+  recorded: MatureHeightRange,
+  requested: MatureHeightRange,
+  toleranceFt = HEIGHT_TOLERANCE_FT
+): boolean {
+  if (
+    validateMatureHeight(recorded) ||
+    validateMatureHeight(requested) ||
+    !Number.isFinite(toleranceFt) ||
+    toleranceFt < 0
+  ) {
+    return false;
+  }
+
+  const recordedMinimum = recorded.minimumFt ?? 0;
   const recordedMaximum = recorded.maximumFt ?? Number.POSITIVE_INFINITY;
-  const requestedMinimum = requested.minimumFt ?? Number.NEGATIVE_INFINITY;
-  const requestedMaximum = requested.maximumFt ?? Number.POSITIVE_INFINITY;
-  return recordedMinimum <= requestedMaximum && requestedMinimum <= recordedMaximum;
+  const allowedMinimum =
+    requested.minimumFt === null ? Number.NEGATIVE_INFINITY : Math.max(0, requested.minimumFt - toleranceFt);
+  const allowedMaximum =
+    requested.maximumFt === null ? Number.POSITIVE_INFINITY : requested.maximumFt + toleranceFt;
+
+  return recordedMinimum >= allowedMinimum && recordedMaximum <= allowedMaximum;
 }
 
 export function plantMatchesFilters(plant: PlantRecord, filters: FilterState): boolean {
@@ -116,7 +141,7 @@ export function plantMatchesFilters(plant: PlantRecord, filters: FilterState): b
     matchesCategory(normalizeDelimitedValues(plant.duration), filters.duration) &&
     (!heightActive ||
       (hasRecordedHeight &&
-        heightRangesOverlap(
+        heightRangeFitsWithin(
           { minimumFt: plant.matureHeightMinFt, maximumFt: plant.matureHeightMaxFt },
           filters.matureHeight
         )))
