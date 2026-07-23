@@ -377,6 +377,142 @@ h1 {
   line-height: 1.35;
 }
 
+.filter-panel {
+  margin-top: 20px;
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+}
+
+.filter-toggle {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  border: 0;
+  padding: 5px 0 10px;
+  color: var(--ink);
+  background: transparent;
+  font-family: "Newsreader", Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  text-align: left;
+}
+
+.filter-panel fieldset {
+  min-width: 0;
+  margin: 10px 0 0;
+  border: 0;
+  border-top: 1px solid rgba(47, 46, 31, 0.28);
+  padding: 12px 0 0;
+}
+
+.filter-panel legend {
+  padding: 0 8px 0 0;
+  color: var(--rust-dark);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.filter-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.filter-options label {
+  position: relative;
+}
+
+.filter-options input {
+  position: absolute;
+  opacity: 0;
+}
+
+.filter-options span {
+  display: block;
+  border: 1px solid rgba(47, 46, 31, 0.55);
+  border-radius: 999px;
+  padding: 5px 9px;
+  background: var(--cream);
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.filter-options input:checked + span {
+  color: var(--cream);
+  background: var(--moss-dark);
+}
+
+.filter-options input:focus-visible + span {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.height-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.height-inputs label {
+  display: grid;
+  gap: 5px;
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+}
+
+.height-inputs input {
+  width: 100%;
+  min-height: 38px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 6px 8px;
+  color: var(--ink);
+  background: var(--cream);
+}
+
+.filter-error {
+  margin: 8px 0 0;
+  color: var(--error);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.filter-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 14px;
+  color: var(--ink-soft);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.75rem;
+}
+
+.filter-footer button,
+.no-matches button {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 7px 10px;
+  color: var(--ink);
+  background: var(--cream);
+  font-weight: 700;
+}
+
+.no-matches {
+  min-height: 260px;
+}
+
+.no-matches h3 {
+  margin: 0;
+  font-family: "Newsreader", Georgia, serif;
+  font-size: 1.5rem;
+}
+
+.no-matches p {
+  margin: 8px 0 16px;
+}
+
 .results-panel {
   padding: 20px;
 }

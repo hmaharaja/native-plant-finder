@@ -2,11 +2,13 @@ import { FormEvent, useEffect, useMemo, useState } from "react";
 import { APP_TITLE, LoadState } from "../constants";
 import { findManifestEntry, loadBoundaries, loadEcoregionPayload, loadInitialData, loadManifest } from "../dataClient";
 import { displayName, formatHeight, formatList, formatMonthList, formatNumber, scientificName } from "../formatters";
+import { EMPTY_FILTERS, filterPlants, type FilterState } from "../filters";
 import { createDefaultGeocoder, geocoderErrorMessage } from "../geocoder";
 import { findEcoregionForCoordinate } from "../geometry";
 import { paginate } from "../pagination";
 import type { BoundaryCollection, Coordinate, EcoregionPayload, GeocoderCandidate, Manifest, PlantRecord } from "../types";
 import { isValidLocationQuery, safePlantDetailUrl, sanitizeLocationQuery } from "../validation";
+import { FilterPanel } from "./FilterPanel";
 
 const geocoder = createDefaultGeocoder();
 
@@ -89,6 +91,7 @@ export function App() {
   const [payload, setPayload] = useState<EcoregionPayload | null>(null);
   const [searchContext, setSearchContext] = useState<SearchContext | null>(null);
   const [page, setPage] = useState(1);
+  const [filters, setFilters] = useState<FilterState>(EMPTY_FILTERS);
 
   useEffect(() => {
     if (initialError) {
@@ -101,7 +104,13 @@ export function App() {
     }
   }, [boundaries, initialError, manifest, state]);
 
-  const pagination = useMemo(() => paginate(payload?.plants ?? [], page), [page, payload]);
+  const filteredPlants = useMemo(() => filterPlants(payload?.plants ?? [], filters), [filters, payload]);
+  const pagination = useMemo(() => paginate(filteredPlants, page), [filteredPlants, page]);
+
+  function handleFiltersChange(nextFilters: FilterState) {
+    setFilters(nextFilters);
+    setPage(1);
+  }
 
   async function handleCoordinate(coordinate: Coordinate, candidateLabel: string, submittedQuery: string) {
     if (!manifest) {
@@ -212,6 +221,7 @@ export function App() {
               {statusText(state)}
             </p>
             {error ? <p className="error-message">{error}</p> : null}
+            <FilterPanel filters={filters} onChange={handleFiltersChange} />
           </section>
 
           <section className="results-panel" aria-labelledby="results-title">
@@ -220,11 +230,16 @@ export function App() {
               searchContext={searchContext}
               page={pagination.page}
               pageCount={pagination.pageCount}
+              filteredCount={filteredPlants.length}
             />
             {candidates.length > 1 ? <CandidateList candidates={candidates} onChoose={chooseCandidate} /> : null}
             {payload ? (
               <>
-                <PlantList plants={pagination.items} />
+                {filteredPlants.length ? (
+                  <PlantList plants={pagination.items} />
+                ) : (
+                  <NoMatches onClear={() => handleFiltersChange(EMPTY_FILTERS)} />
+                )}
                 {pagination.hasPagination ? (
                   <PaginationControls page={pagination.page} pageCount={pagination.pageCount} onPageChange={setPage} />
                 ) : null}
@@ -299,12 +314,14 @@ function ResultsHeader({
   payload,
   searchContext,
   page,
-  pageCount
+  pageCount,
+  filteredCount
 }: {
   payload: EcoregionPayload | null;
   searchContext: SearchContext | null;
   page: number;
   pageCount: number;
+  filteredCount: number;
 }) {
   return (
     <div className="results-header">
@@ -323,10 +340,25 @@ function ResultsHeader({
             </p>
           ) : null}
           <p className="count-line">
-            {payload.plantCount.toLocaleString()} species found &middot; page {page} of {pageCount}
+            {filteredCount.toLocaleString()} of {payload.plantCount.toLocaleString()} species &middot; page {page} of{" "}
+            {pageCount}
           </p>
         </div>
       ) : null}
+    </div>
+  );
+}
+
+function NoMatches({ onClear }: { onClear: () => void }) {
+  return (
+    <div className="empty-state no-matches">
+      <div>
+        <h3>No plants match these filters</h3>
+        <p>Try widening your selections or start fresh.</p>
+        <button type="button" onClick={onClear}>
+          Clear filters
+        </button>
+      </div>
     </div>
   );
 }
