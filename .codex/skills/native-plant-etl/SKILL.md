@@ -9,7 +9,8 @@ description: Run and maintain the native-plant-finder ETL and scraper pipeline. 
 
 Work from the repository root. Inspect `git status --short` before changing files and preserve unrelated user changes.
 
-Use `dataset_columns.py` as the source of truth for CSV and app-data field names used across `etl/` and `scraper/`. Add or rename shared fields there first, then update callers. Keep imports at the top of Python files and reuse `etl.functions.normalize_key` for `usageKey` normalization.
+Use `dataset_columns.py` as the source of truth for CSV and app-data field names used across `etl/` and `scraper/`. Add or rename shared fields there first, then update callers. Keep imports at the top of Python files and reuse `etl.functions.normalize_key` for `usageKey` normalization. Shared CSV and JSON field names live in `dataset_columns.py`. Update that file
+first when changing data contracts used across `etl/` and `scraper/`.
 
 Do not regenerate ignored dataset outputs unless the user explicitly asks. Changes to ETL logic should usually be validated with tests and small fixtures instead.
 
@@ -64,6 +65,7 @@ python -m etl.app_data_cli `
   --plant-ecoregions datasets/derived/plant_ecoregions.csv `
   --lbj-traits datasets/lbj/lbj_traits.csv `
   --lbj-traits datasets/lbj_rerun/lbj_traits.csv `
+  --recommendation-categories curation/recommendation_categories.csv `
   --output-dir datasets/app_data `
   --log-level INFO
 ```
