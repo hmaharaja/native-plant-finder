@@ -81,6 +81,18 @@ function isNullableNumber(value: unknown): value is number | null {
   return value === null || isNumber(value);
 }
 
+const RECOMMENDATION_CATEGORIES = new Set([
+  "good_default",
+  "conditional",
+  "specialist_restoration",
+  "poor_avoid",
+  "invalid_ambiguous"
+]);
+
+function isNullableRecommendationCategory(value: unknown): boolean {
+  return value === null || (typeof value === "string" && RECOMMENDATION_CATEGORIES.has(value));
+}
+
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) {
     throw new Error(message);
@@ -137,7 +149,15 @@ function parsePlantRecord(value: unknown): PlantRecord {
   assert(isStringArray(value.bloomTime), "bloomTime must be an array of strings");
   assert(isStringArray(value.bloomColor), "bloomColor must be an array of strings");
   assert(isNullableString(value.lbjUrl), "lbjUrl must be a string or null");
-  return value as unknown as PlantRecord;
+  assert(
+    value.recommendationCategory === undefined ||
+      isNullableRecommendationCategory(value.recommendationCategory),
+    "recommendationCategory must be a recognized category or null"
+  );
+  return {
+    ...value,
+    recommendationCategory: value.recommendationCategory ?? null
+  } as unknown as PlantRecord;
 }
 
 export function parseEcoregionPayload(value: unknown): EcoregionPayload {

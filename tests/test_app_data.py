@@ -16,12 +16,25 @@ from etl.app_data import (
     merge_plant_ecoregions_with_traits,
     plant_record_from_row,
     read_lbj_traits,
+    read_recommendation_categories,
     write_app_data,
 )
 from etl.app_data_cli import main
 
 
 class AppDataTests(unittest.TestCase):
+    FIXTURES = Path(__file__).parent / "fixtures"
+
+    def test_recommendation_categories_reject_duplicates_and_invalid_values(self):
+        with self.assertRaisesRegex(ValueError, "duplicate"):
+            read_recommendation_categories(
+                self.FIXTURES / "recommendation_categories_duplicate.csv"
+            )
+        with self.assertRaisesRegex(ValueError, "invalid recommendation"):
+            read_recommendation_categories(
+                self.FIXTURES / "recommendation_categories_invalid.csv"
+            )
+
     def test_lbj_merge_prefers_later_duplicate_usage_key(self):
         with tempfile.TemporaryDirectory() as tmp:
             first = Path(tmp) / "lbj.csv"
@@ -66,6 +79,7 @@ class AppDataTests(unittest.TestCase):
                 "bloom_time": "jun|jul",
                 "bloom_color": "white|pink",
                 "lbj_url": "https://example.test",
+                "recommendation_category": "conditional",
             }
         )
 
@@ -82,6 +96,7 @@ class AppDataTests(unittest.TestCase):
         self.assertEqual(record["light"], ["sun", "part shade"])
         self.assertEqual(record["moisture"], [])
         self.assertEqual(record["soilCategories"], ["loam", "sand"])
+        self.assertEqual(record["recommendationCategory"], "conditional")
 
     def test_ecoregion_output_writes_files_manifest_and_sorted_plants(self):
         plant_ecoregions = pd.DataFrame(
@@ -133,9 +148,14 @@ class AppDataTests(unittest.TestCase):
                 {"usageKey": "200", "growth_habit": "herb", "lbj_url": "https://z.test"},
             ]
         )
+        recommendation_categories = read_recommendation_categories(
+            self.FIXTURES / "recommendation_categories_valid.csv"
+        )
 
         with tempfile.TemporaryDirectory() as tmp:
-            manifest = write_app_data(plant_ecoregions, lbj_traits, tmp)
+            manifest = write_app_data(
+                plant_ecoregions, lbj_traits, tmp, recommendation_categories
+            )
             first_payload = json.loads((Path(tmp) / "ecoregions" / "7.json").read_text())
             manifest_json = json.loads((Path(tmp) / "manifest.json").read_text())
 
@@ -146,10 +166,32 @@ class AppDataTests(unittest.TestCase):
         self.assertEqual(manifest_json["ecoregions"][0]["plantCount"], 2)
         self.assertEqual(first_payload["ecoregionId"], 7)
         self.assertEqual(first_payload["plantCount"], 2)
+        self.assertIsNone(first_payload["plants"][0]["recommendationCategory"])
         self.assertEqual(
             [plant["vernacularName"] for plant in first_payload["plants"]],
             ["golden alexanders", "smooth aster"],
         )
+        second_payload = next(
+            payload for payload in build_ecoregion_payloads(
+                merge_plant_ecoregions_with_traits(
+                    plant_ecoregions, lbj_traits, recommendation_categories
+                )
+            )
+            if payload["ecoregionId"] == 9
+        )
+        self.assertEqual(
+            second_payload["plants"][0]["recommendationCategory"],
+            "specialist_restoration",
+        )
+
+    def test_missing_app_relevant_unenriched_category_is_rejected(self):
+        plants = pd.DataFrame([{"usageKey": "999", "ecoregion_id": "1"}])
+        traits = pd.DataFrame([{"usageKey": "100", "growth_habit": "herb"}])
+        categories = read_recommendation_categories(
+            self.FIXTURES / "recommendation_categories_missing.csv"
+        )
+        with self.assertRaisesRegex(ValueError, "missing recommendation categories"):
+            merge_plant_ecoregions_with_traits(plants, traits, categories)
 
     def test_payload_builder_sorts_by_vernacular_then_canonical(self):
         rows = pd.DataFrame(
@@ -181,6 +223,7 @@ class AppDataTests(unittest.TestCase):
             plant_path = root / "plants.csv"
             lbj_path = root / "traits.csv"
             output_dir = root / "out"
+            categories_path = root / "categories.csv"
             pd.DataFrame(
                 [
                     {
@@ -199,9 +242,14 @@ class AppDataTests(unittest.TestCase):
                 ]
             ).to_csv(plant_path, index=False)
             pd.DataFrame([{"usageKey": "100", "growth_habit": "herb"}]).to_csv(lbj_path, index=False)
+            pd.DataFrame(
+                [{"usageKey": "999", "recommendation_category": "conditional"}]
+            ).to_csv(categories_path, index=False)
 
             with self.assertLogs("etl.app_data", level="INFO") as logs:
-                manifest = build_app_data(plant_path, [lbj_path], output_dir)
+                manifest = build_app_data(
+                    plant_path, [lbj_path], output_dir, categories_path
+                )
 
             self.assertEqual(manifest["ecoregionCount"], 1)
             self.assertTrue((output_dir / "ecoregions" / "7.json").exists())
@@ -241,6 +289,8 @@ class AppDataCliTests(unittest.TestCase):
                     "lbj/b.csv",
                     "--output-dir",
                     "public/data",
+                    "--recommendation-categories",
+                    "curation/categories.csv",
                     "--log-level",
                     "DEBUG",
                 ]
@@ -253,6 +303,7 @@ class AppDataCliTests(unittest.TestCase):
             plant_ecoregions_path=Path("derived/plants.csv"),
             lbj_traits_paths=[Path("lbj/a.csv"), Path("lbj/b.csv")],
             output_dir=Path("public/data"),
+            recommendation_categories_path=Path("curation/categories.csv"),
         )
         self.assertEqual(
             stdout.getvalue().splitlines(),

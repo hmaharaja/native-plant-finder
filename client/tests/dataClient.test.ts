@@ -65,7 +65,8 @@ describe("dataClient", () => {
             soilCategories: [],
             bloomTime: [],
             bloomColor: [],
-            lbjUrl: null
+            lbjUrl: null,
+            recommendationCategory: "conditional"
           }
         ]
       }

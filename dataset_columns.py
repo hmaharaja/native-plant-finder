@@ -19,6 +19,7 @@ SOIL_CATEGORIES = "soil_categories"
 SOIL_DESCRIPTION = "soil_description"
 BLOOM_TIME = "bloom_time"
 BLOOM_COLOR = "bloom_color"
+RECOMMENDATION_CATEGORY = "recommendation_category"
 
 ECOREGION_ID = "ecoregion_id"
 ECOREGION_NAME = "ecoregion_name"
@@ -112,6 +113,7 @@ APP_DATA_FIELD_MAP = {
     BLOOM_TIME: "bloomTime",
     BLOOM_COLOR: "bloomColor",
     LBJ_URL: "lbjUrl",
+    RECOMMENDATION_CATEGORY: "recommendationCategory",
 }
 
 APP_DATA_ARRAY_FIELDS = {

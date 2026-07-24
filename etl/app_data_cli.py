@@ -9,6 +9,7 @@ from etl.app_data import (
     DEFAULT_LBJ_TRAITS_PATHS,
     DEFAULT_OUTPUT_DIR,
     DEFAULT_PLANT_ECOREGIONS_PATH,
+    DEFAULT_RECOMMENDATION_CATEGORIES_PATH,
     build_app_data,
 )
 
@@ -26,6 +27,12 @@ def build_parser() -> argparse.ArgumentParser:
         help="LBJ traits CSV path. Pass multiple times; later files win on duplicate usageKey.",
     )
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
+    parser.add_argument(
+        "--recommendation-categories",
+        type=Path,
+        default=DEFAULT_RECOMMENDATION_CATEGORIES_PATH,
+        help="Local curated category CSV (usageKey and recommendation_category).",
+    )
     parser.add_argument(
         "--log-level",
         default="INFO",
@@ -45,6 +52,7 @@ def main(argv: list[str] | None = None) -> int:
         plant_ecoregions_path=args.plant_ecoregions,
         lbj_traits_paths=args.lbj_traits or DEFAULT_LBJ_TRAITS_PATHS,
         output_dir=args.output_dir,
+        recommendation_categories_path=args.recommendation_categories,
     )
     print(f"ecoregion_json_files={manifest['ecoregionCount']}")
     print(f"plant_ecoregion_records={manifest['plantEcoregionCount']}")

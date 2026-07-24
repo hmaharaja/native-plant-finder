@@ -37,6 +37,7 @@ function plant(overrides: Partial<PlantRecord> = {}): PlantRecord {
     bloomTime: [],
     bloomColor: [],
     lbjUrl: null,
+    recommendationCategory: null,
     ...overrides
   };
 }

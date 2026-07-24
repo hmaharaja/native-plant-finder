@@ -30,9 +30,6 @@ The occurrence data is to be joined with the cleaned taxonomic data, and ecoregi
 
 The LBJ scraped data is to be added to the dataset via a join, to make the final enriched data.
 
-Shared CSV and JSON field names live in `dataset_columns.py`. Update that file
-first when changing data contracts used across `etl/` and `scraper/`.
-
 ### GBIF ecoregion occurrence ETL
 
 The GBIF ecoregion ETL streams the downloaded GBIF occurrence zip, filters valid
@@ -56,29 +53,6 @@ Useful options:
 The app data ETL builds static JSON files for the GitHub Pages client. It
 prejoins `plant_ecoregions.csv` with both LBJ trait CSVs so the React app can
 fetch one ecoregion file without doing runtime joins.
-
-Run it from the repository root after the GBIF ecoregion ETL and LBJ scraper
-outputs exist:
-
-```powershell
-python -m etl.app_data_cli `
-  --plant-ecoregions datasets/derived/plant_ecoregions.csv `
-  --lbj-traits datasets/lbj/lbj_traits.csv `
-  --lbj-traits datasets/lbj_rerun/lbj_traits.csv `
-  --output-dir datasets/app_data `
-  --log-level INFO
-```
-
-Outputs are written under `--output-dir`:
-
-- `manifest.json`: ecoregion IDs, names, relative file paths, and plant counts.
-- `ecoregions/{ecoregionId}.json`: one app-ready JSON payload per ecoregion.
-
-Each ecoregion file includes `ecoregionId`, `ecoregionName`, `plantCount`, and
-a sorted `plants` list.
-
-If the same `usageKey` appears in multiple LBJ trait inputs, later
-`--lbj-traits` files win.
 
 ## Lady Bird Johnson traits scraper
 

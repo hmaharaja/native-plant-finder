@@ -22,7 +22,8 @@ const basePlant: PlantRecord = {
   soilCategories: [],
   bloomTime: [],
   bloomColor: [],
-  lbjUrl: null
+  lbjUrl: null,
+  recommendationCategory: null
 };
 
 describe("formatters", () => {
