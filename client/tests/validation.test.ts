@@ -41,6 +41,12 @@ describe("validation", () => {
     };
     const payload = { ecoregionId: 1, ecoregionName: "One", plantCount: 1, plants: [plant] };
     expect(parseEcoregionPayload(payload).plants[0].recommendationCategory).toBe("conditional");
+    const legacyPlant = { ...plant };
+    delete (legacyPlant as Partial<typeof plant>).recommendationCategory;
+    expect(
+      parseEcoregionPayload({ ...payload, plants: [legacyPlant] }).plants[0]
+        .recommendationCategory
+    ).toBeNull();
     expect(() => parseEcoregionPayload({
       ...payload,
       plants: [{ ...plant, recommendationCategory: "unknown" }]

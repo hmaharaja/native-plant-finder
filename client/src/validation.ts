@@ -150,10 +150,14 @@ function parsePlantRecord(value: unknown): PlantRecord {
   assert(isStringArray(value.bloomColor), "bloomColor must be an array of strings");
   assert(isNullableString(value.lbjUrl), "lbjUrl must be a string or null");
   assert(
-    isNullableRecommendationCategory(value.recommendationCategory),
+    value.recommendationCategory === undefined ||
+      isNullableRecommendationCategory(value.recommendationCategory),
     "recommendationCategory must be a recognized category or null"
   );
-  return value as unknown as PlantRecord;
+  return {
+    ...value,
+    recommendationCategory: value.recommendationCategory ?? null
+  } as unknown as PlantRecord;
 }
 
 export function parseEcoregionPayload(value: unknown): EcoregionPayload {
