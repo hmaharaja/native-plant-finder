@@ -65,6 +65,7 @@ python -m etl.app_data_cli `
   --plant-ecoregions datasets/derived/plant_ecoregions.csv `
   --lbj-traits datasets/lbj/lbj_traits.csv `
   --lbj-traits datasets/lbj_rerun/lbj_traits.csv `
+  --recommendation-categories curation/recommendation_categories.csv `
   --output-dir datasets/app_data `
   --log-level INFO
 ```
@@ -79,6 +80,10 @@ a sorted `plants` list.
 
 If the same `usageKey` appears in multiple LBJ trait inputs, later
 `--lbj-traits` files win.
+
+The recommendation-category CSV is local curation material and is intentionally
+ignored by Git. It must contain one unique `usageKey` and a valid
+`recommendation_category` for every app-relevant plant without LBJ traits.
 
 ## Lady Bird Johnson traits scraper
 

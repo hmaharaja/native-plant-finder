@@ -17,6 +17,7 @@ from dataset_columns import (
     CANONICAL_NAME,
     ECOREGION_ID,
     ECOREGION_NAME,
+    RECOMMENDATION_CATEGORY,
     USAGE_KEY,
     VERNACULAR_NAME,
 )
@@ -31,6 +32,53 @@ DEFAULT_LBJ_TRAITS_PATHS = [
     Path("datasets/lbj_rerun/lbj_traits.csv"),
 ]
 DEFAULT_OUTPUT_DIR = Path("datasets/app_data")
+DEFAULT_RECOMMENDATION_CATEGORIES_PATH = Path("curation/recommendation_categories.csv")
+RECOMMENDATION_CATEGORIES = frozenset(
+    {
+        "good_default",
+        "conditional",
+        "specialist_restoration",
+        "poor_avoid",
+        "invalid_ambiguous",
+    }
+)
+
+
+def read_recommendation_categories(path: str | Path) -> pd.DataFrame:
+    """Read and strictly validate the local recommendation-category mapping."""
+    categories = pd.read_csv(path, dtype=str)
+    required = {USAGE_KEY, RECOMMENDATION_CATEGORY}
+    missing_columns = required.difference(categories.columns)
+    if missing_columns:
+        raise ValueError(
+            "recommendation categories missing required columns: "
+            + ", ".join(sorted(missing_columns))
+        )
+
+    categories = categories.copy()
+    categories[USAGE_KEY] = categories[USAGE_KEY].map(normalize_key)
+    categories[RECOMMENDATION_CATEGORY] = categories[RECOMMENDATION_CATEGORY].map(
+        lambda value: value.strip() if isinstance(value, str) else value
+    )
+    if categories[USAGE_KEY].isna().any():
+        raise ValueError("recommendation categories contain a missing or invalid usageKey")
+    duplicate_keys = categories.loc[
+        categories[USAGE_KEY].duplicated(keep=False), USAGE_KEY
+    ].unique()
+    if len(duplicate_keys):
+        raise ValueError(
+            "duplicate recommendation category usageKey values: "
+            + ", ".join(sorted(duplicate_keys))
+        )
+    invalid = sorted(
+        set(categories[RECOMMENDATION_CATEGORY].dropna()).difference(
+            RECOMMENDATION_CATEGORIES
+        )
+    )
+    if categories[RECOMMENDATION_CATEGORY].isna().any() or invalid:
+        values = ", ".join(invalid) if invalid else "<missing>"
+        raise ValueError(f"invalid recommendation categories: {values}")
+    return categories[[USAGE_KEY, RECOMMENDATION_CATEGORY]].reset_index(drop=True)
 
 def read_lbj_traits(paths: Iterable[str | Path]) -> pd.DataFrame:
     """Read LBJ traits, preferring later files for duplicate usageKey values."""
@@ -53,6 +101,7 @@ def read_lbj_traits(paths: Iterable[str | Path]) -> pd.DataFrame:
 def merge_plant_ecoregions_with_traits(
     plant_ecoregions: pd.DataFrame,
     lbj_traits: pd.DataFrame,
+    recommendation_categories: pd.DataFrame | None = None,
 ) -> pd.DataFrame:
     rows = plant_ecoregions.copy()
     rows[USAGE_KEY] = rows[USAGE_KEY].map(normalize_key)
@@ -62,7 +111,33 @@ def merge_plant_ecoregions_with_traits(
         traits[USAGE_KEY] = traits[USAGE_KEY].map(normalize_key)
 
     trait_columns = [column for column in APP_DATA_LBJ_TRAIT_COLUMNS if column in traits.columns]
-    return rows.merge(traits[trait_columns], on=USAGE_KEY, how="left")
+    merged = rows.merge(traits[trait_columns], on=USAGE_KEY, how="left")
+    if recommendation_categories is None:
+        merged[RECOMMENDATION_CATEGORY] = pd.NA
+        return merged
+
+    category_rows = recommendation_categories[[USAGE_KEY, RECOMMENDATION_CATEGORY]].copy()
+    category_rows[USAGE_KEY] = category_rows[USAGE_KEY].map(normalize_key)
+    category_by_key = category_rows.set_index(USAGE_KEY)[RECOMMENDATION_CATEGORY]
+    trait_value_columns = [column for column in trait_columns if column != USAGE_KEY]
+    enriched = (
+        merged[trait_value_columns].notna().any(axis=1)
+        if trait_value_columns
+        else pd.Series(False, index=merged.index)
+    )
+    missing_keys = sorted(
+        set(merged.loc[~enriched, USAGE_KEY].dropna()).difference(category_by_key.index)
+    )
+    if missing_keys:
+        preview = ", ".join(missing_keys[:10])
+        suffix = "..." if len(missing_keys) > 10 else ""
+        raise ValueError(
+            f"missing recommendation categories for {len(missing_keys)} app-relevant "
+            f"unenriched species: {preview}{suffix}"
+        )
+    merged[RECOMMENDATION_CATEGORY] = merged[USAGE_KEY].map(category_by_key)
+    merged.loc[enriched, RECOMMENDATION_CATEGORY] = pd.NA
+    return merged
 
 
 def _is_missing(value: object) -> bool:
@@ -147,12 +222,15 @@ def write_app_data(
     plant_ecoregions: pd.DataFrame,
     lbj_traits: pd.DataFrame,
     output_dir: str | Path,
+    recommendation_categories: pd.DataFrame | None = None,
 ) -> dict:
     output_dir = Path(output_dir)
     ecoregion_dir = output_dir / "ecoregions"
     ecoregion_dir.mkdir(parents=True, exist_ok=True)
 
-    merged = merge_plant_ecoregions_with_traits(plant_ecoregions, lbj_traits)
+    merged = merge_plant_ecoregions_with_traits(
+        plant_ecoregions, lbj_traits, recommendation_categories
+    )
     trait_presence = merged[
         [
             column
@@ -194,9 +272,13 @@ def build_app_data(
     plant_ecoregions_path: str | Path = DEFAULT_PLANT_ECOREGIONS_PATH,
     lbj_traits_paths: Iterable[str | Path] = DEFAULT_LBJ_TRAITS_PATHS,
     output_dir: str | Path = DEFAULT_OUTPUT_DIR,
+    recommendation_categories_path: str | Path = DEFAULT_RECOMMENDATION_CATEGORIES_PATH,
 ) -> dict:
     plant_ecoregions = pd.read_csv(plant_ecoregions_path, dtype=str)
     lbj_traits = read_lbj_traits(lbj_traits_paths)
+    recommendation_categories = read_recommendation_categories(
+        recommendation_categories_path
+    )
 
     LOGGER.info(
         "plant ecoregion input rows=%s path=%s",
@@ -205,7 +287,9 @@ def build_app_data(
     )
     LOGGER.info("combined unique LBJ trait rows=%s", len(lbj_traits))
 
-    manifest = write_app_data(plant_ecoregions, lbj_traits, output_dir)
+    manifest = write_app_data(
+        plant_ecoregions, lbj_traits, output_dir, recommendation_categories
+    )
     LOGGER.info("ecoregion JSON files written=%s", manifest["ecoregionCount"])
     LOGGER.info("plant/ecoregion records written=%s", manifest["plantEcoregionCount"])
     LOGGER.info("plant/ecoregion records missing LBJ traits=%s", manifest["missingLbjTraitCount"])

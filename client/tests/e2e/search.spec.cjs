@@ -28,7 +28,8 @@ function record(name, growthHabit, duration, min, max) {
     soilCategories: [],
     bloomTime: [],
     bloomColor: [],
-    lbjUrl: null
+    lbjUrl: null,
+    recommendationCategory: null
   };
 }
 

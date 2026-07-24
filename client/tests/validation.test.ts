@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { isValidCoordinate, isValidLocationQuery, parseManifest, safePlantDetailUrl, sanitizeLocationQuery } from "../src/validation";
+import { isValidCoordinate, isValidLocationQuery, parseEcoregionPayload, parseManifest, safePlantDetailUrl, sanitizeLocationQuery } from "../src/validation";
 
 describe("validation", () => {
   it("sanitizes location input without preserving control characters", () => {
@@ -28,6 +28,23 @@ describe("validation", () => {
     ).toBe("ecoregions/7.json");
 
     expect(() => parseManifest({ ecoregions: [] })).toThrow();
+  });
+
+  it("accepts recognized nullable recommendation categories and rejects unknown ones", () => {
+    const plant = {
+      usageKey: 1, canonicalName: "Example", vernacularName: null,
+      occurrenceCount: 1, humanObservationCount: 1, preservedSpecimenCount: 0,
+      coordinateUncertaintyMedianM: 5, firstYear: 2020, lastYear: 2021,
+      growthHabit: [], duration: null, matureHeightMinFt: null, matureHeightMaxFt: null,
+      light: [], moisture: [], waterUse: null, soilCategories: [], bloomTime: [],
+      bloomColor: [], lbjUrl: null, recommendationCategory: "conditional"
+    };
+    const payload = { ecoregionId: 1, ecoregionName: "One", plantCount: 1, plants: [plant] };
+    expect(parseEcoregionPayload(payload).plants[0].recommendationCategory).toBe("conditional");
+    expect(() => parseEcoregionPayload({
+      ...payload,
+      plants: [{ ...plant, recommendationCategory: "unknown" }]
+    })).toThrow(/recommendationCategory/);
   });
 
   it("allows expected HTTPS Lady Bird Johnson plant detail URLs", () => {

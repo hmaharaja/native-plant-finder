@@ -38,7 +38,8 @@
         "white",
         "pink"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=LOPR"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=LOPR",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3170807,
@@ -69,7 +70,8 @@
         "yellow",
         "purple"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=BAAL4"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=BAAL4",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2882527,
@@ -91,7 +93,8 @@
       "soilCategories": [],
       "bloomTime": [],
       "bloomColor": [],
-      "lbjUrl": null
+      "lbjUrl": null,
+      "recommendationCategory": "specialist_restoration"
     },
     {
       "usageKey": 2889299,
@@ -113,7 +116,8 @@
       "soilCategories": [],
       "bloomTime": [],
       "bloomColor": [],
-      "lbjUrl": null
+      "lbjUrl": null,
+      "recommendationCategory": "specialist_restoration"
     },
     {
       "usageKey": 3046155,
@@ -144,7 +148,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CABE"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CABE",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3032783,
@@ -176,7 +181,8 @@
         "pink",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SARI8"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SARI8",
+      "recommendationCategory": null
     },
     {
       "usageKey": 6364441,
@@ -198,7 +204,8 @@
       "soilCategories": [],
       "bloomTime": [],
       "bloomColor": [],
-      "lbjUrl": null
+      "lbjUrl": null,
+      "recommendationCategory": "specialist_restoration"
     },
     {
       "usageKey": 3085450,
@@ -215,7 +222,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 0.6666666666666666,
+      "matureHeightMaxFt": 0.67,
       "light": [],
       "moisture": [],
       "waterUse": null,
@@ -229,7 +236,8 @@
         "white",
         "violet"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CEAL12"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CEAL12",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3104537,
@@ -246,7 +254,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 0.3333333333333333,
+      "matureHeightMaxFt": 0.33,
       "light": [],
       "moisture": [],
       "waterUse": null,
@@ -260,7 +268,8 @@
         "white",
         "purple"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=OMSU"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=OMSU",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2688420,
@@ -282,7 +291,8 @@
       "soilCategories": [],
       "bloomTime": [],
       "bloomColor": [],
-      "lbjUrl": null
+      "lbjUrl": null,
+      "recommendationCategory": "specialist_restoration"
     },
     {
       "usageKey": 5331355,
@@ -306,7 +316,8 @@
       "soilCategories": [],
       "bloomTime": [],
       "bloomColor": [],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=VIPA4"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=VIPA4",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5345014,
@@ -344,7 +355,8 @@
         "blue",
         "purple"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ASAL7"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ASAL7",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5385561,
@@ -377,7 +389,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ANAL4"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ANAL4",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3172050,
@@ -394,7 +407,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 0.8333333333333333,
+      "matureHeightMaxFt": 0.83,
       "light": [],
       "moisture": [],
       "waterUse": null,
@@ -409,7 +422,8 @@
         "blue",
         "violet"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=VEAL80"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=VEAL80",
+      "recommendationCategory": null
     },
     {
       "usageKey": 4133679,
@@ -440,7 +454,8 @@
         "green",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ANMO7"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ANMO7",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3189068,
@@ -457,7 +472,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 0.8333333333333333,
+      "matureHeightMaxFt": 0.83,
       "light": [],
       "moisture": [],
       "waterUse": null,
@@ -471,7 +486,8 @@
       "bloomColor": [
         "pink"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=EPAN4"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=EPAN4",
+      "recommendationCategory": null
     },
     {
       "usageKey": 10987135,
@@ -503,7 +519,8 @@
         "blue",
         "purple"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CAUN2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CAUN2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2704207,
@@ -536,7 +553,8 @@
         "purple",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=POAR2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=POAR2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5332004,
@@ -567,7 +585,8 @@
         "green",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=BENAE"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=BENAE",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2888285,
@@ -584,7 +603,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 0.8333333333333333,
+      "matureHeightMaxFt": 0.83,
       "light": [],
       "moisture": [],
       "waterUse": null,
@@ -598,7 +617,8 @@
         "white",
         "pink"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PYGR"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PYGR",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2992051,
@@ -629,7 +649,8 @@
       "bloomColor": [
         "pink"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=RUARA3"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=RUARA3",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3088323,
@@ -660,7 +681,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PEFR5"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PEFR5",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5372665,
@@ -677,7 +699,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 0.8333333333333333,
+      "matureHeightMaxFt": 0.83,
       "light": [
         "sun"
       ],
@@ -697,7 +719,8 @@
         "red",
         "yellow"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAAR27"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAAR27",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2685383,
@@ -736,7 +759,8 @@
         "purple",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ABBA"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ABBA",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3040184,
@@ -771,7 +795,8 @@
         "green",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=POBA2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=POBA2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3024074,
@@ -809,7 +834,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=AMBA"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=AMBA",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5356714,
@@ -847,7 +873,8 @@
         "pink",
         "purple"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=LAJA"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=LAJA",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5373043,
@@ -864,7 +891,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 0.3333333333333333,
+      "matureHeightMaxFt": 0.33,
       "light": [
         "sun"
       ],
@@ -883,7 +910,8 @@
         "yellow",
         "purple"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAUV"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAUV",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2725975,
@@ -916,7 +944,8 @@
         "green",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CADE7"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CADE7",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2722383,
@@ -933,7 +962,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 1.6666666666666663,
+      "matureHeightMaxFt": 1.67,
       "light": [
         "part shade"
       ],
@@ -947,7 +976,8 @@
         "white",
         "green"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CABI5"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CABI5",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3147080,
@@ -964,7 +994,7 @@
       ],
       "duration": "annual|perennial|biennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 2.6666666666666665,
+      "matureHeightMaxFt": 2.67,
       "light": [],
       "moisture": [],
       "waterUse": null,
@@ -981,7 +1011,8 @@
         "yellow",
         "purple"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ERAC2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ERAC2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5284802,
@@ -1018,7 +1049,8 @@
         "red",
         "yellow"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PIMA"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PIMA",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2720191,
@@ -1048,7 +1080,8 @@
       "bloomColor": [
         "green"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SCAT4"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SCAT4",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5410907,
@@ -1088,7 +1121,8 @@
         "blue",
         "purple"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CARO2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CARO2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2704895,
@@ -1125,7 +1159,8 @@
       "bloomColor": [
         "green"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CACA4"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CACA4",
+      "recommendationCategory": null
     },
     {
       "usageKey": 8073364,
@@ -1161,7 +1196,8 @@
       "bloomColor": [
         "pink"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=VAUL"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=VAUL",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5331824,
@@ -1195,7 +1231,8 @@
       "bloomColor": [
         "yellow"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=BEPU4"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=BEPU4",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5341511,
@@ -1232,7 +1269,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=METR3"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=METR3",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5388889,
@@ -1261,7 +1299,8 @@
       "bloomColor": [
         "yellow"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SOUL"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SOUL",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5333413,
@@ -1300,7 +1339,8 @@
         "white",
         "pink"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ANPO"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ANPO",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5372725,
@@ -1337,7 +1377,8 @@
         "green",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAPE2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAPE2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2726416,
@@ -1367,7 +1408,8 @@
       "bloomColor": [
         "not applicable"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CAMA12"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CAMA12",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5384671,
@@ -1384,7 +1426,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 1.6666666666666663,
+      "matureHeightMaxFt": 1.67,
       "light": [],
       "moisture": [],
       "waterUse": null,
@@ -1402,7 +1444,8 @@
         "white",
         "pink"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=STBO3"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=STBO3",
+      "recommendationCategory": null
     },
     {
       "usageKey": 11039401,
@@ -1424,7 +1467,8 @@
       "soilCategories": [],
       "bloomTime": [],
       "bloomColor": [],
-      "lbjUrl": null
+      "lbjUrl": null,
+      "recommendationCategory": "specialist_restoration"
     },
     {
       "usageKey": 2728226,
@@ -1462,7 +1506,8 @@
         "green",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CABR15"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CABR15",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3082270,
@@ -1479,7 +1524,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 0.8333333333333333,
+      "matureHeightMaxFt": 0.83,
       "light": [
         "sun",
         "part shade",
@@ -1503,7 +1548,8 @@
         "green",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=COCA13"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=COCA13",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3029411,
@@ -1537,7 +1583,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SACA14"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SACA14",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2727181,
@@ -1554,7 +1601,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 2.6666666666666665,
+      "matureHeightMaxFt": 2.67,
       "light": [],
       "moisture": [
         "moist",
@@ -1570,7 +1617,8 @@
       "bloomColor": [
         "not applicable"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CAPA29"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CAPA29",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2701078,
@@ -1587,7 +1635,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 1.3333333333333333,
+      "matureHeightMaxFt": 1.33,
       "light": [],
       "moisture": [],
       "waterUse": null,
@@ -1602,7 +1650,8 @@
         "green",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=JUCA6"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=JUCA6",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2752734,
@@ -1633,7 +1682,8 @@
         "white",
         "yellow"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=STAM2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=STAM2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2998290,
@@ -1669,7 +1719,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=RUCH"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=RUCH",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5415065,
@@ -1686,7 +1737,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 0.6666666666666666,
+      "matureHeightMaxFt": 0.67,
       "light": [
         "sun"
       ],
@@ -1705,7 +1756,8 @@
       "bloomColor": [
         "purple"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PIVU"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PIVU",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2684709,
@@ -1739,7 +1791,8 @@
       "bloomColor": [
         "yellow"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=JUCO6"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=JUCO6",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5372503,
@@ -1770,7 +1823,8 @@
       "bloomColor": [
         "green"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=HIVU2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=HIVU2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5366215,
@@ -1792,7 +1846,8 @@
       "soilCategories": [],
       "bloomTime": [],
       "bloomColor": [],
-      "lbjUrl": null
+      "lbjUrl": null,
+      "recommendationCategory": "specialist_restoration"
     },
     {
       "usageKey": 3025029,
@@ -1822,7 +1877,8 @@
       "bloomColor": [
         "yellow"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SIPR"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SIPR",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2882756,
@@ -1856,7 +1912,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=GAHI2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=GAHI2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 7567421,
@@ -1878,7 +1935,8 @@
       "soilCategories": [],
       "bloomTime": [],
       "bloomColor": [],
-      "lbjUrl": null
+      "lbjUrl": null,
+      "recommendationCategory": "conditional"
     },
     {
       "usageKey": 2882861,
@@ -1915,7 +1973,8 @@
         "white",
         "pink"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=VACE"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=VACE",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2989228,
@@ -1956,7 +2015,8 @@
         "white",
         "pink"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=RUPU"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=RUPU",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5331584,
@@ -1987,7 +2047,8 @@
         "red",
         "green"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=BEMI"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=BEMI",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2797313,
@@ -2004,7 +2065,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 1.1666666666666663,
+      "matureHeightMaxFt": 1.17,
       "light": [],
       "moisture": [
         "moist"
@@ -2024,7 +2085,8 @@
         "green",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=COTR18"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=COTR18",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2882868,
@@ -2060,7 +2122,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=VAAN"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=VAAN",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3171729,
@@ -2095,7 +2158,8 @@
         "pink",
         "purple"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PEGR2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PEGR2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 4129137,
@@ -2126,7 +2190,8 @@
         "green",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=POEM"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=POEM",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5364129,
@@ -2144,7 +2209,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 0.4166666666666666,
+      "matureHeightMaxFt": 0.42,
       "light": [],
       "moisture": [
         "dry",
@@ -2161,7 +2226,8 @@
         "white",
         "yellow"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=DRIN4"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=DRIN4",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2725983,
@@ -2194,7 +2260,8 @@
       "bloomColor": [
         "not applicable"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CAOL3"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CAOL3",
+      "recommendationCategory": null
     },
     {
       "usageKey": 7924597,
@@ -2231,7 +2298,8 @@
       "bloomColor": [
         "not applicable"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=EQAR"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=EQAR",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5361536,
@@ -2267,7 +2335,8 @@
         "white",
         "yellow"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=OXCA4"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=OXCA4",
+      "recommendationCategory": null
     },
     {
       "usageKey": 6428353,
@@ -2289,7 +2358,8 @@
       "soilCategories": [],
       "bloomTime": [],
       "bloomColor": [],
-      "lbjUrl": null
+      "lbjUrl": null,
+      "recommendationCategory": "specialist_restoration"
     },
     {
       "usageKey": 5289773,
@@ -2306,7 +2376,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 2.6666666666666665,
+      "matureHeightMaxFt": 2.67,
       "light": [],
       "moisture": [],
       "waterUse": null,
@@ -2319,7 +2389,8 @@
         "green",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=DUFI"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=DUFI",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5384660,
@@ -2348,7 +2419,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=STCR"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=STCR",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2704261,
@@ -2378,7 +2450,8 @@
       "bloomColor": [
         "yellow"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=POPA2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=POPA2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 10974210,
@@ -2395,7 +2468,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 1.6666666666666663,
+      "matureHeightMaxFt": 1.67,
       "light": [],
       "moisture": [],
       "waterUse": null,
@@ -2411,7 +2484,8 @@
         "pink",
         "green"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=POFO2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=POFO2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2650818,
@@ -2429,7 +2503,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 1.3333333333333333,
+      "matureHeightMaxFt": 1.33,
       "light": [
         "part shade"
       ],
@@ -2451,7 +2525,8 @@
       "bloomColor": [
         "not applicable"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CYFR2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CYFR2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2882412,
@@ -2492,7 +2567,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=NYOD"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=NYOD",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5331640,
@@ -2523,7 +2599,8 @@
         "green",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=BEGL"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=BEGL",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2704218,
@@ -2540,7 +2617,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 2.6666666666666665,
+      "matureHeightMaxFt": 2.67,
       "light": [],
       "moisture": [],
       "waterUse": null,
@@ -2553,7 +2630,8 @@
         "green",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=POGL"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=POGL",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3033632,
@@ -2588,7 +2666,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=COTR2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=COTR2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2728183,
@@ -2620,7 +2699,8 @@
         "green",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CAGL4"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CAGL4",
+      "recommendationCategory": null
     },
     {
       "usageKey": 8956987,
@@ -2642,7 +2722,8 @@
       "soilCategories": [],
       "bloomTime": [],
       "bloomColor": [],
-      "lbjUrl": null
+      "lbjUrl": null,
+      "recommendationCategory": "conditional"
     },
     {
       "usageKey": 4218190,
@@ -2664,7 +2745,8 @@
       "soilCategories": [],
       "bloomTime": [],
       "bloomColor": [],
-      "lbjUrl": null
+      "lbjUrl": null,
+      "recommendationCategory": "specialist_restoration"
     },
     {
       "usageKey": 8313801,
@@ -2681,7 +2763,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 0.4166666666666666,
+      "matureHeightMaxFt": 0.42,
       "light": [],
       "moisture": [],
       "waterUse": null,
@@ -2695,7 +2777,8 @@
         "white",
         "purple"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PREG"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PREG",
+      "recommendationCategory": null
     },
     {
       "usageKey": 8414592,
@@ -2725,7 +2808,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=MIGR7"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=MIGR7",
+      "recommendationCategory": null
     },
     {
       "usageKey": 7747009,
@@ -2755,7 +2839,8 @@
       "bloomColor": [
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=LUGR8"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=LUGR8",
+      "recommendationCategory": null
     },
     {
       "usageKey": 9148577,
@@ -2794,7 +2879,8 @@
         "red",
         "green"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ALIN2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ALIN2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5372963,
@@ -2828,7 +2914,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAGL"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAGL",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5372969,
@@ -2863,7 +2950,8 @@
         "green",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAVE"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAVE",
+      "recommendationCategory": null
     },
     {
       "usageKey": 7932677,
@@ -2880,7 +2968,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 1.3333333333333333,
+      "matureHeightMaxFt": 1.33,
       "light": [],
       "moisture": [],
       "waterUse": null,
@@ -2893,7 +2981,8 @@
         "green",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=JUTR2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=JUTR2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2722942,
@@ -2933,7 +3022,8 @@
         "green",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CACA11"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CACA11",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5299144,
@@ -2955,7 +3045,8 @@
       "soilCategories": [],
       "bloomTime": [],
       "bloomColor": [],
-      "lbjUrl": null
+      "lbjUrl": null,
+      "recommendationCategory": "good_default"
     },
     {
       "usageKey": 5393899,
@@ -2977,7 +3068,8 @@
       "soilCategories": [],
       "bloomTime": [],
       "bloomColor": [],
-      "lbjUrl": null
+      "lbjUrl": null,
+      "recommendationCategory": "specialist_restoration"
     },
     {
       "usageKey": 2725060,
@@ -2999,7 +3091,8 @@
       "soilCategories": [],
       "bloomTime": [],
       "bloomColor": [],
-      "lbjUrl": null
+      "lbjUrl": null,
+      "recommendationCategory": "specialist_restoration"
     },
     {
       "usageKey": 3032575,
@@ -3016,7 +3109,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 0.8333333333333333,
+      "matureHeightMaxFt": 0.83,
       "light": [],
       "moisture": [],
       "waterUse": null,
@@ -3031,7 +3124,8 @@
         "yellow",
         "green"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PAKO3"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PAKO3",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2914640,
@@ -3048,7 +3142,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 1.3333333333333333,
+      "matureHeightMaxFt": 1.33,
       "light": [],
       "moisture": [],
       "waterUse": null,
@@ -3060,7 +3154,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=GALA2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=GALA2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3171689,
@@ -3091,7 +3186,8 @@
         "yellow",
         "purple"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PELA"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PELA",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2882984,
@@ -3113,7 +3209,8 @@
       "soilCategories": [],
       "bloomTime": [],
       "bloomColor": [],
-      "lbjUrl": null
+      "lbjUrl": null,
+      "recommendationCategory": "specialist_restoration"
     },
     {
       "usageKey": 5331200,
@@ -3130,7 +3227,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 0.6666666666666666,
+      "matureHeightMaxFt": 0.67,
       "light": [
         "sun"
       ],
@@ -3148,7 +3245,8 @@
         "blue",
         "purple"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=VILA10"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=VILA10",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5372851,
@@ -3181,7 +3279,8 @@
         "purple",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAAR7"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAAR7",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2724584,
@@ -3198,7 +3297,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 1.3333333333333333,
+      "matureHeightMaxFt": 1.33,
       "light": [],
       "moisture": [],
       "waterUse": null,
@@ -3210,7 +3309,8 @@
       "bloomColor": [
         "not applicable"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CALA10"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CALA10",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2688270,
@@ -3237,7 +3337,8 @@
       "bloomColor": [
         "not applicable"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ISLA"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ISLA",
+      "recommendationCategory": null
     },
     {
       "usageKey": 7554812,
@@ -3259,7 +3360,8 @@
       "soilCategories": [],
       "bloomTime": [],
       "bloomColor": [],
-      "lbjUrl": null
+      "lbjUrl": null,
+      "recommendationCategory": "specialist_restoration"
     },
     {
       "usageKey": 5394010,
@@ -3281,7 +3383,8 @@
       "soilCategories": [],
       "bloomTime": [],
       "bloomColor": [],
-      "lbjUrl": null
+      "lbjUrl": null,
+      "recommendationCategory": "specialist_restoration"
     },
     {
       "usageKey": 5333323,
@@ -3310,7 +3413,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=DILA"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=DILA",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3171711,
@@ -3327,7 +3431,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 0.8333333333333333,
+      "matureHeightMaxFt": 0.83,
       "light": [],
       "moisture": [],
       "waterUse": null,
@@ -3341,7 +3445,8 @@
         "white",
         "yellow"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PELA4"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PELA4",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2704877,
@@ -3372,7 +3477,8 @@
         "purple",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CALA6"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CALA6",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2883075,
@@ -3408,7 +3514,8 @@
       "bloomColor": [
         "purple"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=RHLA2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=RHLA2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5388994,
@@ -3437,7 +3544,8 @@
       "bloomColor": [
         "yellow"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SOMA4"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SOMA4",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5333436,
@@ -3472,7 +3580,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CHCA2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CHCA2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2888272,
@@ -3504,7 +3613,8 @@
         "white",
         "pink"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PYMI"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PYMI",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5384620,
@@ -3534,7 +3644,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=STLO2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=STLO2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2729108,
@@ -3551,7 +3662,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 1.6666666666666663,
+      "matureHeightMaxFt": 1.67,
       "light": [],
       "moisture": [],
       "waterUse": null,
@@ -3566,7 +3677,8 @@
         "green",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CAST10"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CAST10",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2729473,
@@ -3583,7 +3695,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 1.1666666666666663,
+      "matureHeightMaxFt": 1.17,
       "light": [],
       "moisture": [],
       "waterUse": null,
@@ -3596,7 +3708,8 @@
       "bloomColor": [
         "not applicable"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CARA5"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CARA5",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5396160,
@@ -3627,7 +3740,8 @@
         "blue",
         "violet"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=EURA10"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=EURA10",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2688197,
@@ -3644,7 +3758,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 0.3333333333333333,
+      "matureHeightMaxFt": 0.33,
       "light": [],
       "moisture": [],
       "waterUse": null,
@@ -3653,7 +3767,8 @@
       "bloomColor": [
         "not applicable"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SESE"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SESE",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2725520,
@@ -3683,7 +3798,8 @@
       "bloomColor": [
         "not applicable"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CALY3"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CALY3",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2724868,
@@ -3700,7 +3816,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 1.3333333333333333,
+      "matureHeightMaxFt": 1.33,
       "light": [],
       "moisture": [],
       "waterUse": null,
@@ -3713,7 +3829,8 @@
       "bloomColor": [
         "not applicable"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CAMA8"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CAMA8",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2700934,
@@ -3746,7 +3863,8 @@
         "purple",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=LUMU2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=LUMU2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2865280,
@@ -3763,7 +3881,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 1.3333333333333333,
+      "matureHeightMaxFt": 1.33,
       "light": [],
       "moisture": [],
       "waterUse": null,
@@ -3777,7 +3895,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=TRPA28"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=TRPA28",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3020532,
@@ -3808,7 +3927,8 @@
         "red",
         "purple"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=COPA28"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=COPA28",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3170177,
@@ -3837,7 +3957,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=LORO"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=LORO",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3032585,
@@ -3854,7 +3975,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 1.6666666666666663,
+      "matureHeightMaxFt": 1.67,
       "light": [
         "sun"
       ],
@@ -3867,7 +3988,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PAPA8"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PAPA8",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3172072,
@@ -3898,7 +4020,8 @@
       "bloomColor": [
         "blue"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=VESC2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=VESC2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3189080,
@@ -3915,7 +4038,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 2.6666666666666665,
+      "matureHeightMaxFt": 2.67,
       "light": [],
       "moisture": [],
       "waterUse": null,
@@ -3928,7 +4051,8 @@
       "bloomColor": [
         "pink"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=EPPA"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=EPPA",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5384754,
@@ -3961,7 +4085,8 @@
         "pink",
         "purple"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SIAC"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SIAC",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2882835,
@@ -3978,7 +4103,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 1.1666666666666663,
+      "matureHeightMaxFt": 1.17,
       "light": [
         "sun",
         "part shade",
@@ -3998,7 +4123,8 @@
         "red",
         "pink"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=VAVIM"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=VAVIM",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5295813,
@@ -4020,7 +4146,8 @@
       "soilCategories": [],
       "bloomTime": [],
       "bloomColor": [],
-      "lbjUrl": null
+      "lbjUrl": null,
+      "recommendationCategory": "specialist_restoration"
     },
     {
       "usageKey": 3992299,
@@ -4042,7 +4169,8 @@
       "soilCategories": [],
       "bloomTime": [],
       "bloomColor": [],
-      "lbjUrl": null
+      "lbjUrl": null,
+      "recommendationCategory": "specialist_restoration"
     },
     {
       "usageKey": 2705701,
@@ -4074,7 +4202,8 @@
         "purple",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=VAAT2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=VAAT2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 8033980,
@@ -4106,7 +4235,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=MIBI9"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=MIBI9",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2889358,
@@ -4123,7 +4253,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 1.6666666666666663,
+      "matureHeightMaxFt": 1.67,
       "light": [
         "part shade"
       ],
@@ -4140,7 +4270,8 @@
         "red",
         "green"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=OXDI3"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=OXDI3",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2725881,
@@ -4174,7 +4305,8 @@
       "bloomColor": [
         "not applicable"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CALI7"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CALI7",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5389132,
@@ -4210,7 +4342,8 @@
       "bloomColor": [
         "yellow"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SOMU"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SOMU",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5371644,
@@ -4227,7 +4360,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 0.8333333333333333,
+      "matureHeightMaxFt": 0.83,
       "light": [
         "shade"
       ],
@@ -4244,7 +4377,8 @@
         "white",
         "green"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=MINU3"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=MINU3",
+      "recommendationCategory": null
     },
     {
       "usageKey": 8138466,
@@ -4261,7 +4395,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 1.3333333333333333,
+      "matureHeightMaxFt": 1.33,
       "light": [
         "sun"
       ],
@@ -4280,7 +4414,8 @@
       "bloomColor": [
         "yellow"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ARAN5"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ARAN5",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2730127,
@@ -4316,7 +4451,8 @@
         "yellow",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ERAN6"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ERAN6",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5332206,
@@ -4346,7 +4482,8 @@
         "green",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=BEMI2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=BEMI2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3032869,
@@ -4376,7 +4513,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SACE2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SACE2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2651330,
@@ -4406,7 +4544,8 @@
       "bloomColor": [
         "not applicable"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PHCO24"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PHCO24",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2706518,
@@ -4423,7 +4562,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 1.6666666666666663,
+      "matureHeightMaxFt": 1.67,
       "light": [],
       "moisture": [],
       "waterUse": null,
@@ -4436,7 +4575,8 @@
         "green",
         "purple"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=AGME3"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=AGME3",
+      "recommendationCategory": null
     },
     {
       "usageKey": 8147903,
@@ -4453,7 +4593,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 0.3333333333333333,
+      "matureHeightMaxFt": 0.33,
       "light": [
         "sun"
       ],
@@ -4467,7 +4607,8 @@
         "white",
         "green"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=VABO"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=VABO",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2702302,
@@ -4484,7 +4625,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 2.6666666666666665,
+      "matureHeightMaxFt": 2.67,
       "light": [],
       "moisture": [],
       "waterUse": null,
@@ -4496,7 +4637,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SPHY"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SPHY",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2889770,
@@ -4525,7 +4667,8 @@
         "green",
         "purple"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=GELI2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=GELI2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 8190643,
@@ -4543,7 +4686,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 0.4166666666666666,
+      "matureHeightMaxFt": 0.42,
       "light": [],
       "moisture": [],
       "waterUse": null,
@@ -4552,7 +4695,8 @@
       "bloomColor": [
         "not applicable"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=HUSE"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=HUSE",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2688424,
@@ -4574,7 +4718,8 @@
       "soilCategories": [],
       "bloomTime": [],
       "bloomColor": [],
-      "lbjUrl": null
+      "lbjUrl": null,
+      "recommendationCategory": "specialist_restoration"
     },
     {
       "usageKey": 6400569,
@@ -4596,7 +4741,8 @@
       "soilCategories": [],
       "bloomTime": [],
       "bloomColor": [],
-      "lbjUrl": null
+      "lbjUrl": null,
+      "recommendationCategory": "specialist_restoration"
     },
     {
       "usageKey": 2650832,
@@ -4614,7 +4760,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 1.3333333333333333,
+      "matureHeightMaxFt": 1.33,
       "light": [
         "sun",
         "shade"
@@ -4628,7 +4774,8 @@
       "bloomColor": [
         "not applicable"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=GYDR"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=GYDR",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5421389,
@@ -4665,7 +4812,8 @@
         "red",
         "purple"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAPU4"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAPU4",
+      "recommendationCategory": null
     },
     {
       "usageKey": 7983163,
@@ -4687,7 +4835,8 @@
       "soilCategories": [],
       "bloomTime": [],
       "bloomColor": [],
-      "lbjUrl": null
+      "lbjUrl": null,
+      "recommendationCategory": "specialist_restoration"
     },
     {
       "usageKey": 5373032,
@@ -4719,7 +4868,8 @@
         "red",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAAR6"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAAR6",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2700726,
@@ -4749,7 +4899,8 @@
         "green",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=LUCO5"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=LUCO5",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2724869,
@@ -4766,7 +4917,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 1.1666666666666663,
+      "matureHeightMaxFt": 1.17,
       "light": [],
       "moisture": [],
       "waterUse": null,
@@ -4779,7 +4930,8 @@
       "bloomColor": [
         "not applicable"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CANO2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CANO2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2888298,
@@ -4796,7 +4948,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 0.3333333333333333,
+      "matureHeightMaxFt": 0.33,
       "light": [
         "sun",
         "part shade",
@@ -4816,7 +4968,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=MOUN2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=MOUN2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5341246,
@@ -4846,7 +4999,8 @@
       "bloomColor": [
         "blue"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=MEMA3"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=MEMA3",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2882990,
@@ -4882,7 +5036,8 @@
         "white",
         "pink"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=KAPO"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=KAPO",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5332120,
@@ -4918,7 +5073,8 @@
         "green",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=BEPA"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=BEPA",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5372870,
@@ -4956,7 +5112,8 @@
         "purple",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAHU2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAHU2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5333379,
@@ -4973,7 +5130,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 0.8333333333333333,
+      "matureHeightMaxFt": 0.83,
       "light": [],
       "moisture": [
         "moist"
@@ -4988,7 +5145,8 @@
         "red",
         "purple"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PHCA10"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PHCA10",
+      "recommendationCategory": null
     },
     {
       "usageKey": 8353146,
@@ -5005,7 +5163,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 0.1666666666666666,
+      "matureHeightMaxFt": 0.17,
       "light": [
         "part shade"
       ],
@@ -5026,7 +5184,8 @@
         "pink",
         "purple"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAOP"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAOP",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3032756,
@@ -5043,7 +5202,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 0.1666666666666666,
+      "matureHeightMaxFt": 0.17,
       "light": [],
       "moisture": [],
       "waterUse": null,
@@ -5057,7 +5216,8 @@
         "white",
         "purple"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAHY"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAHY",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2704922,
@@ -5097,7 +5257,8 @@
       "bloomColor": [
         "yellow"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=FERU2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=FERU2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2993094,
@@ -5133,7 +5294,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=RUID"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=RUID",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3171728,
@@ -5150,7 +5312,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 0.6666666666666666,
+      "matureHeightMaxFt": 0.67,
       "light": [],
       "moisture": [],
       "waterUse": null,
@@ -5163,7 +5325,8 @@
         "yellow",
         "purple"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PEFL"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PEFL",
+      "recommendationCategory": null
     },
     {
       "usageKey": 9586211,
@@ -5185,7 +5348,8 @@
       "soilCategories": [],
       "bloomTime": [],
       "bloomColor": [],
-      "lbjUrl": null
+      "lbjUrl": null,
+      "recommendationCategory": "specialist_restoration"
     },
     {
       "usageKey": 3188786,
@@ -5207,7 +5371,8 @@
       "soilCategories": [],
       "bloomTime": [],
       "bloomColor": [],
-      "lbjUrl": null
+      "lbjUrl": null,
+      "recommendationCategory": "specialist_restoration"
     },
     {
       "usageKey": 5345273,
@@ -5238,7 +5403,8 @@
         "purple",
         "violet"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ASRO"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ASRO",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2985688,
@@ -5255,7 +5421,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 1.3333333333333333,
+      "matureHeightMaxFt": 1.33,
       "light": [],
       "moisture": [],
       "waterUse": null,
@@ -5270,7 +5436,8 @@
         "yellow",
         "green"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=RHRO3"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=RHRO3",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5365305,
@@ -5300,7 +5467,8 @@
       "bloomColor": [
         "yellow"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PONO3"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PONO3",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3991500,
@@ -5322,7 +5490,8 @@
       "soilCategories": [],
       "bloomTime": [],
       "bloomColor": [],
-      "lbjUrl": null
+      "lbjUrl": null,
+      "recommendationCategory": "specialist_restoration"
     },
     {
       "usageKey": 2727697,
@@ -5354,7 +5523,8 @@
       "bloomColor": [
         "not applicable"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CASA10"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CASA10",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5275075,
@@ -5372,7 +5542,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 0.8333333333333333,
+      "matureHeightMaxFt": 0.83,
       "light": [
         "sun"
       ],
@@ -5390,7 +5560,8 @@
       "bloomColor": [
         "not applicable"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=WOIL"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=WOIL",
+      "recommendationCategory": null
     },
     {
       "usageKey": 9199378,
@@ -5420,7 +5591,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=LISC3"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=LISC3",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2706373,
@@ -5450,7 +5622,8 @@
       "bloomColor": [
         "not applicable"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=LEMO8"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=LEMO8",
+      "recommendationCategory": null
     },
     {
       "usageKey": 8930531,
@@ -5484,7 +5657,8 @@
         "pink",
         "purple"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ARMAC2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ARMAC2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3085776,
@@ -5515,7 +5689,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=HOPE"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=HOPE",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3189755,
@@ -5548,7 +5723,8 @@
         "green",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PLMAC2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PLMAC2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3108845,
@@ -5582,7 +5758,8 @@
       "bloomColor": [
         "yellow"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SEPS"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SEPS",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2704975,
@@ -5613,7 +5790,8 @@
         "green",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=FEBR"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=FEBR",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3012350,
@@ -5647,7 +5825,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SODE3"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SODE3",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2688443,
@@ -5669,7 +5848,8 @@
       "soilCategories": [],
       "bloomTime": [],
       "bloomColor": [],
-      "lbjUrl": null
+      "lbjUrl": null,
+      "recommendationCategory": "specialist_restoration"
     },
     {
       "usageKey": 2986208,
@@ -5709,7 +5889,8 @@
         "purple",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=RIGL"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=RIGL",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5567575,
@@ -5731,7 +5912,8 @@
       "soilCategories": [],
       "bloomTime": [],
       "bloomColor": [],
-      "lbjUrl": null
+      "lbjUrl": null,
+      "recommendationCategory": "specialist_restoration"
     },
     {
       "usageKey": 2882940,
@@ -5748,7 +5930,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 0.1666666666666666,
+      "matureHeightMaxFt": 0.17,
       "light": [
         "sun",
         "part shade",
@@ -5764,7 +5946,8 @@
       "bloomColor": [
         "pink"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=VAOX"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=VAOX",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2864429,
@@ -5799,7 +5982,8 @@
         "white",
         "green"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=TOPU"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=TOPU",
+      "recommendationCategory": null
     },
     {
       "usageKey": 6418648,
@@ -5821,7 +6005,8 @@
       "soilCategories": [],
       "bloomTime": [],
       "bloomColor": [],
-      "lbjUrl": null
+      "lbjUrl": null,
+      "recommendationCategory": "specialist_restoration"
     },
     {
       "usageKey": 2700961,
@@ -5851,7 +6036,8 @@
       "bloomColor": [
         "green"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=LUPA4"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=LUPA4",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3050232,
@@ -5881,7 +6067,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=DRGL"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=DRGL",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3170097,
@@ -5910,7 +6097,8 @@
       "bloomColor": [
         "blue"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=GENI"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=GENI",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5373083,
@@ -5927,7 +6115,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 0.1666666666666666,
+      "matureHeightMaxFt": 0.17,
       "light": [],
       "moisture": [],
       "waterUse": null,
@@ -5944,7 +6132,8 @@
         "green",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAHE2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAHE2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 10720384,
@@ -5966,7 +6155,8 @@
       "soilCategories": [],
       "bloomTime": [],
       "bloomColor": [],
-      "lbjUrl": null
+      "lbjUrl": null,
+      "recommendationCategory": "specialist_restoration"
     },
     {
       "usageKey": 5275149,
@@ -5998,7 +6188,8 @@
       "bloomColor": [
         "not applicable"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=DRCA11"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=DRCA11",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5275102,
@@ -6030,7 +6221,8 @@
       "bloomColor": [
         "not applicable"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=DREX2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=DREX2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2888613,
@@ -6065,7 +6257,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=VIED"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=VIED",
+      "recommendationCategory": null
     },
     {
       "usageKey": 6364299,
@@ -6082,7 +6275,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 0.3333333333333333,
+      "matureHeightMaxFt": 0.33,
       "light": [],
       "moisture": [],
       "waterUse": null,
@@ -6095,7 +6288,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CECE"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CECE",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3992189,
@@ -6122,7 +6316,8 @@
       "bloomColor": [
         "not applicable"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=LYAN2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=LYAN2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3170627,
@@ -6153,7 +6348,8 @@
         "white",
         "yellow"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CASE4"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CASE4",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3082246,
@@ -6170,7 +6366,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 0.6666666666666666,
+      "matureHeightMaxFt": 0.67,
       "light": [
         "sun",
         "part shade",
@@ -6190,7 +6386,8 @@
         "white",
         "purple"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=COSU4"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=COSU4",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5414202,
@@ -6230,7 +6427,8 @@
         "blue",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=MYGA"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=MYGA",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2726725,
@@ -6264,7 +6462,8 @@
       "bloomColor": [
         "not applicable"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CARO6"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CARO6",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3033146,
@@ -6298,7 +6497,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=THPU2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=THPU2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2797036,
@@ -6329,7 +6529,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PLDI3"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PLDI3",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2686231,
@@ -6366,7 +6567,8 @@
         "green",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=LALA"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=LALA",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5372987,
@@ -6401,7 +6603,8 @@
         "brown",
         "black"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAPLP4"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAPLP4",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2701799,
@@ -6432,7 +6635,8 @@
         "green",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=JUFI"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=JUFI",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3033377,
@@ -6464,7 +6668,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=RATR"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=RATR",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2769518,
@@ -6481,7 +6686,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 1.3333333333333333,
+      "matureHeightMaxFt": 1.33,
       "light": [],
       "moisture": [],
       "waterUse": null,
@@ -6493,7 +6698,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=MATR4"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=MATR4",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2725572,
@@ -6510,7 +6716,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 2.333333333333333,
+      "matureHeightMaxFt": 2.33,
       "light": [
         "part shade"
       ],
@@ -6528,7 +6734,8 @@
       "bloomColor": [
         "not applicable"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CATR10"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CATR10",
+      "recommendationCategory": null
     },
     {
       "usageKey": 4926534,
@@ -6550,7 +6757,8 @@
       "soilCategories": [],
       "bloomTime": [],
       "bloomColor": [],
-      "lbjUrl": null
+      "lbjUrl": null,
+      "recommendationCategory": "specialist_restoration"
     },
     {
       "usageKey": 3032759,
@@ -6567,7 +6775,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 0.6666666666666666,
+      "matureHeightMaxFt": 0.67,
       "light": [
         "sun"
       ],
@@ -6588,7 +6796,8 @@
         "orange",
         "yellow"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SATR5"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SATR5",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2728845,
@@ -6610,7 +6819,8 @@
       "soilCategories": [],
       "bloomTime": [],
       "bloomColor": [],
-      "lbjUrl": null
+      "lbjUrl": null,
+      "recommendationCategory": "specialist_restoration"
     },
     {
       "usageKey": 2710592,
@@ -6646,7 +6856,8 @@
         "yellow",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=TRCE3"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=TRCE3",
+      "recommendationCategory": null
     },
     {
       "usageKey": 8059811,
@@ -6678,7 +6889,8 @@
       "bloomColor": [
         "yellow"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=DECE"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=DECE",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2730185,
@@ -6708,7 +6920,8 @@
       "bloomColor": [
         "not applicable"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ERVA4"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=ERVA4",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5334220,
@@ -6747,7 +6960,8 @@
         "white",
         "pink"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=LIBO3"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=LIBO3",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2723500,
@@ -6783,7 +6997,8 @@
       "bloomColor": [
         "not applicable"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CADI6"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CADI6",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2703346,
@@ -6805,7 +7020,8 @@
       "soilCategories": [],
       "bloomTime": [],
       "bloomColor": [],
-      "lbjUrl": null
+      "lbjUrl": null,
+      "recommendationCategory": "specialist_restoration"
     },
     {
       "usageKey": 8057727,
@@ -6846,7 +7062,8 @@
       "bloomColor": [
         "not applicable"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=WOVI"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=WOVI",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2724150,
@@ -6883,7 +7100,8 @@
         "green",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CAAQ"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CAAQ",
+      "recommendationCategory": null
     },
     {
       "usageKey": 4149465,
@@ -6905,7 +7123,8 @@
       "soilCategories": [],
       "bloomTime": [],
       "bloomColor": [],
-      "lbjUrl": null
+      "lbjUrl": null,
+      "recommendationCategory": "specialist_restoration"
     },
     {
       "usageKey": 3032837,
@@ -6922,7 +7141,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 1.3333333333333333,
+      "matureHeightMaxFt": 1.33,
       "light": [],
       "moisture": [],
       "waterUse": null,
@@ -6939,7 +7158,8 @@
         "orange",
         "purple"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAPA14"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=SAPA14",
+      "recommendationCategory": null
     },
     {
       "usageKey": 5284745,
@@ -6978,7 +7198,8 @@
         "red",
         "yellow"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PIGL"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=PIGL",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2769544,
@@ -6995,7 +7216,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 0.8333333333333333,
+      "matureHeightMaxFt": 0.83,
       "light": [
         "part shade",
         "shade"
@@ -7013,7 +7234,8 @@
       "bloomColor": [
         "white"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=MACA4"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=MACA4",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2687929,
@@ -7030,7 +7252,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 2.333333333333333,
+      "matureHeightMaxFt": 2.33,
       "light": [
         "sun",
         "part shade",
@@ -7049,7 +7271,8 @@
       "bloomColor": [
         "not applicable"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=EQSY"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=EQSY",
+      "recommendationCategory": null
     },
     {
       "usageKey": 3172106,
@@ -7066,7 +7289,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 1.6666666666666663,
+      "matureHeightMaxFt": 1.67,
       "light": [
         "part shade"
       ],
@@ -7081,7 +7304,8 @@
       "bloomColor": [
         "blue"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=VEWO2"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=VEWO2",
+      "recommendationCategory": null
     },
     {
       "usageKey": 2753574,
@@ -7098,7 +7322,7 @@
       ],
       "duration": "perennial",
       "matureHeightMinFt": null,
-      "matureHeightMaxFt": 1.6666666666666663,
+      "matureHeightMaxFt": 1.67,
       "light": [
         "shade"
       ],
@@ -7116,7 +7340,8 @@
         "green",
         "brown"
       ],
-      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CLBO3"
+      "lbjUrl": "https://www.wildflower.org/plants/result.php?id_plant=CLBO3",
+      "recommendationCategory": null
     }
   ]
 }

@@ -35,7 +35,15 @@ export interface PlantRecord {
   bloomTime: string[];
   bloomColor: string[];
   lbjUrl: string | null;
+  recommendationCategory: RecommendationCategory | null;
 }
+
+export type RecommendationCategory =
+  | "good_default"
+  | "conditional"
+  | "specialist_restoration"
+  | "poor_avoid"
+  | "invalid_ambiguous";
 
 export interface EcoregionPayload {
   ecoregionId: number;
