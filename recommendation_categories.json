@@ -1,0 +1,24 @@
+{
+  "categories": {
+    "good_default": {
+      "label": "Garden-friendly",
+      "visibility": "default-visible"
+    },
+    "conditional": {
+      "label": "Site-dependent",
+      "visibility": "default-visible"
+    },
+    "specialist_restoration": {
+      "label": "Restoration use",
+      "visibility": "specialist-opt-in"
+    },
+    "poor_avoid": {
+      "label": null,
+      "visibility": "always-excluded"
+    },
+    "invalid_ambiguous": {
+      "label": null,
+      "visibility": "always-excluded"
+    }
+  }
+}
