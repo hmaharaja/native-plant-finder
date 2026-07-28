@@ -624,6 +624,43 @@ h1 {
   line-height: 1.05;
 }
 
+.plant-name-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px 10px;
+  align-items: baseline;
+}
+
+.recommendation-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 22px;
+  border: 1px solid var(--moss-dark);
+  border-radius: 999px;
+  padding: 2px 8px;
+  color: var(--moss-dark);
+  background: rgba(147, 160, 113, 0.16);
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 0.67rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.specialist-toggle {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  margin: 14px 0 0;
+  font-weight: 700;
+}
+
+.specialist-note {
+  margin: 8px 0 0;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
 .plantcard-head p {
   margin: 6px 0 0;
   color: var(--ink-soft);

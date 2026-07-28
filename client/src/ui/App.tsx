@@ -6,6 +6,11 @@ import { EMPTY_FILTERS, filterPlants, type FilterState } from "../filters";
 import { createDefaultGeocoder, geocoderErrorMessage } from "../geocoder";
 import { findEcoregionForCoordinate } from "../geometry";
 import { paginate } from "../pagination";
+import {
+  hasSpecialistRecommendations,
+  permittedRecommendations,
+  recommendationLabel
+} from "../recommendations";
 import type { BoundaryCollection, Coordinate, EcoregionPayload, GeocoderCandidate, Manifest, PlantRecord } from "../types";
 import { isValidLocationQuery, safePlantDetailUrl, sanitizeLocationQuery } from "../validation";
 import { FilterPanel } from "./FilterPanel";
@@ -104,7 +109,10 @@ export function App() {
     }
   }, [boundaries, initialError, manifest, state]);
 
-  const filteredPlants = useMemo(() => filterPlants(payload?.plants ?? [], filters), [filters, payload]);
+  // Keep visibility derivation out of a memo so Vite Fast Refresh cannot retain
+  // a list produced by older recommendation logic while hot-loading new controls.
+  const permittedPlants = permittedRecommendations(payload?.plants ?? [], filters.showSpecialists);
+  const filteredPlants = filterPlants(permittedPlants, filters);
   const pagination = useMemo(() => paginate(filteredPlants, page), [filteredPlants, page]);
 
   function handleFiltersChange(nextFilters: FilterState) {
@@ -231,14 +239,19 @@ export function App() {
               page={pagination.page}
               pageCount={pagination.pageCount}
               filteredCount={filteredPlants.length}
+              permittedCount={permittedPlants.length}
             />
             {candidates.length > 1 ? <CandidateList candidates={candidates} onChoose={chooseCandidate} /> : null}
             {payload ? (
               <>
                 {filteredPlants.length ? (
                   <PlantList plants={pagination.items} />
-                ) : (
+                ) : permittedPlants.length > 0 ? (
                   <NoMatches onClear={() => handleFiltersChange(EMPTY_FILTERS)} />
+                ) : !filters.showSpecialists && hasSpecialistRecommendations(payload.plants) ? (
+                  <SpecialistOnly onShow={() => handleFiltersChange({ ...filters, showSpecialists: true })} />
+                ) : (
+                  <NoRecommendations />
                 )}
                 {pagination.hasPagination ? (
                   <PaginationControls page={pagination.page} pageCount={pagination.pageCount} onPageChange={setPage} />
@@ -315,13 +328,15 @@ function ResultsHeader({
   searchContext,
   page,
   pageCount,
-  filteredCount
+  filteredCount,
+  permittedCount
 }: {
   payload: EcoregionPayload | null;
   searchContext: SearchContext | null;
   page: number;
   pageCount: number;
   filteredCount: number;
+  permittedCount: number;
 }) {
   return (
     <div className="results-header">
@@ -340,11 +355,34 @@ function ResultsHeader({
             </p>
           ) : null}
           <p className="count-line">
-            {filteredCount.toLocaleString()} of {payload.plantCount.toLocaleString()} species &middot; page {page} of{" "}
+            {filteredCount.toLocaleString()} of {permittedCount.toLocaleString()} species &middot; page {page} of{" "}
             {pageCount}
           </p>
         </div>
       ) : null}
+    </div>
+  );
+}
+
+function SpecialistOnly({ onShow }: { onShow: () => void }) {
+  return (
+    <div className="empty-state no-matches">
+      <div>
+        <h3>This region’s recommended plants are specialist species</h3>
+        <p>These plants are usually intended for restoration or other specialist settings.</p>
+        <button type="button" onClick={onShow}>Show specialist species</button>
+      </div>
+    </div>
+  );
+}
+
+function NoRecommendations() {
+  return (
+    <div className="empty-state no-matches">
+      <div>
+        <h3>No recommended plants are available</h3>
+        <p>This region currently contains only records excluded from recommendations.</p>
+      </div>
     </div>
   );
 }
@@ -397,6 +435,7 @@ function PlantList({ plants }: { plants: PlantRecord[] }) {
     <div className="plant-list">
       {plants.map((plant) => {
         const detailUrl = safePlantDetailUrl(plant.lbjUrl);
+        const categoryLabel = recommendationLabel(plant.recommendationCategory);
         const traits = [
           ["Growth", formatList(plant.growthHabit)],
           ["Duration", plant.duration ?? "Unknown"],
@@ -412,7 +451,10 @@ function PlantList({ plants }: { plants: PlantRecord[] }) {
           <article className="plantcard" key={plant.usageKey ?? `${plant.canonicalName}-${plant.vernacularName}`}>
             <div className="plantcard-head">
               <div>
-                <h3>{displayName(plant)}</h3>
+                <div className="plant-name-line">
+                  <h3>{displayName(plant)}</h3>
+                  {categoryLabel ? <span className="recommendation-badge">{categoryLabel}</span> : null}
+                </div>
                 <p>{scientificName(plant)}</p>
               </div>
               {detailUrl ? (

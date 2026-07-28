@@ -192,13 +192,14 @@ describe("filter domain", () => {
     ).toEqual([]);
   });
 
-  it("counts each selected value and height boundary", () => {
+  it("counts each selected value, height boundary, and specialist opt-in", () => {
     expect(
       activeFilterCount({
         ...EMPTY_FILTERS,
+        showSpecialists: true,
         duration: [DurationFilter.Annual, DurationFilter.Perennial],
         matureHeight: { minimumFt: 1, maximumFt: 4 }
       })
-    ).toBe(4);
+    ).toBe(5);
   });
 });

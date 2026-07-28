@@ -42,6 +42,7 @@ export interface MatureHeightRange {
 }
 
 export interface FilterState {
+  readonly showSpecialists: boolean;
   readonly growthHabit: readonly GrowthHabitFilter[];
   readonly light: readonly LightFilter[];
   readonly moisture: readonly MoistureFilter[];
@@ -65,6 +66,7 @@ export const FILTER_CATEGORY_CONFIG: readonly FilterCategoryConfig[] = [
 ];
 
 export const EMPTY_FILTERS: FilterState = {
+  showSpecialists: false,
   growthHabit: [],
   light: [],
   moisture: [],
@@ -155,6 +157,7 @@ export function filterPlants(plants: readonly PlantRecord[], filters: FilterStat
 
 export function activeFilterCount(filters: FilterState): number {
   return (
+    Number(filters.showSpecialists) +
     filters.growthHabit.length +
     filters.light.length +
     filters.moisture.length +
