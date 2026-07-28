@@ -126,10 +126,6 @@ dd {
 }
 
 .saved-plants-nav {
-  position: absolute;
-  top: 22px;
-  right: 0;
-  z-index: 2;
   min-height: 42px;
   border: 1px solid var(--line);
   border-radius: 999px;
@@ -137,6 +133,7 @@ dd {
   color: var(--ink);
   background: var(--cream);
   font-weight: 700;
+  line-height: 1.2;
 }
 
 .saved-plants-nav[aria-pressed="true"] {
@@ -277,12 +274,25 @@ h1 {
   align-items: start;
 }
 
-.search-view {
-  display: contents;
-}
-
 .view-hidden {
   display: none;
+}
+
+.results-column {
+  display: grid;
+  grid-column: 2;
+  gap: 12px;
+  align-content: start;
+  min-width: 0;
+}
+
+.results-column-wide {
+  grid-column: 1 / -1;
+}
+
+.results-view-toolbar {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .search-panel,
@@ -400,10 +410,6 @@ h1 {
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
-}
-
-.shortlist-panel {
-  grid-column: 1 / -1;
 }
 
 .shortlist-toolbar {
@@ -830,10 +836,6 @@ h1 {
     min-height: 0;
   }
 
-  .saved-plants-nav {
-    top: 12px;
-  }
-
   .herbarium {
     width: min(78vw, 240px);
     justify-self: start;
@@ -845,6 +847,10 @@ h1 {
 
   .search-panel {
     position: static;
+  }
+
+  .results-column {
+    grid-column: 1;
   }
 }
 

@@ -293,18 +293,10 @@ export function App() {
             </p>
           </div>
           <HerbariumIllustration />
-          <button className="saved-plants-nav" type="button" aria-pressed={view === "shortlist"} onClick={() => setView(view === "shortlist" ? "results" : "shortlist")}>
-            {view === "shortlist" ? (
-              "View Search Results"
-            ) : (
-              <>View Saved Plants <span aria-hidden="true">&middot;</span> {savedCount}/{SHORTLIST_LIMIT}</>
-            )}
-          </button>
         </header>
 
         <main id="main" className="main-layout">
-          <div className={view === "shortlist" ? "view-hidden" : "search-view"}>
-          <section className="search-panel" aria-label="Plant search">
+          <section className={`search-panel ${view === "shortlist" ? "view-hidden" : ""}`} aria-label="Plant search">
             <div className="panel-intro">
               <p>
                 Enter a city or postal code.
@@ -343,70 +335,82 @@ export function App() {
             <FilterPanel filters={filters} onChange={handleFiltersChange} />
           </section>
 
-          <section className="results-panel" aria-labelledby="results-title">
-            <ResultsHeader
-              payload={payload}
-              searchContext={searchContext}
-              page={pagination.page}
-              pageCount={pagination.pageCount}
-              filteredCount={filteredPlants.length}
-              permittedCount={permittedPlants.length}
-            />
-            {candidates.length > 1 ? <CandidateList candidates={candidates} onChoose={chooseCandidate} /> : null}
-            {payload ? (
-              <>
-                {filteredPlants.length ? (
-                  <PlantList plants={pagination.items} action={(plant) => {
-                    const key = plant.usageKey;
-                    const saved = isUsageKey(key) && savedKeys.has(key);
-                    const mismatch = selection.kind === "scoped" && payload.ecoregionId !== selection.ecoregionId;
-                    return saved ? (
-                      <>
-                        <span className="saved-badge">Saved</span>
-                        <button className="card-action" type="button" onClick={() => removePlant(key)}>Remove</button>
-                      </>
-                    ) : (
-                      <button
-                        className="card-action"
-                        type="button"
-                        disabled={!isUsageKey(key) || savedCount >= SHORTLIST_LIMIT || mismatch}
-                        title={mismatch ? `Saved plants are scoped to ${savedRegionName ?? "another ecoregion"}` : undefined}
-                        onClick={() => savePlant(plant)}
-                      >Save plant</button>
-                    );
-                  }} />
-                ) : permittedPlants.length > 0 ? (
-                  <NoMatches onClear={() => handleFiltersChange(EMPTY_FILTERS)} />
-                ) : !filters.showSpecialists && hasSpecialistRecommendations(payload.plants) ? (
-                  <SpecialistOnly onShow={() => handleFiltersChange({ ...filters, showSpecialists: true })} />
+          <div className={`results-column ${view === "shortlist" ? "results-column-wide" : ""}`}>
+            <div className="results-view-toolbar">
+              <button className="saved-plants-nav" type="button" aria-pressed={view === "shortlist"} onClick={() => setView(view === "shortlist" ? "results" : "shortlist")}>
+                {view === "shortlist" ? (
+                  "View Search Results"
                 ) : (
-                  <NoRecommendations />
+                  <>View Saved Plants <span aria-hidden="true">&middot;</span> {savedCount}/{SHORTLIST_LIMIT}</>
                 )}
-                {pagination.hasPagination ? (
-                  <PaginationControls page={pagination.page} pageCount={pagination.pageCount} onPageChange={setPage} />
-                ) : null}
-              </>
-            ) : (
-              <EmptyState state={state} />
-            )}
-          </section>
-          </div>
-          <section className={`results-panel shortlist-panel ${view === "results" ? "view-hidden" : ""}`} aria-labelledby="shortlist-title">
-            <div className="results-header">
-              <div className="results-title-block"><p className="eyebrow">Your field notes</p><h2 id="shortlist-title">Saved plants</h2></div>
-              <div className="match-line"><p><span>Saved</span>{savedCount} of {SHORTLIST_LIMIT} plants</p>{savedRegionName ? <p><span>Ecoregion</span>{savedRegionName}</p> : null}</div>
+              </button>
             </div>
-            <p className="status-line" role="status" aria-live="polite">{shortlistNotice}</p>
-            {selection.kind === "empty" ? (
-              <div className="empty-state no-matches"><div><h3>No saved plants yet</h3><p>Save plants from your regional results to compare them here.</p><button type="button" onClick={showResultsOrSearch}>Search for plants to save</button></div></div>
-            ) : hydrationStatus === "loading" ? <div className="empty-state">Loading saved plants.</div>
-            : hydrationStatus === "load-error" ? <div className="empty-state no-matches"><div><h3>Saved plants could not be loaded</h3><p>Your saved plant IDs are still safe.</p><button type="button" onClick={() => setHydrationRetry((value) => value + 1)}>Retry</button></div></div>
-            : hydrated ? <>
-                <div className="shortlist-toolbar"><button type="button" onClick={() => { if (window.confirm("Clear all saved plants?")) dispatchSelection({ type: "clear" }); }}>Clear saved plants</button></div>
-                <PlantList plants={hydrated.records} action={(plant) => isUsageKey(plant.usageKey) ? <><span className="saved-badge">Saved</span><button className="card-action" type="button" onClick={() => removePlant(plant.usageKey!)}>Remove</button></> : null} />
-                {hydrated.unresolvedKeys.map((key) => <article className="plantcard unresolved-card" key={key}><div><h3>Plant unavailable</h3><p>This saved plant can no longer be displayed.</p></div><button className="card-action" type="button" onClick={() => removePlant(key)}>Remove</button></article>)}
-              </> : null}
-          </section>
+
+            <section className={`results-panel ${view === "shortlist" ? "view-hidden" : ""}`} aria-labelledby="results-title">
+              <ResultsHeader
+                payload={payload}
+                searchContext={searchContext}
+                page={pagination.page}
+                pageCount={pagination.pageCount}
+                filteredCount={filteredPlants.length}
+                permittedCount={permittedPlants.length}
+              />
+              {candidates.length > 1 ? <CandidateList candidates={candidates} onChoose={chooseCandidate} /> : null}
+              {payload ? (
+                <>
+                  {filteredPlants.length ? (
+                    <PlantList plants={pagination.items} action={(plant) => {
+                      const key = plant.usageKey;
+                      const saved = isUsageKey(key) && savedKeys.has(key);
+                      const mismatch = selection.kind === "scoped" && payload.ecoregionId !== selection.ecoregionId;
+                      return saved ? (
+                        <>
+                          <span className="saved-badge">Saved</span>
+                          <button className="card-action" type="button" onClick={() => removePlant(key)}>Remove</button>
+                        </>
+                      ) : (
+                        <button
+                          className="card-action"
+                          type="button"
+                          disabled={!isUsageKey(key) || savedCount >= SHORTLIST_LIMIT || mismatch}
+                          title={mismatch ? `Saved plants are scoped to ${savedRegionName ?? "another ecoregion"}` : undefined}
+                          onClick={() => savePlant(plant)}
+                        >Save plant</button>
+                      );
+                    }} />
+                  ) : permittedPlants.length > 0 ? (
+                    <NoMatches onClear={() => handleFiltersChange(EMPTY_FILTERS)} />
+                  ) : !filters.showSpecialists && hasSpecialistRecommendations(payload.plants) ? (
+                    <SpecialistOnly onShow={() => handleFiltersChange({ ...filters, showSpecialists: true })} />
+                  ) : (
+                    <NoRecommendations />
+                  )}
+                  {pagination.hasPagination ? (
+                    <PaginationControls page={pagination.page} pageCount={pagination.pageCount} onPageChange={setPage} />
+                  ) : null}
+                </>
+              ) : (
+                <EmptyState state={state} />
+              )}
+            </section>
+
+            <section className={`results-panel shortlist-panel ${view === "results" ? "view-hidden" : ""}`} aria-labelledby="shortlist-title">
+              <div className="results-header">
+                <div className="results-title-block"><p className="eyebrow">Your field notes</p><h2 id="shortlist-title">Saved plants</h2></div>
+                <div className="match-line"><p><span>Saved</span>{savedCount} of {SHORTLIST_LIMIT} plants</p>{savedRegionName ? <p><span>Ecoregion</span>{savedRegionName}</p> : null}</div>
+              </div>
+              <p className="status-line" role="status" aria-live="polite">{shortlistNotice}</p>
+              {selection.kind === "empty" ? (
+                <div className="empty-state no-matches"><div><h3>No saved plants yet</h3><p>Save plants from your regional results to compare them here.</p><button type="button" onClick={showResultsOrSearch}>Search for plants to save</button></div></div>
+              ) : hydrationStatus === "loading" ? <div className="empty-state">Loading saved plants.</div>
+              : hydrationStatus === "load-error" ? <div className="empty-state no-matches"><div><h3>Saved plants could not be loaded</h3><p>Your saved plant IDs are still safe.</p><button type="button" onClick={() => setHydrationRetry((value) => value + 1)}>Retry</button></div></div>
+              : hydrated ? <>
+                  <div className="shortlist-toolbar"><button type="button" onClick={() => { if (window.confirm("Clear all saved plants?")) dispatchSelection({ type: "clear" }); }}>Clear saved plants</button></div>
+                  <PlantList plants={hydrated.records} action={(plant) => isUsageKey(plant.usageKey) ? <><span className="saved-badge">Saved</span><button className="card-action" type="button" onClick={() => removePlant(plant.usageKey!)}>Remove</button></> : null} />
+                  {hydrated.unresolvedKeys.map((key) => <article className="plantcard unresolved-card" key={key}><div><h3>Plant unavailable</h3><p>This saved plant can no longer be displayed.</p></div><button className="card-action" type="button" onClick={() => removePlant(key)}>Remove</button></article>)}
+                </> : null}
+            </section>
+          </div>
         </main>
       </div>
     </>
