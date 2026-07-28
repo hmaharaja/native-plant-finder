@@ -125,6 +125,25 @@ dd {
   padding: 22px 0 34px;
 }
 
+.saved-plants-nav {
+  position: absolute;
+  top: 22px;
+  right: 0;
+  z-index: 2;
+  min-height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 8px 14px;
+  color: var(--ink);
+  background: var(--cream);
+  font-weight: 700;
+}
+
+.saved-plants-nav[aria-pressed="true"] {
+  color: var(--cream);
+  background: var(--moss-dark);
+}
+
 .hero-copy {
   position: relative;
   z-index: 1;
@@ -258,6 +277,14 @@ h1 {
   align-items: start;
 }
 
+.search-view {
+  display: contents;
+}
+
+.view-hidden {
+  display: none;
+}
+
 .search-panel,
 .results-panel {
   border: 1px solid var(--line);
@@ -344,6 +371,64 @@ h1 {
     background 170ms var(--ease),
     color 170ms var(--ease),
     transform 170ms var(--ease);
+}
+
+.plantcard-actions {
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.card-action,
+.shortlist-toolbar button,
+.shortlist-panel .no-matches button {
+  min-height: 36px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 7px 11px;
+  color: var(--ink);
+  background: var(--cream-strong);
+  font-weight: 700;
+}
+
+.saved-badge {
+  color: var(--moss-dark);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.shortlist-panel {
+  grid-column: 1 / -1;
+}
+
+.shortlist-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 14px;
+}
+
+.unresolved-card {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  margin-top: 14px;
+  border-style: dashed;
+}
+
+.unresolved-card h3,
+.unresolved-card p {
+  margin: 0;
+}
+
+.unresolved-card p {
+  margin-top: 5px;
+  color: var(--ink-soft);
 }
 
 .searchcell button {
@@ -745,6 +830,10 @@ h1 {
     min-height: 0;
   }
 
+  .saved-plants-nav {
+    top: 12px;
+  }
+
   .herbarium {
     width: min(78vw, 240px);
     justify-self: start;
@@ -773,6 +862,10 @@ h1 {
 
   .plantcard-head {
     display: grid;
+  }
+
+  .plantcard-actions {
+    justify-content: flex-start;
   }
 
   .details-btn {

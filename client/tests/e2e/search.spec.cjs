@@ -204,3 +204,38 @@ test("filters before and after search without duplicate geocoding and recovers f
   await expect(page.getByText("12 of 12 species")).toBeVisible();
   expect(getGeocodeRequests()).toBe(1);
 });
+
+test("saves plants independently of filters and restores them after reload", async ({ page }) => {
+  await mockSearch(page);
+  await submitSearch(page);
+
+  const firstCard = page.locator(".plantcard").first();
+  const savedName = await firstCard.getByRole("heading").textContent();
+  await firstCard.getByRole("button", { name: "Save plant" }).click();
+  await expect(firstCard.getByText("Saved", { exact: true })).toBeVisible();
+  await expect(page.getByRole("button", { name: /^View Saved Plants\s+1\/10$/ })).toBeVisible();
+
+  const filterToggle = page.getByRole("button", { name: /^Filters/ });
+  if ((await filterToggle.getAttribute("aria-expanded")) === "false") await filterToggle.click();
+  await page.getByLabel("Tree", { exact: true }).check();
+  await expect(page.getByRole("heading", { name: savedName })).toHaveCount(0);
+
+  await page.getByRole("button", { name: /^View Saved Plants\s+1\/10$/ }).click();
+  await expect(page.getByRole("button", { name: "View Search Results", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: savedName })).toBeVisible();
+  await page.reload();
+  await expect(page.getByRole("heading", { name: "Results" })).toBeVisible();
+  await page.getByRole("button", { name: /^View Saved Plants\s+1\/10$/ }).click();
+  await expect(page.getByRole("heading", { name: savedName })).toBeVisible();
+});
+
+test("saved plants empty state returns to and preserves current results", async ({ page }) => {
+  await mockSearch(page);
+  await submitSearch(page);
+  const firstName = await page.locator(".plantcard h3").first().textContent();
+  await page.getByRole("button", { name: /^View Saved Plants\s+0\/10$/ }).click();
+  await expect(page.getByRole("button", { name: "View Search Results", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "No saved plants yet" })).toBeVisible();
+  await page.getByRole("button", { name: "Search for plants to save" }).click();
+  await expect(page.locator(".plantcard h3").first()).toHaveText(firstName);
+});
