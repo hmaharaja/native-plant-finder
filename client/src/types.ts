@@ -1,3 +1,15 @@
+import recommendationCategoryContract from "../../recommendation_categories.json";
+
+const recommendationCategoryDefinitions = recommendationCategoryContract.categories;
+
+export type RecommendationCategory = keyof typeof recommendationCategoryDefinitions;
+
+export const RecommendationCategory = Object.freeze(
+  Object.fromEntries(
+    Object.keys(recommendationCategoryDefinitions).map((category) => [category, category])
+  )
+) as { readonly [Category in RecommendationCategory]: Category };
+
 export type JsonValue = null | boolean | number | string | JsonValue[] | { [key: string]: JsonValue };
 
 export interface EcoregionManifestEntry {
@@ -37,13 +49,6 @@ export interface PlantRecord {
   lbjUrl: string | null;
   recommendationCategory: RecommendationCategory | null;
 }
-
-export type RecommendationCategory =
-  | "good_default"
-  | "conditional"
-  | "specialist_restoration"
-  | "poor_avoid"
-  | "invalid_ambiguous";
 
 export interface EcoregionPayload {
   ecoregionId: number;

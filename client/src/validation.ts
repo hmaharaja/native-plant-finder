@@ -6,8 +6,10 @@ import type {
   EcoregionManifestEntry,
   EcoregionPayload,
   Manifest,
-  PlantRecord
+  PlantRecord,
+  RecommendationCategory
 } from "./types";
+import { RecommendationCategory as RecommendationCategoryValue } from "./types";
 
 const COLLAPSED_SPACE = /\s+/g;
 const CONTROL_CHARS = /[\u0000-\u001f\u007f]/g;
@@ -81,16 +83,11 @@ function isNullableNumber(value: unknown): value is number | null {
   return value === null || isNumber(value);
 }
 
-const RECOMMENDATION_CATEGORIES = new Set([
-  "good_default",
-  "conditional",
-  "specialist_restoration",
-  "poor_avoid",
-  "invalid_ambiguous"
-]);
-
-function isNullableRecommendationCategory(value: unknown): boolean {
-  return value === null || (typeof value === "string" && RECOMMENDATION_CATEGORIES.has(value));
+function isNullableRecommendationCategory(value: unknown): value is RecommendationCategory | null {
+  return (
+    value === null ||
+    (typeof value === "string" && Object.prototype.hasOwnProperty.call(RecommendationCategoryValue, value))
+  );
 }
 
 function assert(condition: unknown, message: string): asserts condition {
