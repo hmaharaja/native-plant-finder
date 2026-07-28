@@ -1,5 +1,25 @@
 from __future__ import annotations
 
+import json
+from enum import Enum
+from pathlib import Path
+
+with Path(__file__).with_name("recommendation_categories.json").open(
+    encoding="utf-8"
+) as recommendation_categories_file:
+    RECOMMENDATION_CATEGORY_DEFINITIONS = json.load(
+        recommendation_categories_file
+    )["categories"]
+
+RecommendationCategory = Enum(
+    "RecommendationCategory",
+    {
+        category.upper(): category
+        for category in RECOMMENDATION_CATEGORY_DEFINITIONS
+    },
+    type=str,
+)
+
 USAGE_KEY = "usageKey"
 CANONICAL_NAME = "canonicalName"
 VERNACULAR_NAME = "vernacularName"

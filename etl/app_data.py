@@ -18,6 +18,7 @@ from dataset_columns import (
     ECOREGION_ID,
     ECOREGION_NAME,
     RECOMMENDATION_CATEGORY,
+    RecommendationCategory,
     USAGE_KEY,
     VERNACULAR_NAME,
 )
@@ -33,15 +34,18 @@ DEFAULT_LBJ_TRAITS_PATHS = [
 ]
 DEFAULT_OUTPUT_DIR = Path("datasets/app_data")
 DEFAULT_RECOMMENDATION_CATEGORIES_PATH = Path("curation/recommendation_categories.csv")
-RECOMMENDATION_CATEGORIES = frozenset(
-    {
-        "good_default",
-        "conditional",
-        "specialist_restoration",
-        "poor_avoid",
-        "invalid_ambiguous",
-    }
-)
+RECOMMENDATION_CATEGORIES = frozenset(category.value for category in RecommendationCategory)
+
+def lbj_enrichment_mask(rows: pd.DataFrame) -> pd.Series:
+    """Return the production enrichment predicate: any non-key app LBJ field is present."""
+    value_columns = [
+        column
+        for column in APP_DATA_LBJ_TRAIT_COLUMNS
+        if column != USAGE_KEY and column in rows.columns
+    ]
+    if not value_columns:
+        return pd.Series(False, index=rows.index, dtype=bool)
+    return rows[value_columns].notna().any(axis=1)
 
 
 def read_recommendation_categories(path: str | Path) -> pd.DataFrame:
@@ -119,12 +123,7 @@ def merge_plant_ecoregions_with_traits(
     category_rows = recommendation_categories[[USAGE_KEY, RECOMMENDATION_CATEGORY]].copy()
     category_rows[USAGE_KEY] = category_rows[USAGE_KEY].map(normalize_key)
     category_by_key = category_rows.set_index(USAGE_KEY)[RECOMMENDATION_CATEGORY]
-    trait_value_columns = [column for column in trait_columns if column != USAGE_KEY]
-    enriched = (
-        merged[trait_value_columns].notna().any(axis=1)
-        if trait_value_columns
-        else pd.Series(False, index=merged.index)
-    )
+    enriched = lbj_enrichment_mask(merged)
     missing_keys = sorted(
         set(merged.loc[~enriched, USAGE_KEY].dropna()).difference(category_by_key.index)
     )
