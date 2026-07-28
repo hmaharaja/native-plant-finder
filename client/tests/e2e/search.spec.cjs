@@ -204,3 +204,60 @@ test("filters before and after search without duplicate geocoding and recovers f
   await expect(page.getByText("12 of 12 species")).toBeVisible();
   expect(getGeocodeRequests()).toBe(1);
 });
+
+test("saves plants independently of filters and restores them after reload", async ({ page }) => {
+  await mockSearch(page);
+  await submitSearch(page);
+
+  const firstCard = page.locator(".plantcard").first();
+  const savedName = await firstCard.getByRole("heading").textContent();
+  await firstCard.getByRole("button", { name: "Save plant" }).click();
+  await expect(firstCard.getByText("Saved", { exact: true })).toBeVisible();
+  await expect(page.getByText("View Saved Plants \u00b7 1/10", { exact: true })).toBeVisible();
+  const savedToggle = page.getByRole("button", { name: /^View Saved Plants\s+1\/10$/ });
+  const beforeSwitchBox = await savedToggle.boundingBox();
+  expect(beforeSwitchBox).not.toBeNull();
+  const resultsPanelBox = await page.locator("section.results-panel").first().boundingBox();
+  expect(resultsPanelBox).not.toBeNull();
+
+  const filterToggle = page.getByRole("button", { name: /^Filters/ });
+  if ((await filterToggle.getAttribute("aria-expanded")) === "false") await filterToggle.click();
+  await page.getByLabel("Tree", { exact: true }).check();
+  await expect(page.getByRole("heading", { name: savedName })).toHaveCount(0);
+
+  await savedToggle.click();
+  const resultsToggle = page.getByRole("button", { name: "View Search Results", exact: true });
+  await expect(resultsToggle).toBeVisible();
+  const afterSwitchBox = await resultsToggle.boundingBox();
+  expect(afterSwitchBox).not.toBeNull();
+  const beforeSwitchRight = beforeSwitchBox.x + beforeSwitchBox.width;
+  const afterSwitchRight = afterSwitchBox.x + afterSwitchBox.width;
+  expect(Math.abs(afterSwitchRight - beforeSwitchRight)).toBeLessThanOrEqual(1);
+  if ((page.viewportSize()?.width ?? 0) > 860) {
+    expect(Math.abs(afterSwitchBox.y - beforeSwitchBox.y)).toBeLessThanOrEqual(1);
+    const shortlistPanelBox = await page.locator(".shortlist-panel").boundingBox();
+    expect(shortlistPanelBox).not.toBeNull();
+    expect(shortlistPanelBox.width).toBeGreaterThan(resultsPanelBox.width);
+    expect(shortlistPanelBox.x).toBeLessThan(resultsPanelBox.x);
+  }
+  await expect(page.getByRole("heading", { name: savedName })).toBeVisible();
+  await resultsToggle.click();
+  await expect(page.getByText("View Saved Plants \u00b7 1/10", { exact: true })).toBeVisible();
+  await page.reload();
+  await expect(page.getByRole("heading", { name: "Results" })).toBeVisible();
+  await expect(page.getByText("View Saved Plants \u00b7 1/10", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: /^View Saved Plants\s+1\/10$/ }).click();
+  await expect(page.getByRole("button", { name: "View Search Results", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: savedName })).toBeVisible();
+});
+
+test("saved plants empty state returns to and preserves current results", async ({ page }) => {
+  await mockSearch(page);
+  await submitSearch(page);
+  const firstName = await page.locator(".plantcard h3").first().textContent();
+  await page.getByRole("button", { name: /^View Saved Plants\s+0\/10$/ }).click();
+  await expect(page.getByRole("button", { name: "View Search Results", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "No saved plants yet" })).toBeVisible();
+  await page.getByRole("button", { name: "Search for plants to save" }).click();
+  await expect(page.locator(".plantcard h3").first()).toHaveText(firstName);
+});

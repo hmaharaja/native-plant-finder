@@ -1,21 +1,44 @@
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useReducer, useRef, useState } from "react";
 import { APP_TITLE, LoadState } from "../constants";
 import { findManifestEntry, loadBoundaries, loadEcoregionPayload, loadInitialData, loadManifest } from "../dataClient";
-import { displayName, formatHeight, formatList, formatMonthList, formatNumber, scientificName } from "../formatters";
+import { formatNumber } from "../formatters";
 import { EMPTY_FILTERS, filterPlants, type FilterState } from "../filters";
 import { createDefaultGeocoder, geocoderErrorMessage } from "../geocoder";
 import { findEcoregionForCoordinate } from "../geometry";
 import { paginate } from "../pagination";
 import {
   hasSpecialistRecommendations,
-  permittedRecommendations,
-  recommendationLabel
+  permittedRecommendations
 } from "../recommendations";
+import {
+  getAddResult,
+  hydrateShortlist,
+  isUsageKey,
+  SHORTLIST_LIMIT,
+  ShortlistStore,
+  shortlistReducer,
+  type HydratedShortlist,
+  type ShortlistSelection
+} from "../shortlist";
 import type { BoundaryCollection, Coordinate, EcoregionPayload, GeocoderCandidate, Manifest, PlantRecord } from "../types";
-import { isValidLocationQuery, safePlantDetailUrl, sanitizeLocationQuery } from "../validation";
+import { isValidLocationQuery, sanitizeLocationQuery } from "../validation";
 import { FilterPanel } from "./FilterPanel";
+import { PlantList } from "./PlantList";
 
 const geocoder = createDefaultGeocoder();
+
+function createShortlistStore(): ShortlistStore {
+  if (typeof window === "undefined") return new ShortlistStore(null);
+  try {
+    return new ShortlistStore(window.sessionStorage);
+  } catch {
+    return new ShortlistStore({
+      getItem: () => { throw new Error("Storage unavailable"); },
+      setItem: () => { throw new Error("Storage unavailable"); },
+      removeItem: () => { throw new Error("Storage unavailable"); }
+    });
+  }
+}
 
 interface SearchContext {
   query: string;
@@ -97,6 +120,59 @@ export function App() {
   const [searchContext, setSearchContext] = useState<SearchContext | null>(null);
   const [page, setPage] = useState(1);
   const [filters, setFilters] = useState<FilterState>(EMPTY_FILTERS);
+  const storeRef = useRef<ShortlistStore>();
+  if (!storeRef.current) {
+    storeRef.current = createShortlistStore();
+  }
+  const [selection, dispatchSelection] = useReducer(shortlistReducer, undefined, () => storeRef.current!.load());
+  const [view, setView] = useState<"results" | "shortlist">("results");
+  const [hydrated, setHydrated] = useState<HydratedShortlist | null>(null);
+  const [hydrationStatus, setHydrationStatus] = useState<"idle" | "loading" | "ready" | "load-error">("idle");
+  const [storageNotice, setStorageNotice] = useState(storeRef.current.failedAtInitialization);
+  const [shortlistNotice, setShortlistNotice] = useState<string | null>(null);
+  const [hydrationRetry, setHydrationRetry] = useState(0);
+  const hydrationRequest = useRef(0);
+  const locationInput = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!storeRef.current!.save(selection)) setStorageNotice(true);
+  }, [selection]);
+
+  useEffect(() => {
+    if (view !== "shortlist" || selection.kind === "empty") {
+      setHydrated(null);
+      setHydrationStatus("idle");
+      return;
+    }
+    const requestId = ++hydrationRequest.current;
+    setHydrationStatus("loading");
+    setHydrated(null);
+    const load = async () => {
+      const source = payload?.ecoregionId === selection.ecoregionId
+        ? payload
+        : await (async () => {
+            const safeManifest = manifest ?? await loadManifest();
+            const entry = findManifestEntry(safeManifest, selection.ecoregionId);
+            if (!entry) throw new Error("Saved plant region is unavailable");
+            return loadEcoregionPayload(entry);
+          })();
+      if (requestId !== hydrationRequest.current) return;
+      setHydrated(hydrateShortlist(selection, source));
+      setHydrationStatus("ready");
+    };
+    load().catch(() => {
+      if (requestId === hydrationRequest.current) setHydrationStatus("load-error");
+    });
+    return () => { hydrationRequest.current += 1; };
+  }, [hydrationRetry, manifest, payload, selection, view]);
+
+  const savedCount = selection.kind === "empty" ? 0 : selection.usageKeys.length;
+  const savedKeys = selection.kind === "empty" ? new Set<number>() : new Set(selection.usageKeys);
+  const savedRegionName = selection.kind === "scoped"
+    ? (payload?.ecoregionId === selection.ecoregionId
+        ? payload.ecoregionName
+        : manifest?.ecoregions.find((entry) => entry.ecoregionId === selection.ecoregionId)?.ecoregionName)
+    : null;
 
   useEffect(() => {
     if (initialError) {
@@ -118,6 +194,28 @@ export function App() {
   function handleFiltersChange(nextFilters: FilterState) {
     setFilters(nextFilters);
     setPage(1);
+  }
+
+  function savePlant(plant: PlantRecord) {
+    if (!payload || !isUsageKey(plant.usageKey)) return;
+    const result = getAddResult(selection, payload.ecoregionId, plant.usageKey);
+    if (result === "region-mismatch") {
+      setShortlistNotice(`Your saved plants are for ${savedRegionName ?? "another ecoregion"}; these results are for ${payload.ecoregionName ?? "this ecoregion"}.`);
+      return;
+    }
+    if (result === "capacity") return;
+    dispatchSelection({ type: "add", ecoregionId: payload.ecoregionId, usageKey: plant.usageKey });
+    setShortlistNotice(`${plant.vernacularName ?? plant.canonicalName ?? "Plant"} saved.`);
+  }
+
+  function removePlant(usageKey: number) {
+    dispatchSelection({ type: "remove", usageKey });
+    setShortlistNotice("Plant removed.");
+  }
+
+  function showResultsOrSearch() {
+    setView("results");
+    if (!payload) requestAnimationFrame(() => locationInput.current?.focus());
   }
 
   async function handleCoordinate(coordinate: Coordinate, candidateLabel: string, submittedQuery: string) {
@@ -198,7 +296,7 @@ export function App() {
         </header>
 
         <main id="main" className="main-layout">
-          <section className="search-panel" aria-label="Plant search">
+          <section className={`search-panel ${view === "shortlist" ? "view-hidden" : ""}`} aria-label="Plant search">
             <div className="panel-intro">
               <p>
                 Enter a city or postal code.
@@ -211,6 +309,7 @@ export function App() {
               <div className="searchcell">
                 <i className="ti ti-map-pin-filled" aria-hidden="true" />
                 <input
+                  ref={locationInput}
                   id="location"
                   name="location"
                   value={query}
@@ -229,38 +328,89 @@ export function App() {
               {statusText(state)}
             </p>
             {error ? <p className="error-message">{error}</p> : null}
+            {payload && selection.kind === "scoped" && payload.ecoregionId !== selection.ecoregionId ? (
+              <p className="error-message">Your saved plants are for {savedRegionName ?? "another ecoregion"}; these results are for {payload.ecoregionName ?? "this ecoregion"}.</p>
+            ) : null}
+            {storageNotice ? <p className="error-message">Saved plants are available for this page only because browser storage is unavailable.</p> : null}
             <FilterPanel filters={filters} onChange={handleFiltersChange} />
           </section>
 
-          <section className="results-panel" aria-labelledby="results-title">
-            <ResultsHeader
-              payload={payload}
-              searchContext={searchContext}
-              page={pagination.page}
-              pageCount={pagination.pageCount}
-              filteredCount={filteredPlants.length}
-              permittedCount={permittedPlants.length}
-            />
-            {candidates.length > 1 ? <CandidateList candidates={candidates} onChoose={chooseCandidate} /> : null}
-            {payload ? (
-              <>
-                {filteredPlants.length ? (
-                  <PlantList plants={pagination.items} />
-                ) : permittedPlants.length > 0 ? (
-                  <NoMatches onClear={() => handleFiltersChange(EMPTY_FILTERS)} />
-                ) : !filters.showSpecialists && hasSpecialistRecommendations(payload.plants) ? (
-                  <SpecialistOnly onShow={() => handleFiltersChange({ ...filters, showSpecialists: true })} />
+          <div className={`results-column ${view === "shortlist" ? "results-column-wide" : ""}`}>
+            <div className="results-view-toolbar">
+              <button className="saved-plants-nav" type="button" aria-pressed={view === "shortlist"} onClick={() => setView(view === "shortlist" ? "results" : "shortlist")}>
+                {view === "shortlist" ? (
+                  "View Search Results"
                 ) : (
-                  <NoRecommendations />
+                  <>View Saved Plants <span aria-hidden="true">&middot;</span> {savedCount}/{SHORTLIST_LIMIT}</>
                 )}
-                {pagination.hasPagination ? (
-                  <PaginationControls page={pagination.page} pageCount={pagination.pageCount} onPageChange={setPage} />
-                ) : null}
-              </>
-            ) : (
-              <EmptyState state={state} />
-            )}
-          </section>
+              </button>
+            </div>
+
+            <section className={`results-panel ${view === "shortlist" ? "view-hidden" : ""}`} aria-labelledby="results-title">
+              <ResultsHeader
+                payload={payload}
+                searchContext={searchContext}
+                page={pagination.page}
+                pageCount={pagination.pageCount}
+                filteredCount={filteredPlants.length}
+                permittedCount={permittedPlants.length}
+              />
+              {candidates.length > 1 ? <CandidateList candidates={candidates} onChoose={chooseCandidate} /> : null}
+              {payload ? (
+                <>
+                  {filteredPlants.length ? (
+                    <PlantList plants={pagination.items} action={(plant) => {
+                      const key = plant.usageKey;
+                      const saved = isUsageKey(key) && savedKeys.has(key);
+                      const mismatch = selection.kind === "scoped" && payload.ecoregionId !== selection.ecoregionId;
+                      return saved ? (
+                        <>
+                          <span className="saved-badge">Saved</span>
+                          <button className="card-action" type="button" onClick={() => removePlant(key)}>Remove</button>
+                        </>
+                      ) : (
+                        <button
+                          className="card-action"
+                          type="button"
+                          disabled={!isUsageKey(key) || savedCount >= SHORTLIST_LIMIT || mismatch}
+                          title={mismatch ? `Saved plants are scoped to ${savedRegionName ?? "another ecoregion"}` : undefined}
+                          onClick={() => savePlant(plant)}
+                        >Save plant</button>
+                      );
+                    }} />
+                  ) : permittedPlants.length > 0 ? (
+                    <NoMatches onClear={() => handleFiltersChange(EMPTY_FILTERS)} />
+                  ) : !filters.showSpecialists && hasSpecialistRecommendations(payload.plants) ? (
+                    <SpecialistOnly onShow={() => handleFiltersChange({ ...filters, showSpecialists: true })} />
+                  ) : (
+                    <NoRecommendations />
+                  )}
+                  {pagination.hasPagination ? (
+                    <PaginationControls page={pagination.page} pageCount={pagination.pageCount} onPageChange={setPage} />
+                  ) : null}
+                </>
+              ) : (
+                <EmptyState state={state} />
+              )}
+            </section>
+
+            <section className={`results-panel shortlist-panel ${view === "results" ? "view-hidden" : ""}`} aria-labelledby="shortlist-title">
+              <div className="results-header">
+                <div className="results-title-block"><p className="eyebrow">Your field notes</p><h2 id="shortlist-title">Saved plants</h2></div>
+                <div className="match-line"><p><span>Saved</span>{savedCount} of {SHORTLIST_LIMIT} plants</p>{savedRegionName ? <p><span>Ecoregion</span>{savedRegionName}</p> : null}</div>
+              </div>
+              <p className="status-line" role="status" aria-live="polite">{shortlistNotice}</p>
+              {selection.kind === "empty" ? (
+                <div className="empty-state no-matches"><div><h3>No saved plants yet</h3><p>Save plants from your regional results to compare them here.</p><button type="button" onClick={showResultsOrSearch}>Search for plants to save</button></div></div>
+              ) : hydrationStatus === "loading" ? <div className="empty-state">Loading saved plants.</div>
+              : hydrationStatus === "load-error" ? <div className="empty-state no-matches"><div><h3>Saved plants could not be loaded</h3><p>Your saved plant IDs are still safe.</p><button type="button" onClick={() => setHydrationRetry((value) => value + 1)}>Retry</button></div></div>
+              : hydrated ? <>
+                  <div className="shortlist-toolbar"><button type="button" onClick={() => { if (window.confirm("Clear all saved plants?")) dispatchSelection({ type: "clear" }); }}>Clear saved plants</button></div>
+                  <PlantList plants={hydrated.records} action={(plant) => isUsageKey(plant.usageKey) ? <><span className="saved-badge">Saved</span><button className="card-action" type="button" onClick={() => removePlant(plant.usageKey!)}>Remove</button></> : null} />
+                  {hydrated.unresolvedKeys.map((key) => <article className="plantcard unresolved-card" key={key}><div><h3>Plant unavailable</h3><p>This saved plant can no longer be displayed.</p></div><button className="card-action" type="button" onClick={() => removePlant(key)}>Remove</button></article>)}
+                </> : null}
+            </section>
+          </div>
         </main>
       </div>
     </>
@@ -428,60 +578,6 @@ function EmptyState({ state }: { state: LoadState }) {
       ? "Preparing the regional lookup files."
       : "Search for a Canadian location to load native plants for its ecoregion.";
   return <div className="empty-state">{copy}</div>;
-}
-
-function PlantList({ plants }: { plants: PlantRecord[] }) {
-  return (
-    <div className="plant-list">
-      {plants.map((plant) => {
-        const detailUrl = safePlantDetailUrl(plant.lbjUrl);
-        const categoryLabel = recommendationLabel(plant.recommendationCategory);
-        const traits = [
-          ["Growth", formatList(plant.growthHabit)],
-          ["Duration", plant.duration ?? "Unknown"],
-          ["Height", formatHeight(plant)],
-          ["Light", formatList(plant.light)],
-          ["Moisture", formatList(plant.moisture)],
-          ["Soil", formatList(plant.soilCategories)],
-          ["Bloom", formatMonthList(plant.bloomTime)],
-          ["Color", formatList(plant.bloomColor)]
-        ] as const;
-
-        return (
-          <article className="plantcard" key={plant.usageKey ?? `${plant.canonicalName}-${plant.vernacularName}`}>
-            <div className="plantcard-head">
-              <div>
-                <div className="plant-name-line">
-                  <h3>{displayName(plant)}</h3>
-                  {categoryLabel ? <span className="recommendation-badge">{categoryLabel}</span> : null}
-                </div>
-                <p>{scientificName(plant)}</p>
-              </div>
-              {detailUrl ? (
-                <a className="details-btn" href={detailUrl} rel="noreferrer" target="_blank">
-                  Details
-                </a>
-              ) : null}
-            </div>
-            <dl className="attrgrid">
-              {traits.map(([label, value]) => (
-                <Trait key={label} label={label} value={value} />
-              ))}
-            </dl>
-          </article>
-        );
-      })}
-    </div>
-  );
-}
-
-function Trait({ label, value }: { label: string; value: string }) {
-  return (
-    <div>
-      <dt>{label}</dt>
-      <dd>{value}</dd>
-    </div>
-  );
 }
 
 function PaginationControls({
