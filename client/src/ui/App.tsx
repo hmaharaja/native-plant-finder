@@ -316,7 +316,6 @@ export function App() {
                   maxLength={120}
                   autoComplete="postal-code"
                   inputMode="search"
-                  placeholder="Vancouver, BC or V6B 1A1"
                   onChange={(event) => setQuery(event.target.value)}
                 />
                 <button type="submit" disabled={state === LoadState.Geocoding || state === LoadState.LoadingPlants}>
