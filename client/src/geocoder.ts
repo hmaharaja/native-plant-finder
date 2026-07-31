@@ -66,6 +66,14 @@ function postalFsa(query: string): string | null {
   return CANADIAN_POSTAL_CODE.test(normalized) ? normalized.slice(0, 3) : null;
 }
 
+function isRateLimited(error: unknown): boolean {
+  return error instanceof GeocoderError && error.status === 429;
+}
+
+function logPostalFallback(reason: string): void {
+  console.info(`Falling back to FSA postal lookup: ${reason}`);
+}
+
 function candidateFromZippopotamPlace(fsa: string, place: ZippopotamPlace): GeocoderCandidate | null {
   const coordinate = {
     lat: Number.parseFloat(place.latitude),
@@ -194,6 +202,35 @@ export class FallbackGeocoder implements GeocoderProvider {
   }
 }
 
+export class FullPostalCodeGeocoder implements GeocoderProvider {
+  constructor(
+    private readonly primary: GeocoderProvider,
+    private readonly fallback: GeocoderProvider
+  ) {}
+
+  async search(rawQuery: string): Promise<GeocoderCandidate[]> {
+    const query = sanitizeLocationQuery(rawQuery);
+    if (!postalFsa(query)) {
+      return this.primary.search(query);
+    }
+
+    try {
+      const candidates = await this.primary.search(query);
+      if (candidates.length > 0) {
+        return candidates;
+      }
+      logPostalFallback("Nominatim returned no candidates");
+    } catch (error) {
+      if (!isRateLimited(error)) {
+        throw error;
+      }
+      logPostalFallback("Nominatim was rate-limited");
+    }
+
+    return this.fallback.search(query);
+  }
+}
+
 export function geocoderErrorMessage(error: unknown): string {
   if (error instanceof GeocoderError && error.status === 429) {
     return "Location lookup is temporarily rate-limited. Wait a moment and try again.";
@@ -205,7 +242,7 @@ export function geocoderErrorMessage(error: unknown): string {
 }
 
 export function createDefaultGeocoder(): GeocoderProvider {
-  return new FallbackGeocoder([new CanadianPostalGeocoder(), new NominatimGeocoder()]);
+  return new FullPostalCodeGeocoder(new NominatimGeocoder(), new CanadianPostalGeocoder());
 }
 
 export function resetGeocoderCachesForTests(): void {

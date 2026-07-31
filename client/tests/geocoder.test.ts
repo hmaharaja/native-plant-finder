@@ -2,6 +2,8 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   CanadianPostalGeocoder,
   FallbackGeocoder,
+  FullPostalCodeGeocoder,
+  GeocoderError,
   geocoderErrorMessage,
   NominatimGeocoder,
   resetGeocoderCachesForTests
@@ -48,6 +50,98 @@ describe("geocoder", () => {
       label: "L6Y, Brampton South, Ontario, Canada",
       coordinate: { lat: 43.6699, lon: -79.7444 }
     });
+  });
+
+  it("prefers Nominatim coordinates for full Canadian postal codes", async () => {
+    const primary: GeocoderProvider = {
+      search: vi.fn(async () => [
+        {
+          id: "full-postal",
+          label: "L6Y 3B4, Brampton, Ontario, Canada",
+          coordinate: { lat: 43.6501, lon: -79.759 }
+        }
+      ])
+    };
+    const fallback: GeocoderProvider = {
+      search: vi.fn(async () => [
+        {
+          id: "fsa",
+          label: "L6Y, Brampton South, Ontario, Canada",
+          coordinate: { lat: 43.6699, lon: -79.7444 }
+        }
+      ])
+    };
+
+    const candidates = await new FullPostalCodeGeocoder(primary, fallback).search("L6Y 3B4");
+
+    expect(candidates[0].id).toBe("full-postal");
+    expect(primary.search).toHaveBeenCalledWith("L6Y 3B4");
+    expect(fallback.search).not.toHaveBeenCalled();
+  });
+
+  it("falls back to FSA lookup when Nominatim has no full postal code candidates", async () => {
+    const logSpy = vi.spyOn(console, "info").mockImplementation(() => undefined);
+    const primary: GeocoderProvider = { search: vi.fn(async () => []) };
+    const fallback: GeocoderProvider = {
+      search: vi.fn(async () => [
+        {
+          id: "fsa",
+          label: "L6Y, Brampton South, Ontario, Canada",
+          coordinate: { lat: 43.6699, lon: -79.7444 }
+        }
+      ])
+    };
+
+    const candidates = await new FullPostalCodeGeocoder(primary, fallback).search("L6Y 3B4");
+
+    expect(candidates[0].id).toBe("fsa");
+    expect(fallback.search).toHaveBeenCalledWith("L6Y 3B4");
+    expect(logSpy).toHaveBeenCalledWith("Falling back to FSA postal lookup: Nominatim returned no candidates");
+  });
+
+  it("falls back to FSA lookup when Nominatim rate-limits full postal code lookups", async () => {
+    const logSpy = vi.spyOn(console, "info").mockImplementation(() => undefined);
+    const primary: GeocoderProvider = {
+      search: vi.fn(async () => Promise.reject(new GeocoderError("Location lookup failed: 429", 429)))
+    };
+    const fallback: GeocoderProvider = {
+      search: vi.fn(async () => [
+        {
+          id: "fsa",
+          label: "L6Y, Brampton South, Ontario, Canada",
+          coordinate: { lat: 43.6699, lon: -79.7444 }
+        }
+      ])
+    };
+
+    const candidates = await new FullPostalCodeGeocoder(primary, fallback).search("L6Y 3B4");
+
+    expect(candidates[0].id).toBe("fsa");
+    expect(fallback.search).toHaveBeenCalledWith("L6Y 3B4");
+    expect(logSpy).toHaveBeenCalledWith("Falling back to FSA postal lookup: Nominatim was rate-limited");
+  });
+
+  it("does not hide non-rate-limit Nominatim errors for full postal code lookups", async () => {
+    const primary: GeocoderProvider = {
+      search: vi.fn(async () => Promise.reject(new GeocoderError("Location lookup failed: 503", 503)))
+    };
+    const fallback: GeocoderProvider = { search: vi.fn(async () => []) };
+
+    await expect(new FullPostalCodeGeocoder(primary, fallback).search("L6Y 3B4")).rejects.toThrow("503");
+    expect(fallback.search).not.toHaveBeenCalled();
+  });
+
+  it("sends non-postal queries only to the primary geocoder", async () => {
+    const primary: GeocoderProvider = {
+      search: vi.fn(async () => [{ id: "city", label: "Brampton", coordinate: { lat: 43.68, lon: -79.76 } }])
+    };
+    const fallback: GeocoderProvider = { search: vi.fn(async () => []) };
+
+    const candidates = await new FullPostalCodeGeocoder(primary, fallback).search("Brampton");
+
+    expect(candidates[0].id).toBe("city");
+    expect(primary.search).toHaveBeenCalledWith("Brampton");
+    expect(fallback.search).not.toHaveBeenCalled();
   });
 
   it("does not cache failed Canadian postal lookups", async () => {
