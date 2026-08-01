@@ -94,19 +94,29 @@ def find_problems_in_species_match():
     ]
     problems.to_csv('problems.csv', index=False)
 
-def format_download_request(taxon_key_df: pd.DataFrame):
-    with open(GBIF_DOWNLOAD_REQ_TEMPLATE, 'r') as f:
+def format_download_request(
+    taxon_key_df: pd.DataFrame,
+    *,
+    template_path: str = GBIF_DOWNLOAD_REQ_TEMPLATE,
+    taxon_key_column: str = "usageKey",
+):
+    with open(template_path, 'r') as f:
         request = json.load(f)
     
-    taxon_keys = set(taxon_key_df['usageKey'].astype(int).tolist())
+    taxon_keys = set(taxon_key_df[taxon_key_column].astype(int).tolist())
     print(f"{len(taxon_keys)} unique taxon keys, from {len(taxon_key_df)} clean species rows")
     
     if len(taxon_keys) != len(taxon_key_df):
-        key_counts = taxon_key_df["usageKey"].value_counts()
+        key_counts = taxon_key_df[taxon_key_column].value_counts()
         duplicated_keys = key_counts[key_counts > 1]
 
-        dupes = taxon_key_df[taxon_key_df["usageKey"].isin(duplicated_keys.index)].sort_values("usageKey")
-        print(dupes[["input_name", "usageKey", "matchType", "status"]])
+        dupes = taxon_key_df[taxon_key_df[taxon_key_column].isin(duplicated_keys.index)].sort_values(taxon_key_column)
+        dupe_columns = [
+            column
+            for column in ("input_name", taxon_key_column, "matchType", "status")
+            if column in dupes.columns
+        ]
+        print(dupes[dupe_columns])
     
     request['predicate']['predicates'][0]['values'] = [str(k) for k in taxon_keys]
     return request
