@@ -408,11 +408,17 @@ class GbifImageInputTests(unittest.TestCase):
             path = Path(tmp) / "gbif.zip"
             write_dwca_zip(
                 path,
-                occurrence_rows=[occurrence(id="occ-1")],
-                multimedia_rows=[media(coreid="occ-1", references="https://gbif.example/occ-1")],
+                occurrence_rows=[
+                    occurrence(id="skip-1", taxonKey="999", acceptedTaxonKey="999", speciesKey="999"),
+                    occurrence(id="occ-1"),
+                ],
+                multimedia_rows=[
+                    media(coreid="skip-1", references="https://gbif.example/skip-1"),
+                    media(coreid="occ-1", references="https://gbif.example/occ-1"),
+                ],
             )
 
-            grouped = read_dwca_occurrences(path, ["100"])
+            grouped = read_dwca_occurrences(path, ["100"], chunksize=1)
 
             self.assertEqual(len(grouped["100"]), 1)
             self.assertEqual(grouped["100"][0]["media"][0]["identifier"], "https://images.example/plant.jpg")

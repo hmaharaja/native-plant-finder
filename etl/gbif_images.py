@@ -5,7 +5,6 @@ import logging
 import re
 import time
 import zipfile
-from io import StringIO
 from collections import Counter, defaultdict
 from dataclasses import dataclass
 from datetime import datetime, timezone
@@ -50,6 +49,9 @@ DEFAULT_RETRIES = 2
 DEFAULT_BACKOFF_FACTOR = 0.5
 DEFAULT_MAX_REDIRECTS = 5
 DEFAULT_MAX_CONTENT_LENGTH_BYTES = 10 * 1024 * 1024
+DEFAULT_DWCA_CHUNKSIZE = 100_000
+DWCA_OCCURRENCE_MEMBER = "occurrence.txt"
+DWCA_MULTIMEDIA_MEMBER = "multimedia.txt"
 MIN_IMAGE_WIDTH = 320
 MIN_IMAGE_HEIGHT = 240
 MIN_ASPECT_RATIO = 0.5
@@ -516,16 +518,40 @@ def _dwca_member_path(dwca: zipfile.ZipFile, filename: str) -> str:
     raise ValueError(f"DWCA zip must contain {filename}")
 
 
-def _read_dwca_table(dwca: zipfile.ZipFile, filename: str) -> list[dict[str, str]]:
+def _dwca_delimiter(dwca: zipfile.ZipFile, filename: str) -> str:
     member_path = _dwca_member_path(dwca, filename)
     with dwca.open(member_path) as raw:
-        text = raw.read().decode("utf-8-sig")
-    lines = text.splitlines()
-    if not lines:
-        return []
-    delimiter = "\t" if "\t" in lines[0] else ","
-    rows = pd.read_csv(StringIO(text), sep=delimiter, dtype=str, keep_default_na=False)
-    return rows.to_dict("records")
+        header = raw.readline().decode("utf-8-sig")
+    return "\t" if "\t" in header else ","
+
+
+def _dwca_table_columns(dwca: zipfile.ZipFile, filename: str) -> set[str]:
+    member_path = _dwca_member_path(dwca, filename)
+    delimiter = _dwca_delimiter(dwca, filename)
+    with dwca.open(member_path) as raw:
+        return set(pd.read_csv(raw, sep=delimiter, nrows=0).columns.tolist())
+
+
+def _stream_dwca_table_chunks(
+    dwca_path: str | Path,
+    filename: str,
+    *,
+    chunksize: int = DEFAULT_DWCA_CHUNKSIZE,
+) -> Iterable[pd.DataFrame]:
+    with zipfile.ZipFile(dwca_path) as dwca:
+        member_path = _dwca_member_path(dwca, filename)
+        delimiter = _dwca_delimiter(dwca, filename)
+        with dwca.open(member_path) as raw:
+            try:
+                yield from pd.read_csv(
+                    raw,
+                    sep=delimiter,
+                    dtype=str,
+                    keep_default_na=False,
+                    chunksize=chunksize,
+                )
+            except pd.errors.EmptyDataError:
+                return
 
 
 def _require_any_column(columns: set[str], groups: Iterable[tuple[str, ...]], table_name: str) -> None:
@@ -556,22 +582,24 @@ def _normalize_dwca_media(row: Mapping[str, object]) -> dict[str, object]:
     return normalized
 
 
-def read_dwca_occurrences(dwca_path: str | Path, usage_keys: Iterable[str] | None = None) -> dict[str, list[dict]]:
+def read_dwca_occurrences(
+    dwca_path: str | Path,
+    usage_keys: Iterable[str] | None = None,
+    *,
+    chunksize: int = DEFAULT_DWCA_CHUNKSIZE,
+) -> dict[str, list[dict]]:
     requested_keys = None
     if usage_keys is not None:
         requested_keys = {key for key in (normalize_key(key) for key in usage_keys) if key is not None}
 
     with zipfile.ZipFile(dwca_path) as dwca:
         names = _dwca_member_names(dwca)
-        for filename in ("occurrence.txt", "multimedia.txt"):
+        for filename in (DWCA_OCCURRENCE_MEMBER, DWCA_MULTIMEDIA_MEMBER):
             if filename not in names:
                 raise ValueError(f"DWCA zip must contain {filename}")
 
-        occurrence_rows = _read_dwca_table(dwca, "occurrence.txt")
-        multimedia_rows = _read_dwca_table(dwca, "multimedia.txt")
-
-    occurrence_columns = set(occurrence_rows[0]) if occurrence_rows else set()
-    multimedia_columns = set(multimedia_rows[0]) if multimedia_rows else set()
+        occurrence_columns = _dwca_table_columns(dwca, DWCA_OCCURRENCE_MEMBER)
+        multimedia_columns = _dwca_table_columns(dwca, DWCA_MULTIMEDIA_MEMBER)
     _require_any_column(
         occurrence_columns,
         (
@@ -598,41 +626,64 @@ def read_dwca_occurrences(dwca_path: str | Path, usage_keys: Iterable[str] | Non
         "multimedia.txt",
     )
 
-    occurrences_by_id = {
-        row_id: _normalize_dwca_occurrence(row)
-        for row in occurrence_rows
-        if (row_id := _dwca_row_id(row)) is not None
-    }
+    occurrences_by_id = {}
+    for occurrence_chunk in _stream_dwca_table_chunks(
+        dwca_path,
+        DWCA_OCCURRENCE_MEMBER,
+        chunksize=chunksize,
+    ):
+        for occurrence_row in occurrence_chunk.to_dict("records"):
+            row_id = _dwca_row_id(occurrence_row)
+            if row_id is None:
+                continue
+            candidate_usage_keys = {
+                key
+                for key in (
+                    normalize_key(occurrence_row.get("acceptedTaxonKey")),
+                    normalize_key(occurrence_row.get("taxonKey")),
+                    normalize_key(occurrence_row.get("speciesKey")),
+                )
+                if key is not None
+            }
+            if requested_keys is not None and not (candidate_usage_keys & requested_keys):
+                continue
+            occurrences_by_id[row_id] = _normalize_dwca_occurrence(occurrence_row)
+
     grouped: dict[str, list[dict]] = defaultdict(list)
     occurrence_by_usage_and_id: dict[tuple[str, str], dict] = {}
 
-    for media_row in multimedia_rows:
-        occurrence_id = _dwca_media_core_id(media_row)
-        if occurrence_id is None or occurrence_id not in occurrences_by_id:
-            continue
+    for multimedia_chunk in _stream_dwca_table_chunks(
+        dwca_path,
+        DWCA_MULTIMEDIA_MEMBER,
+        chunksize=chunksize,
+    ):
+        for media_row in multimedia_chunk.to_dict("records"):
+            occurrence_id = _dwca_media_core_id(media_row)
+            if occurrence_id is None or occurrence_id not in occurrences_by_id:
+                continue
 
-        occurrence = occurrences_by_id[occurrence_id]
-        candidate_usage_keys = {
-            key
-            for key in (
-                normalize_key(occurrence.get("acceptedTaxonKey")),
-                normalize_key(occurrence.get("taxonKey")),
-                normalize_key(occurrence.get("speciesKey")),
-            )
-            if key is not None
-        }
-        if requested_keys is not None:
-            candidate_usage_keys &= requested_keys
+            occurrence = occurrences_by_id[occurrence_id]
+            candidate_usage_keys = {
+                key
+                for key in (
+                    normalize_key(occurrence.get("acceptedTaxonKey")),
+                    normalize_key(occurrence.get("taxonKey")),
+                    normalize_key(occurrence.get("speciesKey")),
+                )
+                if key is not None
+            }
+            if requested_keys is not None:
+                candidate_usage_keys &= requested_keys
 
-        for usage_key in candidate_usage_keys:
-            key = (usage_key, occurrence_id)
-            occurrence_with_media = occurrence_by_usage_and_id.get(key)
-            if occurrence_with_media is None:
-                occurrence_with_media = dict(occurrence)
-                occurrence_with_media["media"] = []
-                occurrence_by_usage_and_id[key] = occurrence_with_media
-                grouped[usage_key].append(occurrence_with_media)
-            occurrence_with_media["media"].append(_normalize_dwca_media(media_row))
+            for usage_key in candidate_usage_keys:
+                key = (usage_key, occurrence_id)
+                occurrence_with_media = occurrence_by_usage_and_id.get(key)
+                if occurrence_with_media is None:
+                    occurrence_with_media = dict(occurrence)
+                    occurrence_with_media["media"] = []
+                    occurrence_by_usage_and_id[key] = occurrence_with_media
+                    grouped[usage_key].append(occurrence_with_media)
+                occurrence_with_media["media"].append(_normalize_dwca_media(media_row))
 
     return dict(grouped)
 
