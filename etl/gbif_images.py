@@ -188,7 +188,7 @@ def _matches_requested_taxon(usage_key: str, occurrence: Mapping[str, object]) -
     requested = normalize_key(usage_key)
     if requested is None:
         return False
-    for key in ("taxonKey", "acceptedTaxonKey"):
+    for key in ("taxonKey", "acceptedTaxonKey", "speciesKey"):
         if normalize_key(occurrence.get(key)) == requested:
             return True
     return False

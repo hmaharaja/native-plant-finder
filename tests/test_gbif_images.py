@@ -130,6 +130,7 @@ def write_dwca_zip(
         "license",
         "publisher",
         "datasetKey",
+        "issues",
     ]
     multimedia_columns = multimedia_columns or [
         "coreid",
@@ -241,6 +242,20 @@ class GbifImageAcceptanceTests(unittest.TestCase):
                     rejection_reason("100", occurrence(), media(width=width, height=height), validate_url=False),
                     "low_resolution",
                 )
+
+    def test_species_key_only_match_is_accepted_unless_gbif_flags_high_rank(self):
+        species_key_occurrence = occurrence(taxonKey="999", acceptedTaxonKey="999", speciesKey="100")
+
+        self.assertIsNone(rejection_reason("100", species_key_occurrence, media(), validate_url=False))
+        self.assertEqual(
+            rejection_reason(
+                "100",
+                occurrence(taxonKey="999", acceptedTaxonKey="999", speciesKey="100", issues=["TAXON_MATCH_HIGHERRANK"]),
+                media(),
+                validate_url=False,
+            ),
+            "major_gbif_issue",
+        )
 
     def test_unknown_dimensions_require_url_validation(self):
         unknown_dimension_media = media(width="", height="")
@@ -499,13 +514,13 @@ class GbifImageInputTests(unittest.TestCase):
                 dwca_path,
                 occurrence_rows=[
                     occurrence(id="bad-license"),
-                    occurrence(id="taxon-mismatch", taxonKey="999", acceptedTaxonKey="999", speciesKey="100"),
+                    occurrence(id="high-rank", taxonKey="999", acceptedTaxonKey="999", speciesKey="100", issues="TAXON_MATCH_HIGHERRANK"),
                     occurrence(id="specimen", basisOfRecord="PRESERVED_SPECIMEN"),
                     occurrence(id="low-dimension"),
                 ],
                 multimedia_rows=[
                     media(coreid="bad-license", license="https://creativecommons.org/licenses/by-nc/4.0/", references="https://gbif.example/bad-license"),
-                    media(coreid="taxon-mismatch", references="https://gbif.example/taxon-mismatch"),
+                    media(coreid="high-rank", references="https://gbif.example/high-rank"),
                     media(coreid="specimen", references="https://gbif.example/specimen"),
                     media(coreid="low-dimension", width=319, height=240, references="https://gbif.example/low-dimension"),
                 ],
@@ -517,7 +532,7 @@ class GbifImageInputTests(unittest.TestCase):
                 report["rejectedByReason"],
                 {
                     "disallowed_or_missing_license": 1,
-                    "taxon_mismatch": 1,
+                    "major_gbif_issue": 1,
                     "likely_specimen_image": 1,
                     "low_resolution": 1,
                 },
