@@ -456,6 +456,31 @@ class GbifImageInputTests(unittest.TestCase):
 
             self.assertEqual(read_dwca_occurrences(path, ["100"]), {})
 
+    def test_read_dwca_occurrences_uses_occurrence_id_before_media_row_id(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "gbif.zip"
+            write_dwca_zip(
+                path,
+                occurrence_rows=[occurrence(id="occ-1", occurrenceID="occ-1")],
+                multimedia_rows=[
+                    {
+                        "id": "media-row-1",
+                        "occurrenceID": "occ-1",
+                        "identifier": "https://images.example/plant.jpg",
+                        "type": "StillImage",
+                        "license": "https://creativecommons.org/licenses/by/4.0/",
+                        "width": 640,
+                        "height": 480,
+                    }
+                ],
+                multimedia_columns=["id", "occurrenceID", "identifier", "type", "license", "width", "height"],
+            )
+
+            grouped = read_dwca_occurrences(path, ["100"])
+
+            self.assertEqual(len(grouped["100"]), 1)
+            self.assertEqual(grouped["100"][0]["media"][0]["id"], "media-row-1")
+
     def test_build_gbif_image_index_from_dwca_accepts_candidate(self):
         with tempfile.TemporaryDirectory() as tmp:
             output = Path(tmp) / "plant_images"

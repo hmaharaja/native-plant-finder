@@ -565,7 +565,7 @@ def _dwca_row_id(row: Mapping[str, object]) -> str | None:
 
 
 def _dwca_media_core_id(row: Mapping[str, object]) -> str | None:
-    return _first_text(row, "coreid", "coreId", "id", "gbifID", "occurrenceID")
+    return _first_text(row, "coreid", "coreId", "occurrenceID", "gbifID")
 
 
 def _normalize_dwca_occurrence(row: Mapping[str, object]) -> dict[str, object]:
@@ -611,7 +611,7 @@ def read_dwca_occurrences(
     _require_any_column(
         multimedia_columns,
         (
-            ("coreid", "coreId", "id", "gbifID", "occurrenceID"),
+            ("coreid", "coreId", "gbifID", "occurrenceID"),
             ("identifier", "references", "source"),
         ),
         "multimedia.txt",
