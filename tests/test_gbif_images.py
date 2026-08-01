@@ -111,8 +111,15 @@ class FakeSession:
         return self._next(self.get_responses)
 
 
-def write_dwca_zip(path: Path, *, occurrence_rows: list[dict], multimedia_rows: list[dict] | None):
-    occurrence_columns = [
+def write_dwca_zip(
+    path: Path,
+    *,
+    occurrence_rows: list[dict],
+    multimedia_rows: list[dict] | None,
+    occurrence_columns: list[str] | None = None,
+    multimedia_columns: list[str] | None = None,
+):
+    occurrence_columns = occurrence_columns or [
         "id",
         "gbifID",
         "taxonKey",
@@ -124,7 +131,7 @@ def write_dwca_zip(path: Path, *, occurrence_rows: list[dict], multimedia_rows: 
         "publisher",
         "datasetKey",
     ]
-    multimedia_columns = [
+    multimedia_columns = multimedia_columns or [
         "coreid",
         "identifier",
         "type",
@@ -450,6 +457,39 @@ class GbifImageInputTests(unittest.TestCase):
             self.assertEqual(report["usageKeysWithAcceptedImage"], 1)
             bucket = json.loads((output / "buckets" / "00.json").read_text(encoding="utf-8"))
             self.assertEqual(bucket["100"]["primaryImage"]["gbifId"], "10")
+
+    def test_dwca_optional_metadata_columns_flow_to_selector(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output = Path(tmp) / "plant_images"
+            dwca_path = Path(tmp) / "gbif.zip"
+            write_dwca_zip(
+                dwca_path,
+                occurrence_rows=[
+                    {
+                        "id": "occ-1",
+                        "gbifID": "10",
+                        "taxonKey": "100",
+                        "acceptedTaxonKey": "100",
+                    }
+                ],
+                multimedia_rows=[
+                    {
+                        "coreid": "occ-1",
+                        "identifier": "https://images.example/plant.jpg",
+                        "type": "StillImage",
+                        "license": "https://creativecommons.org/licenses/by/4.0/",
+                    }
+                ],
+                occurrence_columns=["id", "gbifID", "taxonKey", "acceptedTaxonKey"],
+                multimedia_columns=["coreid", "identifier", "type", "license"],
+            )
+
+            with patch("etl.gbif_images.validate_image_url", return_value=type("Result", (), {"ok": True, "reason": None})()):
+                report = build_gbif_image_index_from_dwca(["100"], dwca_path, output, bucket_count=4)
+
+            review = pd.read_csv(output / "manual_review.csv")
+            self.assertEqual(report["usageKeysWithAcceptedImage"], 1)
+            self.assertEqual(review.loc[0, "manualReviewReason"], "unknown_dimensions")
 
     def test_build_gbif_image_index_from_dwca_records_rejections(self):
         with tempfile.TemporaryDirectory() as tmp:

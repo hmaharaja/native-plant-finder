@@ -605,10 +605,6 @@ def read_dwca_occurrences(
         (
             ("id", "gbifID", "occurrenceID"),
             ("taxonKey", "acceptedTaxonKey", "speciesKey"),
-            ("occurrenceStatus",),
-            ("basisOfRecord",),
-            ("license",),
-            ("publisher", "datasetName", "datasetTitle", "datasetKey"),
         ),
         "occurrence.txt",
     )
@@ -616,12 +612,7 @@ def read_dwca_occurrences(
         multimedia_columns,
         (
             ("coreid", "coreId", "id", "gbifID", "occurrenceID"),
-            ("identifier",),
-            ("license",),
-            ("creator", "createdBy", "rightsHolder"),
-            ("width", "pixelXDimension"),
-            ("height", "pixelYDimension"),
-            ("references", "source"),
+            ("identifier", "references", "source"),
         ),
         "multimedia.txt",
     )
