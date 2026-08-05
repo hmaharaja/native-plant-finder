@@ -28,6 +28,7 @@ test("real Vancouver data changes when specialist species are enabled", async ({
   const defaultFirstPlant = await page.locator(".plantcard h3").first().textContent();
   await expect(page.getByText("Xanthium Orientale", { exact: true })).toHaveCount(0);
 
+  await openFilters(page);
   await page.getByLabel("Show specialist species").check();
   await expect(countLine).not.toHaveText(defaultCount);
   await expect(page.locator(".plantcard h3").first()).not.toHaveText(defaultFirstPlant);
@@ -131,6 +132,11 @@ async function submitSearch(page) {
   await page.getByRole("button", { name: "Find plants" }).click();
 }
 
+async function openFilters(page) {
+  const filterToggle = page.getByRole("button", { name: /^Filters/ });
+  if ((await filterToggle.getAttribute("aria-expanded")) === "false") await filterToggle.click();
+}
+
 test("offers the opt-in when a region has only specialist recommendations", async ({ page }) => {
   await mockSearch(page, [
     record("Specialist first", ["Herb"], "perennial", 1, 2, "specialist_restoration"),
@@ -158,8 +164,7 @@ test("filters before and after search without duplicate geocoding and recovers f
   const getGeocodeRequests = await mockSearch(page);
   await page.goto("/");
 
-  const filterToggle = page.getByRole("button", { name: /^Filters/ });
-  if ((await filterToggle.getAttribute("aria-expanded")) === "false") await filterToggle.click();
+  await openFilters(page);
   await page.getByLabel("Herb", { exact: true }).check();
   await page.getByLabel("City or postal code").fill("Victoria, BC");
   await page.getByRole("button", { name: "Find plants" }).click();
@@ -205,6 +210,29 @@ test("filters before and after search without duplicate geocoding and recovers f
   expect(getGeocodeRequests()).toBe(1);
 });
 
+test("mobile filters hide and reveal the specialist opt-in without losing result updates", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await mockSearch(page);
+  await submitSearch(page);
+
+  const filterToggle = page.getByRole("button", { name: /^Filters/ });
+  const specialistToggle = page.getByLabel("Show specialist species");
+  const countLine = page.locator(".count-line");
+  await expect(filterToggle).toHaveAttribute("aria-expanded", "false");
+  await expect(specialistToggle).toBeHidden();
+  await expect(countLine).toContainText("12 of 12 species");
+
+  await filterToggle.click();
+  await expect(filterToggle).toHaveAttribute("aria-expanded", "true");
+  await expect(specialistToggle).toBeVisible();
+
+  await specialistToggle.check();
+  await expect(filterToggle).toContainText("Filters (1)");
+  await expect(page.getByText("Showing species usually intended for specialists and not regular gardens.")).toBeVisible();
+  await expect(countLine).toContainText("13 of 13 species");
+  await expect(page.locator(".plantcard h3").first()).toHaveText("Prairie Herb 3");
+});
+
 test("saves plants independently of filters and restores them after reload", async ({ page }) => {
   await mockSearch(page);
   await submitSearch(page);
@@ -220,8 +248,7 @@ test("saves plants independently of filters and restores them after reload", asy
   const resultsPanelBox = await page.locator("section.results-panel").first().boundingBox();
   expect(resultsPanelBox).not.toBeNull();
 
-  const filterToggle = page.getByRole("button", { name: /^Filters/ });
-  if ((await filterToggle.getAttribute("aria-expanded")) === "false") await filterToggle.click();
+  await openFilters(page);
   await page.getByLabel("Tree", { exact: true }).check();
   await expect(page.getByRole("heading", { name: savedName })).toHaveCount(0);
 
