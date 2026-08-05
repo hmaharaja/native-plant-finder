@@ -65,20 +65,20 @@ export function FilterPanel({ filters, onChange }: FilterPanelProps) {
         <span>Filters {count ? `(${count})` : ""}</span>
         <span aria-hidden="true">{isOpen ? "−" : "+"}</span>
       </button>
-      <label className="specialist-toggle">
-        <input
-          type="checkbox"
-          checked={filters.showSpecialists}
-          onChange={(event) => onChange({ ...filters, showSpecialists: event.target.checked })}
-        />
-        <span>Show specialist species</span>
-      </label>
-      {filters.showSpecialists ? (
-        <p className="specialist-note" role="status">
-          Showing species usually intended for specialists and not regular gardens.
-        </p>
-      ) : null}
       <div id="filter-controls" hidden={!isOpen}>
+        <label className="specialist-toggle">
+          <input
+            type="checkbox"
+            checked={filters.showSpecialists}
+            onChange={(event) => onChange({ ...filters, showSpecialists: event.target.checked })}
+          />
+          <span>Show specialist species</span>
+        </label>
+        {filters.showSpecialists ? (
+          <p className="specialist-note" role="status">
+            Showing species usually intended for specialists and not regular gardens.
+          </p>
+        ) : null}
         {FILTER_CATEGORY_CONFIG.map((config) => (
           <fieldset key={config.category}>
             <legend>{config.label}</legend>
