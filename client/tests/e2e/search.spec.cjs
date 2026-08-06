@@ -61,7 +61,7 @@ function record(name, growthHabit, duration, min, max, recommendationCategory = 
   };
 }
 
-async function mockSearch(page, plantOverride = null) {
+async function mockSearch(page, plantOverride = null, imageIndex = {}, imageIndexDelayMs = 0) {
   let geocodeRequests = 0;
   const plants = plantOverride ?? [
     ...Array.from({ length: 11 }, (_, index) =>
@@ -119,6 +119,10 @@ async function mockSearch(page, plantOverride = null) {
       }
     })
   );
+  await page.route("**/data/app_data/plant_images/index.json", async (route) => {
+    if (imageIndexDelayMs > 0) await new Promise((resolve) => setTimeout(resolve, imageIndexDelayMs));
+    return route.fulfill({ json: imageIndex });
+  });
   await page.route("https://nominatim.openstreetmap.org/search**", (route) => {
     geocodeRequests += 1;
     return route.fulfill({ json: [{ place_id: 1, display_name: "Victoria, BC", lat: "49", lon: "-123" }] });
@@ -158,6 +162,46 @@ test("shows a terminal empty state when a region has only excluded records", asy
   const emptyState = page.getByRole("heading", { name: "No recommended plants are available" }).locator("..");
   await expect(emptyState).toBeVisible();
   await expect(emptyState.getByRole("button", { name: /Clear/ })).toHaveCount(0);
+});
+
+test("loads plant image metadata without blocking search results", async ({ page }) => {
+  const imagePlant = record("Image plant", ["Herb"], "perennial", 1, 2, "good_default");
+  await page.route("https://images.example.test/**", (route) =>
+    route.fulfill({
+      contentType: "image/gif",
+      body: Buffer.from("R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==", "base64")
+    })
+  );
+  await mockSearch(
+    page,
+    [imagePlant],
+    {
+      [String(imagePlant.usageKey)]: {
+        usageKey: imagePlant.usageKey,
+        primaryImage: {
+          source: "gbif",
+          gbifId: "123",
+          imageUrl: "https://images.example.test/plant.jpg",
+          thumbnailUrl: "https://images.example.test/thumb.jpg",
+          sourceUrl: "https://www.gbif.org/occurrence/123",
+          license: "CC BY",
+          creator: null,
+          credit: null,
+          publisher: null,
+          width: 320,
+          height: 240,
+          acceptedAt: null,
+          rank: 1
+        },
+        secondaryImage: null
+      }
+    },
+    250
+  );
+
+  await submitSearch(page);
+  await expect(page.getByRole("heading", { name: "Image Plant" })).toBeVisible();
+  await expect(page.getByRole("img", { name: "Image Plant" })).toBeVisible();
 });
 
 test("filters before and after search without duplicate geocoding and recovers from zero results", async ({ page }) => {

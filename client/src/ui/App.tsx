@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useMemo, useReducer, useRef, useState } from "react";
 import { APP_TITLE, LoadState } from "../constants";
-import { findManifestEntry, loadBoundaries, loadEcoregionPayload, loadInitialData, loadManifest } from "../dataClient";
+import { findManifestEntry, loadBoundaries, loadEcoregionPayload, loadInitialData, loadManifest, loadPlantImageIndex } from "../dataClient";
 import { formatNumber } from "../formatters";
 import { EMPTY_FILTERS, filterPlants, type FilterState } from "../filters";
 import { createDefaultGeocoder, geocoderErrorMessage } from "../geocoder";
@@ -20,7 +20,7 @@ import {
   type HydratedShortlist,
   type ShortlistSelection
 } from "../shortlist";
-import type { BoundaryCollection, Coordinate, EcoregionPayload, GeocoderCandidate, Manifest, PlantRecord } from "../types";
+import type { BoundaryCollection, Coordinate, EcoregionPayload, GeocoderCandidate, Manifest, PlantImageIndex, PlantRecord } from "../types";
 import { isValidLocationQuery, sanitizeLocationQuery } from "../validation";
 import { FilterPanel } from "./FilterPanel";
 import { PlantList } from "./PlantList";
@@ -131,8 +131,18 @@ export function App() {
   const [storageNotice, setStorageNotice] = useState(storeRef.current.failedAtInitialization);
   const [shortlistNotice, setShortlistNotice] = useState<string | null>(null);
   const [hydrationRetry, setHydrationRetry] = useState(0);
+  const [plantImageIndex, setPlantImageIndex] = useState<PlantImageIndex | null>(null);
+  const appMounted = useRef(true);
   const hydrationRequest = useRef(0);
+  const imageIndexLoadInFlight = useRef(false);
   const locationInput = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    appMounted.current = true;
+    return () => {
+      appMounted.current = false;
+    };
+  }, []);
 
   useEffect(() => {
     if (!storeRef.current!.save(selection)) setStorageNotice(true);
@@ -190,6 +200,29 @@ export function App() {
   const permittedPlants = permittedRecommendations(payload?.plants ?? [], filters.showSpecialists);
   const filteredPlants = filterPlants(permittedPlants, filters);
   const pagination = useMemo(() => paginate(filteredPlants, page), [filteredPlants, page]);
+
+  useEffect(() => {
+    const hasVisiblePlants =
+      (view === "results" && pagination.items.length > 0) ||
+      (view === "shortlist" && (hydrated?.records.length ?? 0) > 0);
+    if (!hasVisiblePlants || plantImageIndex || imageIndexLoadInFlight.current) {
+      return;
+    }
+
+    imageIndexLoadInFlight.current = true;
+    loadPlantImageIndex()
+      .then((index) => {
+        if (appMounted.current) {
+          setPlantImageIndex(index);
+        }
+      })
+      .catch(() => {
+        // Keep cards usable with placeholders; dataClient clears its rejected promise.
+      })
+      .finally(() => {
+        imageIndexLoadInFlight.current = false;
+      });
+  }, [hydrated?.records.length, pagination.items.length, page, plantImageIndex, payload?.ecoregionId, view]);
 
   function handleFiltersChange(nextFilters: FilterState) {
     setFilters(nextFilters);
@@ -358,7 +391,7 @@ export function App() {
               {payload ? (
                 <>
                   {filteredPlants.length ? (
-                    <PlantList plants={pagination.items} action={(plant) => {
+                    <PlantList plants={pagination.items} imageIndex={plantImageIndex} action={(plant) => {
                       const key = plant.usageKey;
                       const saved = isUsageKey(key) && savedKeys.has(key);
                       const mismatch = selection.kind === "scoped" && payload.ecoregionId !== selection.ecoregionId;
@@ -405,7 +438,7 @@ export function App() {
               : hydrationStatus === "load-error" ? <div className="empty-state no-matches"><div><h3>Saved plants could not be loaded</h3><p>Your saved plant IDs are still safe.</p><button type="button" onClick={() => setHydrationRetry((value) => value + 1)}>Retry</button></div></div>
               : hydrated ? <>
                   <div className="shortlist-toolbar"><button type="button" onClick={() => { if (window.confirm("Clear all saved plants?")) dispatchSelection({ type: "clear" }); }}>Clear saved plants</button></div>
-                  <PlantList plants={hydrated.records} action={(plant) => isUsageKey(plant.usageKey) ? <><span className="saved-badge">Saved</span><button className="card-action" type="button" onClick={() => removePlant(plant.usageKey!)}>Remove</button></> : null} />
+                  <PlantList plants={hydrated.records} imageIndex={plantImageIndex} action={(plant) => isUsageKey(plant.usageKey) ? <><span className="saved-badge">Saved</span><button className="card-action" type="button" onClick={() => removePlant(plant.usageKey!)}>Remove</button></> : null} />
                   {hydrated.unresolvedKeys.map((key) => <article className="plantcard unresolved-card" key={key}><div><h3>Plant unavailable</h3><p>This saved plant can no longer be displayed.</p></div><button className="card-action" type="button" onClick={() => removePlant(key)}>Remove</button></article>)}
                 </> : null}
             </section>

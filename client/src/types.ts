@@ -57,6 +57,30 @@ export interface EcoregionPayload {
   plants: PlantRecord[];
 }
 
+export interface PlantImage {
+  source: string;
+  gbifId: string | null;
+  imageUrl: string;
+  thumbnailUrl: string;
+  sourceUrl: string | null;
+  license: string | null;
+  creator: string | null;
+  credit: string | null;
+  publisher: string | null;
+  width: number | null;
+  height: number | null;
+  acceptedAt: string | null;
+  rank: number;
+}
+
+export interface PlantImageIndexRecord {
+  usageKey: number;
+  primaryImage: PlantImage;
+  secondaryImage: PlantImage | null;
+}
+
+export type PlantImageIndex = Record<string, PlantImageIndexRecord>;
+
 export interface Coordinate {
   lat: number;
   lon: number;

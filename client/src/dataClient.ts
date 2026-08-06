@@ -1,11 +1,13 @@
 import { BOUNDARY_PATH, DATA_ROOT } from "./constants";
-import type { BoundaryCollection, EcoregionManifestEntry, EcoregionPayload, Manifest } from "./types";
-import { parseBoundaryCollection, parseEcoregionPayload, parseManifest } from "./validation";
+import type { BoundaryCollection, EcoregionManifestEntry, EcoregionPayload, Manifest, PlantImageIndex } from "./types";
+import { parseBoundaryCollection, parseEcoregionPayload, parseManifest, parsePlantImageIndex } from "./validation";
 
 const manifestUrl = `${DATA_ROOT}/manifest.json`;
+const plantImageIndexUrl = `${DATA_ROOT}/plant_images/index.json`;
 
 let manifestPromise: Promise<Manifest> | null = null;
 let boundariesPromise: Promise<BoundaryCollection> | null = null;
+let plantImageIndexPromise: Promise<PlantImageIndex> | null = null;
 const ecoregionPayloadCache = new Map<number, Promise<EcoregionPayload>>();
 
 async function fetchJson<T>(path: string, parser: (value: unknown) => T): Promise<T> {
@@ -44,6 +46,16 @@ export async function loadInitialData(): Promise<{ manifest: Manifest; boundarie
   return { manifest, boundaries };
 }
 
+export function loadPlantImageIndex(): Promise<PlantImageIndex> {
+  if (!plantImageIndexPromise) {
+    plantImageIndexPromise = fetchJson(plantImageIndexUrl, parsePlantImageIndex).catch((error: unknown) => {
+      plantImageIndexPromise = null;
+      throw error;
+    });
+  }
+  return plantImageIndexPromise;
+}
+
 export function findManifestEntry(manifest: Manifest, ecoregionId: number): EcoregionManifestEntry | null {
   return manifest.ecoregions.find((entry) => entry.ecoregionId === ecoregionId) ?? null;
 }
@@ -64,5 +76,6 @@ export function loadEcoregionPayload(entry: EcoregionManifestEntry): Promise<Eco
 export function resetDataCachesForTests(): void {
   manifestPromise = null;
   boundariesPromise = null;
+  plantImageIndexPromise = null;
   ecoregionPayloadCache.clear();
 }

@@ -4,6 +4,7 @@ import json
 import shutil
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Mapping
 
 import geopandas as gpd
 
@@ -12,6 +13,8 @@ DEFAULT_APP_DATA_DIR = Path("datasets/app_data")
 DEFAULT_ECOREGIONS_GEOJSON_PATH = Path("datasets/ecoregions.geojson")
 DEFAULT_CLIENT_DATA_DIR = Path("client/public/data")
 DEFAULT_BOUNDARY_TOLERANCE = 0.01
+PLANT_IMAGES_DIR_NAME = "plant_images"
+PLANT_IMAGE_INDEX_PATH = Path(PLANT_IMAGES_DIR_NAME) / "index.json"
 
 
 def copy_app_data(
@@ -24,8 +27,41 @@ def copy_app_data(
         raise FileNotFoundError(f"app data manifest not found: {source / 'manifest.json'}")
     if target.exists():
         shutil.rmtree(target)
-    shutil.copytree(source, target)
+    shutil.copytree(source, target, ignore=shutil.ignore_patterns(PLANT_IMAGES_DIR_NAME))
     return target
+
+
+def _read_image_bucket(path: Path) -> Mapping[str, object]:
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(payload, dict):
+        raise ValueError(f"image bucket must be a JSON object: {path}")
+    return payload
+
+
+def build_runtime_plant_image_index(
+    source_dir: str | Path = DEFAULT_APP_DATA_DIR / PLANT_IMAGES_DIR_NAME,
+    output_path: str | Path = DEFAULT_CLIENT_DATA_DIR / "app_data" / PLANT_IMAGE_INDEX_PATH,
+) -> dict[str, object]:
+    source = Path(source_dir)
+    bucket_dir = source / "buckets"
+    if not bucket_dir.exists():
+        raise FileNotFoundError(f"plant image bucket directory not found: {bucket_dir}")
+
+    image_index: dict[str, object] = {}
+    for bucket_path in sorted(bucket_dir.glob("*.json")):
+        for usage_key, record in sorted(_read_image_bucket(bucket_path).items()):
+            key = str(usage_key)
+            if key in image_index:
+                raise ValueError(f"duplicate plant image usageKey: {key}")
+            image_index[key] = record
+
+    output = Path(output_path)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(
+        json.dumps(image_index, separators=(",", ":"), ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
+    return image_index
 
 
 def _geometry_mapping(geometry):
@@ -78,8 +114,15 @@ def prepare_client_data(
 ) -> dict:
     client_dir = Path(client_data_dir)
     app_data_target = copy_app_data(app_data_dir, client_dir / "app_data")
+    image_index_target = app_data_target / PLANT_IMAGE_INDEX_PATH
+    image_source = Path(app_data_dir) / PLANT_IMAGES_DIR_NAME
+    image_index = None
+    if image_source.exists():
+        image_index = build_runtime_plant_image_index(image_source, image_index_target)
     boundaries = build_boundary_lookup(ecoregions_geojson_path, client_dir / "ecoregion-boundaries.json", tolerance)
     return {
         "appDataTarget": str(app_data_target),
         "boundaryCount": len(boundaries["ecoregions"]),
+        "plantImageIndexTarget": str(image_index_target) if image_index is not None else None,
+        "plantImageCount": len(image_index) if image_index is not None else 0,
     }
