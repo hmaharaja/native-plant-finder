@@ -2,18 +2,21 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 import re
 import time
 import zipfile
 from collections import Counter, defaultdict
 from dataclasses import dataclass
 from datetime import datetime, timezone
+from email.utils import parsedate_to_datetime
 from pathlib import Path
 from typing import Iterable, Mapping
 from urllib.parse import urlparse
 
 import pandas as pd
 import requests
+from requests.adapters import HTTPAdapter
 
 from dataset_columns import (
     IMAGE_ACCEPTED_AT,
@@ -41,14 +44,23 @@ LOGGER = logging.getLogger(__name__)
 GBIF_OCCURRENCE_SEARCH_URL = "https://api.gbif.org/v1/occurrence/search"
 GBIF_OCCURRENCE_URL_TEMPLATE = "https://www.gbif.org/occurrence/{gbif_id}"
 DEFAULT_PLANTS_CSV_PATH = Path("datasets/gbif_species_match_cleaned.csv")
+DEFAULT_PROBLEMS_CSV_PATH = Path("datasets/problems_cleaned.csv")
 DEFAULT_OUTPUT_DIR = Path("datasets/app_data/plant_images")
 DEFAULT_BUCKET_COUNT = 64
-DEFAULT_LIMIT_PER_TAXON = 50
+DEFAULT_LIMIT_PER_TAXON = 20
 DEFAULT_TIMEOUT = 15
 DEFAULT_RETRIES = 2
 DEFAULT_BACKOFF_FACTOR = 0.5
+DEFAULT_RETRY_AFTER_CAP_SECONDS = 120.0
 DEFAULT_MAX_REDIRECTS = 5
 DEFAULT_MAX_CONTENT_LENGTH_BYTES = 10 * 1024 * 1024
+DEFAULT_DELAY_BETWEEN_TAXA = 1.0
+DEFAULT_DELAY_BETWEEN_URL_CHECKS = 0.25
+DEFAULT_EXCLUDED_PROBLEM_MATCH_TYPES = ("HIGHERRANK",)
+DEFAULT_USER_AGENT = (
+    "native-plant-finder-gbif-image-etl/1.0 "
+    "(set GBIF_USER_AGENT with project/contact details for production runs)"
+)
 DEFAULT_DWCA_CHUNKSIZE = 100_000
 DWCA_OCCURRENCE_MEMBER = "occurrence.txt"
 DWCA_MULTIMEDIA_MEMBER = "multimedia.txt"
@@ -113,6 +125,73 @@ def read_usage_keys(path: str | Path, usage_key_column: str = USAGE_KEY) -> list
     rows = pd.read_csv(path, dtype=str, usecols=[usage_key_column])
     keys = rows[usage_key_column].map(normalize_key).dropna().drop_duplicates()
     return sorted(keys, key=lambda value: int(value) if value.isdigit() else value)
+
+
+def read_problem_usage_keys(
+    path: str | Path,
+    *,
+    match_types: Iterable[str] = DEFAULT_EXCLUDED_PROBLEM_MATCH_TYPES,
+    usage_key_column: str = USAGE_KEY,
+    match_type_column: str = "matchType",
+) -> set[str]:
+    problems_path = Path(path)
+    if not problems_path.exists():
+        LOGGER.warning("Problems CSV not found; no usageKeys excluded path=%s", problems_path)
+        return set()
+
+    rows = pd.read_csv(problems_path, dtype=str)
+    missing = {usage_key_column, match_type_column} - set(rows.columns)
+    if missing:
+        raise ValueError(f"Problems CSV missing required columns: {', '.join(sorted(missing))}")
+
+    excluded_match_types = {str(match_type).upper() for match_type in match_types}
+    mask = rows[match_type_column].fillna("").str.upper().isin(excluded_match_types)
+    return {
+        key
+        for key in rows.loc[mask, usage_key_column].map(normalize_key).dropna().drop_duplicates()
+        if key is not None
+    }
+
+
+def filter_usage_keys(
+    usage_keys: Iterable[str],
+    *,
+    excluded_usage_keys: Iterable[str] = (),
+    offset: int = 0,
+    limit: int | None = None,
+) -> list[str]:
+    keys = [key for key in (normalize_key(key) for key in usage_keys) if key is not None]
+    excluded = {key for key in (normalize_key(key) for key in excluded_usage_keys) if key is not None}
+    filtered = [key for key in keys if key not in excluded]
+    if offset:
+        filtered = filtered[offset:]
+    if limit is not None:
+        filtered = filtered[:limit]
+    return filtered
+
+
+def default_user_agent() -> str:
+    return os.environ.get("GBIF_USER_AGENT") or DEFAULT_USER_AGENT
+
+
+def configure_http_session(
+    session: requests.Session | None = None,
+    *,
+    user_agent: str | None = None,
+) -> requests.Session:
+    active_session = session or requests.Session()
+    headers = getattr(active_session, "headers", None)
+    if headers is None:
+        active_session.headers = {}
+        headers = active_session.headers
+    headers.update({"User-Agent": user_agent or default_user_agent()})
+
+    mount = getattr(active_session, "mount", None)
+    if callable(mount):
+        adapter = HTTPAdapter(pool_connections=2, pool_maxsize=2)
+        active_session.mount("https://", adapter)
+        active_session.mount("http://", adapter)
+    return active_session
 
 
 def normalize_license(value: object) -> str | None:
@@ -248,6 +327,41 @@ def _is_transient_exception(exc: requests.RequestException) -> bool:
     return bool(response is not None and response.status_code in TRANSIENT_STATUS_CODES)
 
 
+def _retry_after_seconds(response: requests.Response, *, cap_seconds: float = DEFAULT_RETRY_AFTER_CAP_SECONDS) -> float | None:
+    raw_retry_after = response.headers.get("Retry-After")
+    if raw_retry_after is None:
+        return None
+
+    try:
+        seconds = float(raw_retry_after)
+    except ValueError:
+        try:
+            retry_at = parsedate_to_datetime(raw_retry_after)
+        except (TypeError, ValueError, IndexError, OverflowError):
+            return None
+        if retry_at.tzinfo is None:
+            retry_at = retry_at.replace(tzinfo=timezone.utc)
+        seconds = (retry_at - datetime.now(timezone.utc)).total_seconds()
+
+    if seconds < 0:
+        seconds = 0
+    return min(seconds, cap_seconds)
+
+
+def _retry_sleep_seconds(
+    attempt: int,
+    *,
+    response: requests.Response | None,
+    backoff_factor: float,
+    retry_after_cap_seconds: float = DEFAULT_RETRY_AFTER_CAP_SECONDS,
+) -> float:
+    if response is not None and response.status_code == 429:
+        retry_after = _retry_after_seconds(response, cap_seconds=retry_after_cap_seconds)
+        if retry_after is not None:
+            return retry_after
+    return backoff_factor * (2**attempt)
+
+
 def _request_with_retries(
     session: requests.Session,
     method: str,
@@ -257,12 +371,14 @@ def _request_with_retries(
     backoff_factor: float = DEFAULT_BACKOFF_FACTOR,
     timeout: float = DEFAULT_TIMEOUT,
     transient_status_codes: frozenset[int] = TRANSIENT_STATUS_CODES,
+    retry_after_cap_seconds: float = DEFAULT_RETRY_AFTER_CAP_SECONDS,
     **kwargs,
 ) -> RetryResult:
     attempts = max(0, retries) + 1
     last_exception: requests.RequestException | None = None
 
     for attempt in range(attempts):
+        response: requests.Response | None = None
         try:
             response = getattr(session, method)(url, timeout=timeout, **kwargs)
         except requests.RequestException as exc:
@@ -275,7 +391,12 @@ def _request_with_retries(
             if attempt == attempts - 1:
                 return RetryResult(response, transient_failure=True)
 
-        sleep_seconds = backoff_factor * (2**attempt)
+        sleep_seconds = _retry_sleep_seconds(
+            attempt,
+            response=response,
+            backoff_factor=backoff_factor,
+            retry_after_cap_seconds=retry_after_cap_seconds,
+        )
         if sleep_seconds > 0:
             time.sleep(sleep_seconds)
 
@@ -351,13 +472,12 @@ def validate_image_url(
     return ImageValidation(True)
 
 
-def rejection_reason(
+def _cheap_rejection_reason(
     usage_key: str,
     occurrence: Mapping[str, object],
     media: Mapping[str, object],
     *,
-    validate_url: bool = True,
-    session: requests.Session | None = None,
+    validate_url: bool,
 ) -> str | None:
     if not _has_still_image_media(media):
         return "non_image_media"
@@ -381,9 +501,25 @@ def rejection_reason(
     if _has_unknown_dimensions(width, height) and not validate_url:
         return "unknown_dimensions_unvalidated"
 
+    return None
+
+
+def rejection_reason(
+    usage_key: str,
+    occurrence: Mapping[str, object],
+    media: Mapping[str, object],
+    *,
+    validate_url: bool = True,
+    session: requests.Session | None = None,
+) -> str | None:
+    reason = _cheap_rejection_reason(usage_key, occurrence, media, validate_url=validate_url)
+    if reason:
+        return reason
+
     if validate_url:
+        image_url = _media_identifier(media)
         active_session = session or requests.Session()
-        validation = validate_image_url(active_session, image_url)
+        validation = validate_image_url(active_session, image_url or "")
         if not validation.ok:
             return validation.reason or "image_url_invalid"
 
@@ -457,6 +593,21 @@ def image_record(
     }
 
 
+def _rejection_row(
+    usage_key: str,
+    occurrence: Mapping[str, object],
+    media: Mapping[str, object],
+    reason: str,
+) -> dict:
+    return {
+        IMAGE_USAGE_KEY: usage_key,
+        IMAGE_GBIF_ID: _first_text(occurrence, "gbifID", "key"),
+        IMAGE_URL: _media_identifier(media),
+        IMAGE_LICENSE: str(media.get("license") or occurrence.get("license") or ""),
+        IMAGE_REJECTION_REASON: reason,
+    }
+
+
 def select_images_for_usage_key(
     usage_key: str,
     occurrences: Iterable[Mapping[str, object]],
@@ -465,10 +616,12 @@ def select_images_for_usage_key(
     validate_url: bool = True,
     session: requests.Session | None = None,
     accepted_at: str | None = None,
+    delay_between_url_checks: float = 0,
+    qa_counters: Counter | None = None,
 ) -> tuple[list[dict], list[dict]]:
     accepted_at = accepted_at or _utc_now()
     active_session = session or requests.Session()
-    accepted: list[tuple[tuple, Mapping[str, object], Mapping[str, object]]] = []
+    candidates: list[tuple[tuple, Mapping[str, object], Mapping[str, object]]] = []
     rejected: list[dict] = []
 
     for occurrence in occurrences:
@@ -479,31 +632,50 @@ def select_images_for_usage_key(
             if not isinstance(media, Mapping):
                 rejected.append({IMAGE_USAGE_KEY: usage_key, IMAGE_REJECTION_REASON: "invalid_media_record"})
                 continue
-            reason = rejection_reason(
+            reason = _cheap_rejection_reason(usage_key, occurrence, media, validate_url=validate_url)
+            if reason:
+                rejected.append(_rejection_row(usage_key, occurrence, media, reason))
+                continue
+            candidates.append((_candidate_score(usage_key, occurrence, media), occurrence, media))
+
+    candidates.sort(key=lambda item: item[0])
+    records: list[dict] = []
+    url_checks = 0
+    skipped_lower_rank = 0
+    for candidate_index, (_, occurrence, media) in enumerate(candidates):
+        if len(records) >= max_images:
+            skipped_lower_rank = len(candidates) - candidate_index
+            break
+
+        if validate_url:
+            image_url = _media_identifier(media)
+            if url_checks and delay_between_url_checks > 0:
+                time.sleep(delay_between_url_checks)
+            url_checks += 1
+            validation = validate_image_url(active_session, image_url or "")
+            if not validation.ok:
+                rejected.append(
+                    _rejection_row(
+                        usage_key,
+                        occurrence,
+                        media,
+                        validation.reason or "image_url_invalid",
+                    )
+                )
+                continue
+
+        records.append(
+            image_record(
                 usage_key,
                 occurrence,
                 media,
-                validate_url=validate_url,
-                session=active_session,
+                rank=len(records) + 1,
+                accepted_at=accepted_at,
             )
-            if reason:
-                rejected.append(
-                    {
-                        IMAGE_USAGE_KEY: usage_key,
-                        IMAGE_GBIF_ID: _first_text(occurrence, "gbifID", "key"),
-                        IMAGE_URL: _media_identifier(media),
-                        IMAGE_LICENSE: str(media.get("license") or occurrence.get("license") or ""),
-                        IMAGE_REJECTION_REASON: reason,
-                    }
-                )
-                continue
-            accepted.append((_candidate_score(usage_key, occurrence, media), occurrence, media))
+        )
 
-    accepted.sort(key=lambda item: item[0])
-    records = [
-        image_record(usage_key, occurrence, media, rank=index, accepted_at=accepted_at)
-        for index, (_, occurrence, media) in enumerate(accepted[:max_images], start=1)
-    ]
+    if skipped_lower_rank and qa_counters is not None:
+        qa_counters["skipped_lower_rank_after_slots_filled"] += skipped_lower_rank
     return records, rejected
 
 
@@ -767,9 +939,13 @@ def build_qa_report(
     usage_keys: Iterable[str],
     image_index: Mapping[str, dict],
     rejected: Iterable[Mapping[str, object]],
+    *,
+    qa_counters: Mapping[str, int] | None = None,
 ) -> dict:
     usage_key_list = list(usage_keys)
-    rejection_counter = Counter(str(row.get(IMAGE_REJECTION_REASON) or "unknown") for row in rejected)
+    rejected_rows = list(rejected)
+    rejection_counter = Counter(str(row.get(IMAGE_REJECTION_REASON) or "unknown") for row in rejected_rows)
+    qa_counters = qa_counters or {}
     accepted_records = [
         image
         for record in image_index.values()
@@ -787,6 +963,7 @@ def build_qa_report(
         "lowResolutionCount": rejection_counter.get("low_resolution", 0),
         "missingLicenseCount": rejection_counter.get("disallowed_or_missing_license", 0),
         "specimenRejectedCount": rejection_counter.get("likely_specimen_image", 0),
+        "skippedLowerRankCandidateCount": int(qa_counters.get("skipped_lower_rank_after_slots_filled") or 0),
     }
 
 
@@ -795,11 +972,13 @@ def write_reports(
     usage_keys: Iterable[str],
     image_index: Mapping[str, dict],
     rejected: Iterable[Mapping[str, object]],
+    *,
+    qa_counters: Mapping[str, int] | None = None,
 ) -> dict:
     output = Path(output_dir)
     output.mkdir(parents=True, exist_ok=True)
     rejected_rows = list(rejected)
-    report = build_qa_report(usage_keys, image_index, rejected_rows)
+    report = build_qa_report(usage_keys, image_index, rejected_rows, qa_counters=qa_counters)
     (output / "qa_report.json").write_text(
         json.dumps(report, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
@@ -829,14 +1008,20 @@ def build_gbif_image_index(
     bucket_count: int = DEFAULT_BUCKET_COUNT,
     retries: int = DEFAULT_RETRIES,
     backoff_factor: float = DEFAULT_BACKOFF_FACTOR,
+    delay_between_taxa: float = DEFAULT_DELAY_BETWEEN_TAXA,
+    delay_between_url_checks: float = DEFAULT_DELAY_BETWEEN_URL_CHECKS,
+    user_agent: str | None = None,
 ) -> dict:
-    active_session = session or requests.Session()
+    active_session = configure_http_session(session, user_agent=user_agent)
     keys = [key for key in (normalize_key(key) for key in usage_keys) if key is not None]
     image_index: dict[str, dict] = {}
     rejected: list[dict] = []
+    qa_counters: Counter = Counter()
     accepted_at = _utc_now()
 
     for index, usage_key in enumerate(keys, start=1):
+        if index > 1 and delay_between_taxa > 0:
+            time.sleep(delay_between_taxa)
         LOGGER.info("Fetching GBIF images usageKey=%s progress=%s/%s", usage_key, index, len(keys))
         try:
             occurrences = fetch_gbif_occurrences(
@@ -862,13 +1047,15 @@ def build_gbif_image_index(
             validate_url=validate_urls,
             session=active_session,
             accepted_at=accepted_at,
+            delay_between_url_checks=delay_between_url_checks,
+            qa_counters=qa_counters,
         )
         rejected.extend(rejected_rows)
         if records:
             image_index[usage_key] = image_index_record(usage_key, records)
 
     write_bucketed_index(image_index, output_dir, bucket_count=bucket_count)
-    report = write_reports(output_dir, keys, image_index, rejected)
+    report = write_reports(output_dir, keys, image_index, rejected, qa_counters=qa_counters)
     LOGGER.info(
         "GBIF image index complete accepted_usage_keys=%s checked_usage_keys=%s",
         report["usageKeysWithAcceptedImage"],
@@ -885,12 +1072,15 @@ def build_gbif_image_index_from_dwca(
     session: requests.Session | None = None,
     validate_urls: bool = True,
     bucket_count: int = DEFAULT_BUCKET_COUNT,
+    delay_between_url_checks: float = DEFAULT_DELAY_BETWEEN_URL_CHECKS,
+    user_agent: str | None = None,
 ) -> dict:
-    active_session = session or requests.Session()
+    active_session = configure_http_session(session, user_agent=user_agent)
     keys = [key for key in (normalize_key(key) for key in usage_keys) if key is not None]
     occurrences_by_usage_key = read_dwca_occurrences(dwca_path, keys)
     image_index: dict[str, dict] = {}
     rejected: list[dict] = []
+    qa_counters: Counter = Counter()
     accepted_at = _utc_now()
 
     for usage_key in keys:
@@ -900,13 +1090,15 @@ def build_gbif_image_index_from_dwca(
             validate_url=validate_urls,
             session=active_session,
             accepted_at=accepted_at,
+            delay_between_url_checks=delay_between_url_checks,
+            qa_counters=qa_counters,
         )
         rejected.extend(rejected_rows)
         if records:
             image_index[usage_key] = image_index_record(usage_key, records)
 
     write_bucketed_index(image_index, output_dir, bucket_count=bucket_count)
-    report = write_reports(output_dir, keys, image_index, rejected)
+    report = write_reports(output_dir, keys, image_index, rejected, qa_counters=qa_counters)
     LOGGER.info(
         "GBIF DWCA image index complete accepted_usage_keys=%s checked_usage_keys=%s",
         report["usageKeysWithAcceptedImage"],

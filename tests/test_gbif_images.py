@@ -4,6 +4,7 @@ import json
 import tempfile
 import unittest
 import zipfile
+from collections import Counter
 from pathlib import Path
 from unittest.mock import patch
 
@@ -15,9 +16,12 @@ from etl.gbif_images import (
     build_gbif_image_index,
     build_gbif_image_index_from_dwca,
     build_qa_report,
+    configure_http_session,
     fetch_gbif_occurrences,
+    filter_usage_keys,
     normalize_license,
     read_dwca_occurrences,
+    read_problem_usage_keys,
     rejection_reason,
     select_images_for_usage_key,
     validate_image_url,
@@ -93,6 +97,7 @@ class FakeSession:
         self.head_responses = list(head_responses or [head_response or FakeResponse()])
         self.get_responses = list(get_responses or [get_response or FakeResponse()])
         self.max_redirects = 30
+        self.headers = {}
         self.head_calls = []
         self.get_calls = []
 
@@ -296,6 +301,77 @@ class GbifImageAcceptanceTests(unittest.TestCase):
         self.assertEqual(len(results), 1)
         self.assertEqual(len(session.get_calls), 2)
 
+    def test_retry_after_on_429_is_honored_and_capped(self):
+        session = FakeSession(
+            head_responses=[
+                FakeResponse(status_code=429, headers={"Retry-After": "999", "Content-Type": "image/jpeg"}),
+                FakeResponse(),
+            ]
+        )
+
+        with patch("etl.gbif_images.time.sleep") as sleep:
+            validation = validate_image_url(session, "https://images.example/plant", retries=1)
+
+        self.assertTrue(validation.ok)
+        sleep.assert_called_once_with(120.0)
+
+    def test_configure_http_session_sets_user_agent_header(self):
+        session = FakeSession()
+
+        configured = configure_http_session(session, user_agent="native-plant-finder-test/1.0")
+
+        self.assertIs(configured, session)
+        self.assertEqual(session.headers["User-Agent"], "native-plant-finder-test/1.0")
+
+    def test_selection_validates_urls_after_cheap_filtering_and_ranking(self):
+        rejected_by_license = occurrence(
+            gbifID="5",
+            media=[media(identifier="https://images.example/rejected.jpg", license="https://creativecommons.org/licenses/by-nc/4.0/")],
+        )
+        lower_ranked = occurrence(gbifID="20", basisOfRecord="OBSERVATION", media=[media(identifier="https://images.example/lower.jpg")])
+        best = occurrence(gbifID="10", media=[media(identifier="https://images.example/best.jpg")])
+        qa_counters = Counter()
+
+        with patch("etl.gbif_images.validate_image_url", return_value=type("Result", (), {"ok": True, "reason": None})()) as validate:
+            selected, rejected = select_images_for_usage_key(
+                "100",
+                [rejected_by_license, lower_ranked, best],
+                validate_url=True,
+                max_images=1,
+                qa_counters=qa_counters,
+            )
+
+        self.assertEqual([record["gbifId"] for record in selected], ["10"])
+        self.assertEqual(validate.call_count, 1)
+        self.assertEqual(qa_counters["skipped_lower_rank_after_slots_filled"], 1)
+        self.assertEqual(rejected[0]["rejectionReason"], "disallowed_or_missing_license")
+
+    def test_selection_delays_between_url_checks_and_skips_lower_ranked_after_slots_fill(self):
+        occurrences = [
+            occurrence(gbifID="10", media=[media(identifier="https://images.example/one.jpg")]),
+            occurrence(gbifID="20", media=[media(identifier="https://images.example/two.jpg")]),
+            occurrence(gbifID="30", basisOfRecord="OBSERVATION", media=[media(identifier="https://images.example/three.jpg")]),
+        ]
+        qa_counters = Counter()
+
+        with patch("etl.gbif_images.validate_image_url", return_value=type("Result", (), {"ok": True, "reason": None})()) as validate, patch(
+            "etl.gbif_images.time.sleep"
+        ) as sleep:
+            selected, rejected = select_images_for_usage_key(
+                "100",
+                occurrences,
+                validate_url=True,
+                max_images=2,
+                delay_between_url_checks=0.25,
+                qa_counters=qa_counters,
+            )
+
+        self.assertEqual(len(selected), 2)
+        self.assertEqual(rejected, [])
+        self.assertEqual(validate.call_count, 2)
+        sleep.assert_called_once_with(0.25)
+        self.assertEqual(qa_counters["skipped_lower_rank_after_slots_filled"], 1)
+
 
 class GbifImageOutputTests(unittest.TestCase):
     def test_bucket_for_usage_key_uses_modulo_bucket(self):
@@ -335,6 +411,7 @@ class GbifImageOutputTests(unittest.TestCase):
                 {"rejectionReason": "likely_specimen_image"},
                 {"rejectionReason": "disallowed_or_missing_license"},
             ],
+            qa_counters={"skipped_lower_rank_after_slots_filled": 3},
         )
 
         self.assertEqual(report["uniqueUsageKeysChecked"], 2)
@@ -342,6 +419,7 @@ class GbifImageOutputTests(unittest.TestCase):
         self.assertEqual(report["lowResolutionCount"], 1)
         self.assertEqual(report["specimenRejectedCount"], 1)
         self.assertEqual(report["missingLicenseCount"], 1)
+        self.assertEqual(report["skippedLowerRankCandidateCount"], 3)
 
     def test_build_gbif_image_index_writes_reports_and_buckets(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -367,6 +445,63 @@ class GbifImageOutputTests(unittest.TestCase):
             self.assertTrue((output / "qa_report.json").exists())
             self.assertTrue((output / "manual_review.csv").exists())
             self.assertIn("100", (output / "buckets" / "00.json").read_text(encoding="utf-8"))
+
+    def test_build_gbif_image_index_uses_shared_session_headers_and_taxa_delay(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            session = FakeSession(
+                get_responses=[
+                    FakeResponse(payload={"results": []}, headers={"Content-Type": "application/json"}),
+                    FakeResponse(payload={"results": []}, headers={"Content-Type": "application/json"}),
+                ]
+            )
+
+            with patch("etl.gbif_images.time.sleep") as sleep:
+                build_gbif_image_index(
+                    ["100", "200"],
+                    Path(tmp),
+                    session=session,
+                    validate_urls=False,
+                    bucket_count=4,
+                    delay_between_taxa=1.5,
+                    user_agent="native-plant-finder-test/1.0",
+                )
+
+            self.assertEqual(session.headers["User-Agent"], "native-plant-finder-test/1.0")
+            sleep.assert_called_once_with(1.5)
+
+    def test_mocked_api_smoke_writes_only_final_image_artifacts(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output = Path(tmp)
+            session = FakeSession(
+                get_response=FakeResponse(
+                    payload={"results": [occurrence()]},
+                    headers={"Content-Type": "application/json"},
+                )
+            )
+
+            with patch("etl.gbif_images.validate_image_url", return_value=type("Result", (), {"ok": True, "reason": None})()):
+                build_gbif_image_index(
+                    ["100"],
+                    output,
+                    session=session,
+                    bucket_count=4,
+                    delay_between_taxa=0,
+                    delay_between_url_checks=0,
+                )
+
+            files = sorted(path.relative_to(output).as_posix() for path in output.rglob("*") if path.is_file())
+            self.assertEqual(
+                files,
+                [
+                    "buckets/00.json",
+                    "buckets/01.json",
+                    "buckets/02.json",
+                    "buckets/03.json",
+                    "manifest.json",
+                    "manual_review.csv",
+                    "qa_report.json",
+                ],
+            )
 
     def test_build_gbif_image_index_reports_api_transient_failure(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -416,6 +551,28 @@ class GbifImageInputTests(unittest.TestCase):
             pd.DataFrame({"usageKey": ["200.0", "100", "200", None]}).to_csv(path, index=False)
 
             self.assertEqual(read_usage_keys(path), ["100", "200"])
+
+    def test_read_problem_usage_keys_excludes_higherrank_by_default(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "problems.csv"
+            pd.DataFrame(
+                {
+                    "usageKey": ["100", "200", "300"],
+                    "matchType": ["HIGHERRANK", "VARIANT", "higherrank"],
+                }
+            ).to_csv(path, index=False)
+
+            self.assertEqual(read_problem_usage_keys(path), {"100", "300"})
+
+    def test_filter_usage_keys_applies_exclusion_offset_and_limit_deterministically(self):
+        filtered = filter_usage_keys(
+            ["100", "200", "300", "400", "500"],
+            excluded_usage_keys={"200"},
+            offset=1,
+            limit=2,
+        )
+
+        self.assertEqual(filtered, ["300", "400"])
 
     def test_read_dwca_occurrences_validates_required_files(self):
         with tempfile.TemporaryDirectory() as tmp:

@@ -12,7 +12,8 @@ RAW_FILE_PATH = 'datasets/vascan_data_raw.txt'
 GBIF_SPECIES_MATCH_FILE_PATH = 'datasets/gbif_species_match.csv'
 GBIF_SPECIES_MATCH_CLEANED_FILE_PATH = 'datasets/gbif_species_match_cleaned.csv'
 CLEANED_PROBLEMS_FILE_PATH = 'datasets/problems_cleaned.csv'
-GBIF_DOWNLOAD_REQ_TEMPLATE = 'gbif_download_request.json'
+GBIF_DOWNLOAD_REQ_TEMPLATE = 'etl/gbif_download_requests/gbif_download_request.json'
+GBIF_IMAGE_REQ_TEMPLATE = 'etl/gbif_download_requests/image_etl_request.json'
 
 def get_gbif_taxon_key(sci_name: str):
     url = "https://api.gbif.org/v2/species/match"

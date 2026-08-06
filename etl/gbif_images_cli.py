@@ -7,11 +7,17 @@ from pathlib import Path
 
 from etl.gbif_images import (
     DEFAULT_BUCKET_COUNT,
+    DEFAULT_DELAY_BETWEEN_TAXA,
+    DEFAULT_DELAY_BETWEEN_URL_CHECKS,
     DEFAULT_LIMIT_PER_TAXON,
     DEFAULT_OUTPUT_DIR,
     DEFAULT_PLANTS_CSV_PATH,
+    DEFAULT_PROBLEMS_CSV_PATH,
     build_gbif_image_index,
     build_gbif_image_index_from_dwca,
+    default_user_agent,
+    filter_usage_keys,
+    read_problem_usage_keys,
     read_usage_keys,
 )
 
@@ -20,6 +26,20 @@ def positive_int(value: str) -> int:
     parsed = int(value)
     if parsed < 1:
         raise argparse.ArgumentTypeError("must be a positive integer")
+    return parsed
+
+
+def non_negative_int(value: str) -> int:
+    parsed = int(value)
+    if parsed < 0:
+        raise argparse.ArgumentTypeError("must be a non-negative integer")
+    return parsed
+
+
+def non_negative_float(value: str) -> float:
+    parsed = float(value)
+    if parsed < 0:
+        raise argparse.ArgumentTypeError("must be a non-negative number")
     return parsed
 
 
@@ -34,12 +54,44 @@ def build_parser() -> argparse.ArgumentParser:
         help="Read occurrence.txt and multimedia.txt from an existing GBIF Darwin Core Archive zip.",
     )
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
+    parser.add_argument(
+        "--problems",
+        type=Path,
+        default=DEFAULT_PROBLEMS_CSV_PATH,
+        help="Problems CSV used to exclude HIGHERRANK usageKeys in API and DWCA runs.",
+    )
     parser.add_argument("--limit-per-taxon", type=positive_int, default=DEFAULT_LIMIT_PER_TAXON)
     parser.add_argument("--bucket-count", type=positive_int, default=DEFAULT_BUCKET_COUNT)
     parser.add_argument(
         "--limit-usage-keys",
         type=positive_int,
         help="Limit unique usageKeys for smoke runs.",
+    )
+    parser.add_argument(
+        "--usage-key-offset",
+        type=non_negative_int,
+        default=0,
+        help="Skip this many filtered usageKeys before applying --limit-usage-keys.",
+    )
+    parser.add_argument(
+        "--include-problem-keys",
+        action="store_true",
+        help="Include usageKeys flagged as HIGHERRANK in the problems CSV.",
+    )
+    parser.add_argument(
+        "--delay-between-taxa",
+        type=non_negative_float,
+        default=DEFAULT_DELAY_BETWEEN_TAXA,
+    )
+    parser.add_argument(
+        "--delay-between-url-checks",
+        type=non_negative_float,
+        default=DEFAULT_DELAY_BETWEEN_URL_CHECKS,
+    )
+    parser.add_argument(
+        "--user-agent",
+        default=default_user_agent(),
+        help="User-Agent for GBIF and image URL requests. Defaults to GBIF_USER_AGENT or a repo fallback.",
     )
     parser.add_argument(
         "--skip-url-validation",
@@ -62,8 +114,21 @@ def main(argv: list[str] | None = None) -> int:
         stream=sys.stdout,
     )
     usage_keys = read_usage_keys(args.plants)
-    if args.limit_usage_keys is not None:
-        usage_keys = usage_keys[: args.limit_usage_keys]
+    excluded_usage_keys = set()
+    if not args.include_problem_keys:
+        excluded_usage_keys = read_problem_usage_keys(args.problems)
+        if excluded_usage_keys:
+            logging.getLogger(__name__).info(
+                "Excluding %s problem usageKeys from %s",
+                len(excluded_usage_keys),
+                args.problems,
+            )
+    usage_keys = filter_usage_keys(
+        usage_keys,
+        excluded_usage_keys=excluded_usage_keys,
+        offset=args.usage_key_offset,
+        limit=args.limit_usage_keys,
+    )
     if args.dwca is not None:
         report = build_gbif_image_index_from_dwca(
             usage_keys,
@@ -71,6 +136,8 @@ def main(argv: list[str] | None = None) -> int:
             args.output_dir,
             validate_urls=not args.skip_url_validation,
             bucket_count=args.bucket_count,
+            delay_between_url_checks=args.delay_between_url_checks,
+            user_agent=args.user_agent,
         )
     else:
         report = build_gbif_image_index(
@@ -79,6 +146,9 @@ def main(argv: list[str] | None = None) -> int:
             limit_per_taxon=args.limit_per_taxon,
             validate_urls=not args.skip_url_validation,
             bucket_count=args.bucket_count,
+            delay_between_taxa=args.delay_between_taxa,
+            delay_between_url_checks=args.delay_between_url_checks,
+            user_agent=args.user_agent,
         )
     print(
         " ".join(
