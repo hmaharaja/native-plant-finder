@@ -1,7 +1,7 @@
 datasets
 curation/
 venv
-gbif_download_request.json
+gbif_download_requests
 .env
 __pycache__
 client/node_modules
