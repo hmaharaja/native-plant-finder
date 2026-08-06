@@ -1,0 +1,4 @@
+interface:
+  display_name: "Images ETL"
+  short_description: "Run and merge plant image fallbacks"
+  default_prompt: "Use $images-etl to run or merge native plant image ETL outputs."
