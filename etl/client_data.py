@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import math
 import re
 import shutil
 from datetime import datetime, timezone
@@ -21,6 +22,8 @@ COMMONS_THUMB_WIDTH_PX = 240
 
 _INATURALIST_ORIGINAL_IMAGE_PATH = re.compile(r"/original\.([A-Za-z0-9]+)$")
 _COMMONS_THUMB_IMAGE_PATH = re.compile(r"/(\d+)px-([^/]+)$")
+_IMAGE_NULLABLE_STRING_FIELDS = ("gbifId", "sourceUrl", "license", "creator", "credit", "publisher", "acceptedAt")
+_IMAGE_NULLABLE_NUMBER_FIELDS = ("width", "height")
 
 
 def copy_app_data(
@@ -42,6 +45,69 @@ def _read_image_bucket(path: Path) -> Mapping[str, object]:
     if not isinstance(payload, dict):
         raise ValueError(f"image bucket must be a JSON object: {path}")
     return payload
+
+
+def _is_number(value: object) -> bool:
+    return isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(value)
+
+
+def _is_integer_number(value: object) -> bool:
+    return _is_number(value) and int(value) == value
+
+
+def _is_nullable_string(value: object) -> bool:
+    return value is None or isinstance(value, str)
+
+
+def _is_nullable_number(value: object) -> bool:
+    return value is None or _is_number(value)
+
+
+def _is_https_url(value: object) -> bool:
+    if not isinstance(value, str) or not value:
+        return False
+    parts = urlsplit(value)
+    return parts.scheme == "https" and bool(parts.netloc)
+
+
+def _validate_runtime_plant_image(image: object, context: str) -> None:
+    if not isinstance(image, dict):
+        raise ValueError(f"{context} must be a JSON object")
+    source = image.get("source")
+    if not isinstance(source, str) or not source:
+        raise ValueError(f"{context}.source must be a non-empty string")
+    if not _is_https_url(image.get("imageUrl")):
+        raise ValueError(f"{context}.imageUrl must be a valid HTTPS URL")
+    if not _is_https_url(image.get("thumbnailUrl")):
+        raise ValueError(f"{context}.thumbnailUrl must be a valid HTTPS URL")
+    rank = image.get("rank")
+    if not _is_number(rank):
+        raise ValueError(f"{context}.rank must be a finite number")
+    for field in _IMAGE_NULLABLE_STRING_FIELDS:
+        if field not in image or not _is_nullable_string(image.get(field)):
+            raise ValueError(f"{context}.{field} must be a string or null")
+    for field in _IMAGE_NULLABLE_NUMBER_FIELDS:
+        if field not in image or not _is_nullable_number(image.get(field)):
+            raise ValueError(f"{context}.{field} must be a number or null")
+
+
+def _validate_runtime_plant_image_record(record: object, usage_key: str, bucket_path: Path) -> int:
+    context = f"plant image bucket record {usage_key} in {bucket_path}"
+    if not isinstance(record, dict):
+        raise ValueError(f"{context} must be a JSON object")
+    record_usage_key = record.get("usageKey")
+    if not _is_integer_number(record_usage_key):
+        raise ValueError(f"{context}.usageKey must be an integer number")
+    numeric_usage_key = int(record_usage_key)
+    if str(numeric_usage_key) != usage_key:
+        raise ValueError(f"{context}.usageKey must match bucket key {usage_key}")
+    _validate_runtime_plant_image(record.get("primaryImage"), f"{context}.primaryImage")
+    if "secondaryImage" not in record:
+        raise ValueError(f"{context}.secondaryImage must be an object or null")
+    secondary_image = record.get("secondaryImage")
+    if secondary_image is not None:
+        _validate_runtime_plant_image(secondary_image, f"{context}.secondaryImage")
+    return numeric_usage_key
 
 
 def _normalize_thumbnail_url(thumbnail_url: object, *, commons_width_px: int = COMMONS_THUMB_WIDTH_PX) -> object:
@@ -89,9 +155,14 @@ def build_runtime_plant_image_index(
         raise FileNotFoundError(f"plant image bucket directory not found: {bucket_dir}")
 
     image_index: dict[str, object] = {}
+    seen_usage_keys: set[int] = set()
     for bucket_path in sorted(bucket_dir.glob("*.json")):
         for usage_key, record in sorted(_read_image_bucket(bucket_path).items()):
             key = str(usage_key)
+            numeric_usage_key = _validate_runtime_plant_image_record(record, key, bucket_path)
+            if numeric_usage_key in seen_usage_keys:
+                raise ValueError(f"duplicate plant image usageKey: {numeric_usage_key}")
+            seen_usage_keys.add(numeric_usage_key)
             if key in image_index:
                 raise ValueError(f"duplicate plant image usageKey: {key}")
             image_index[key] = _normalize_runtime_plant_image_record(record)

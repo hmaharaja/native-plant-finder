@@ -139,6 +139,26 @@ describe("validation", () => {
         },
         secondaryImage: null
       },
+      "125": "not a record",
+      "126": {
+        usageKey: 127,
+        primaryImage: {
+          source: "gbif",
+          gbifId: "456",
+          imageUrl: "https://images.example.test/plant.jpg",
+          thumbnailUrl: "https://images.example.test/thumb.jpg",
+          sourceUrl: "https://www.gbif.org/occurrence/456",
+          license: "CC BY",
+          creator: null,
+          credit: null,
+          publisher: null,
+          width: null,
+          height: null,
+          acceptedAt: null,
+          rank: 1
+        },
+        secondaryImage: null
+      },
       badKey: {
         usageKey: 125
       }

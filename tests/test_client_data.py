@@ -84,15 +84,10 @@ class ClientDataTests(unittest.TestCase):
             (source / "buckets" / "00.json").write_text(
                 json.dumps(
                     {
-                        "64": {
-                            "usageKey": 64,
-                            "primaryImage": {
-                                "source": "gbif",
-                                "imageUrl": "https://example.test/image.jpg",
-                                "thumbnailUrl": "https://example.test/image.jpg",
-                            },
-                            "secondaryImage": None,
-                        }
+                        "64": plant_image_record(
+                            64,
+                            plant_image("https://example.test/image.jpg", "https://example.test/image.jpg"),
+                        )
                     }
                 ),
                 encoding="utf-8",
@@ -100,15 +95,10 @@ class ClientDataTests(unittest.TestCase):
             (source / "buckets" / "01.json").write_text(
                 json.dumps(
                     {
-                        "65": {
-                            "usageKey": 65,
-                            "primaryImage": {
-                                "source": "wikimedia_commons",
-                                "imageUrl": "https://example.test/second.jpg",
-                                "thumbnailUrl": "https://example.test/second.jpg",
-                            },
-                            "secondaryImage": None,
-                        }
+                        "65": plant_image_record(
+                            65,
+                            plant_image("https://example.test/second.jpg", "https://example.test/second.jpg"),
+                        )
                     }
                 ),
                 encoding="utf-8",
@@ -187,6 +177,74 @@ class ClientDataTests(unittest.TestCase):
 
             self.assertEqual(saved["64"]["primaryImage"]["imageUrl"], image_url)
             self.assertEqual(saved["64"]["primaryImage"]["thumbnailUrl"], thumbnail_url)
+
+    def test_runtime_plant_image_index_rejects_malformed_bucket_records(self):
+        base_record = plant_image_record(
+            64,
+            plant_image("https://example.test/plant.jpg", "https://example.test/thumb.jpg"),
+        )
+        missing_creator_image = dict(base_record["primaryImage"])
+        del missing_creator_image["creator"]
+        cases = {
+            "non-object record": ("not an object", "must be a JSON object"),
+            "missing numeric usageKey": ({**base_record, "usageKey": None}, "usageKey"),
+            "mismatched usageKey": ({**base_record, "usageKey": 65}, "match bucket key"),
+            "missing valid primary image": ({**base_record, "primaryImage": None}, "primaryImage"),
+            "invalid imageUrl": (
+                {
+                    **base_record,
+                    "primaryImage": {**base_record["primaryImage"], "imageUrl": "http://example.test/plant.jpg"},
+                },
+                "imageUrl",
+            ),
+            "invalid thumbnailUrl": (
+                {
+                    **base_record,
+                    "primaryImage": {**base_record["primaryImage"], "thumbnailUrl": "not a url"},
+                },
+                "thumbnailUrl",
+            ),
+            "invalid required nullable metadata": (
+                {
+                    **base_record,
+                    "primaryImage": {**base_record["primaryImage"], "creator": 123},
+                },
+                "creator",
+            ),
+            "missing required nullable metadata": (
+                {
+                    **base_record,
+                    "primaryImage": missing_creator_image,
+                },
+                "creator",
+            ),
+        }
+        for label, (record, message) in cases.items():
+            with self.subTest(label=label):
+                with tempfile.TemporaryDirectory() as tmp:
+                    root = Path(tmp)
+                    source = root / "plant_images" / "buckets"
+                    output = root / "public" / "plant_images" / "index.json"
+                    source.mkdir(parents=True)
+                    (source / "00.json").write_text(json.dumps({"64": record}), encoding="utf-8")
+
+                    with self.assertRaisesRegex(ValueError, message):
+                        build_runtime_plant_image_index(source.parent, output)
+                    self.assertFalse(output.exists())
+
+    def test_runtime_plant_image_index_rejects_duplicate_numeric_usage_keys(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            source = root / "plant_images" / "buckets"
+            output = root / "public" / "plant_images" / "index.json"
+            source.mkdir(parents=True)
+            image = plant_image("https://example.test/plant.jpg", "https://example.test/thumb.jpg")
+            (source / "00.json").write_text(json.dumps({"64": plant_image_record(64, image)}), encoding="utf-8")
+            (source / "01.json").write_text(json.dumps({"64": plant_image_record(64, image)}), encoding="utf-8")
+
+            with self.assertRaisesRegex(ValueError, "duplicate plant image usageKey: 64"):
+                build_runtime_plant_image_index(source.parent, output)
+            self.assertFalse(output.exists())
 
     def test_committed_runtime_plant_image_index_stays_under_size_budget(self):
         size = PLANT_IMAGE_RUNTIME_INDEX.stat().st_size
