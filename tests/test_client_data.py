@@ -11,6 +11,10 @@ from shapely.geometry import Polygon
 from etl.client_data import build_boundary_lookup, build_runtime_plant_image_index, copy_app_data
 
 
+PLANT_IMAGE_RUNTIME_INDEX = Path("client/public/data/app_data/plant_images/index.json")
+PLANT_IMAGE_RUNTIME_INDEX_MAX_BYTES = 10 * 1024 * 1024
+
+
 def plant_image(image_url: str, thumbnail_url: str) -> dict[str, object]:
     return {
         "source": "gbif",
@@ -183,6 +187,16 @@ class ClientDataTests(unittest.TestCase):
 
             self.assertEqual(saved["64"]["primaryImage"]["imageUrl"], image_url)
             self.assertEqual(saved["64"]["primaryImage"]["thumbnailUrl"], thumbnail_url)
+
+    def test_committed_runtime_plant_image_index_stays_under_size_budget(self):
+        size = PLANT_IMAGE_RUNTIME_INDEX.stat().st_size
+
+        self.assertLessEqual(
+            size,
+            PLANT_IMAGE_RUNTIME_INDEX_MAX_BYTES,
+            "client plant image runtime index exceeds 10 MiB; larger indexes should revisit "
+            "bucketed or per-ecoregion runtime loading before committing the artifact",
+        )
 
     def test_boundary_lookup_writes_minimal_records(self):
         with tempfile.TemporaryDirectory() as tmp:
