@@ -1,10 +1,12 @@
 from __future__ import annotations
 
 import json
+import re
 import shutil
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Mapping
+from urllib.parse import urlsplit, urlunsplit
 
 import geopandas as gpd
 
@@ -15,6 +17,10 @@ DEFAULT_CLIENT_DATA_DIR = Path("client/public/data")
 DEFAULT_BOUNDARY_TOLERANCE = 0.01
 PLANT_IMAGES_DIR_NAME = "plant_images"
 PLANT_IMAGE_INDEX_PATH = Path(PLANT_IMAGES_DIR_NAME) / "index.json"
+COMMONS_THUMB_WIDTH_PX = 240
+
+_INATURALIST_ORIGINAL_IMAGE_PATH = re.compile(r"/original\.([A-Za-z0-9]+)$")
+_COMMONS_THUMB_IMAGE_PATH = re.compile(r"/(\d+)px-([^/]+)$")
 
 
 def copy_app_data(
@@ -38,6 +44,41 @@ def _read_image_bucket(path: Path) -> Mapping[str, object]:
     return payload
 
 
+def _normalize_thumbnail_url(thumbnail_url: object, *, commons_width_px: int = COMMONS_THUMB_WIDTH_PX) -> object:
+    if not isinstance(thumbnail_url, str):
+        return thumbnail_url
+    parts = urlsplit(thumbnail_url)
+    if parts.scheme != "https":
+        return thumbnail_url
+    if parts.netloc == "inaturalist-open-data.s3.amazonaws.com":
+        path = _INATURALIST_ORIGINAL_IMAGE_PATH.sub(r"/small.\1", parts.path)
+        if path != parts.path:
+            return urlunsplit((parts.scheme, parts.netloc, path, parts.query, parts.fragment))
+    if parts.netloc == "upload.wikimedia.org" and "/wikipedia/commons/thumb/" in parts.path:
+        path = _COMMONS_THUMB_IMAGE_PATH.sub(rf"/{commons_width_px}px-\2", parts.path)
+        if path != parts.path:
+            return urlunsplit((parts.scheme, parts.netloc, path, parts.query, parts.fragment))
+    return thumbnail_url
+
+
+def _normalize_runtime_plant_image(image: object) -> object:
+    if not isinstance(image, dict):
+        return image
+    normalized = dict(image)
+    normalized["thumbnailUrl"] = _normalize_thumbnail_url(normalized.get("thumbnailUrl"))
+    return normalized
+
+
+def _normalize_runtime_plant_image_record(record: object) -> object:
+    if not isinstance(record, dict):
+        return record
+    normalized = dict(record)
+    normalized["primaryImage"] = _normalize_runtime_plant_image(normalized.get("primaryImage"))
+    if normalized.get("secondaryImage") is not None:
+        normalized["secondaryImage"] = _normalize_runtime_plant_image(normalized.get("secondaryImage"))
+    return normalized
+
+
 def build_runtime_plant_image_index(
     source_dir: str | Path = DEFAULT_APP_DATA_DIR / PLANT_IMAGES_DIR_NAME,
     output_path: str | Path = DEFAULT_CLIENT_DATA_DIR / "app_data" / PLANT_IMAGE_INDEX_PATH,
@@ -53,7 +94,7 @@ def build_runtime_plant_image_index(
             key = str(usage_key)
             if key in image_index:
                 raise ValueError(f"duplicate plant image usageKey: {key}")
-            image_index[key] = record
+            image_index[key] = _normalize_runtime_plant_image_record(record)
 
     output = Path(output_path)
     output.parent.mkdir(parents=True, exist_ok=True)
