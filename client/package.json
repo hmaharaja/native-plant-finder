@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
-    "build": "tsc && vite build",
+    "check:data": "node scripts/check-public-data.cjs",
+    "build": "npm run check:data && tsc && vite build",
     "preview": "vite preview --host 127.0.0.1",
     "test": "vitest run --config vitest.config.ts",
     "test:e2e": "playwright test -c playwright.config.cjs"
