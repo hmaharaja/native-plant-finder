@@ -83,7 +83,7 @@ function PlantCardImage({ image, alt }: { image: PlantImage | null; alt: string 
     imageContent = (
       <div
         className="plantcard-image-placeholder"
-        aria-label={image ? `Plant image unavailable. ${context}` : "Plant image unavailable"}
+        aria-label="Plant image unavailable"
         role="img"
         title={context}
       />
@@ -101,7 +101,7 @@ function PlantCardImage({ image, alt }: { image: PlantImage | null; alt: string 
             href={image.sourceUrl}
             rel="noreferrer"
             target="_blank"
-            aria-label={`${attribution} source for ${alt}. ${context}`}
+            aria-label={`Image source for ${alt}`}
             title={context}
           >
             {attribution}

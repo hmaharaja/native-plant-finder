@@ -211,7 +211,10 @@ test("loads plant image metadata without blocking search results", async ({ page
   await expect(page.getByRole("heading", { name: "Image Plant" })).toBeVisible({ timeout: 500 });
   await expect(page.getByText("No image", { exact: true })).toBeVisible();
   await expect(page.getByRole("img", { name: "Image Plant" })).toBeVisible();
-  await expect(page.getByRole("link", { name: /Jane Botanist source for Image Plant/ })).toHaveAttribute("href", "https://www.gbif.org/occurrence/123");
+  await expect(page.getByText("Jane Botanist", { exact: true })).toBeVisible();
+  const sourceLink = page.getByRole("link", { name: "Image source for Image Plant" });
+  await expect(sourceLink).toHaveAttribute("href", "https://www.gbif.org/occurrence/123");
+  await expect(sourceLink).toHaveAttribute("title", /Attribution: Jane Botanist/);
   await expect(page.locator(".plantcard-media a[href='https://www.gbif.org/occurrence/123']")).toHaveCount(1);
   const frameBox = await page.locator(".plantcard-image-frame").first().boundingBox();
   expect(frameBox).not.toBeNull();
@@ -245,8 +248,9 @@ test("uses the placeholder when a plant thumbnail fails without resizing the car
   const frame = page.locator(".plantcard-image-frame").first();
   const beforeBox = await frame.boundingBox();
   expect(beforeBox).not.toBeNull();
-  await expect(page.getByRole("img", { name: /Plant image unavailable/ })).toBeVisible();
-  await expect(page.getByRole("link", { name: /Field Archive source for Broken Image Plant/ })).toHaveAttribute("href", "https://www.gbif.org/occurrence/123");
+  await expect(page.getByRole("img", { name: "Plant image unavailable" })).toBeVisible();
+  await expect(page.getByText("Field Archive", { exact: true })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Image source for Broken Image Plant" })).toHaveAttribute("href", "https://www.gbif.org/occurrence/123");
   await expect(page.locator(".plantcard-media a[href='https://www.gbif.org/occurrence/123']")).toHaveCount(1);
   const afterBox = await frame.boundingBox();
   expect(afterBox).not.toBeNull();
