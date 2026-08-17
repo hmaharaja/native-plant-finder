@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { displayName, formatHeight, formatList, formatMonthList, scientificName } from "../formatters";
 import { recommendationLabel } from "../recommendations";
 import type { PlantImage, PlantImageIndex, PlantRecord } from "../types";
@@ -53,11 +53,17 @@ export function PlantCard({ plant, image, action }: { plant: PlantRecord; image?
 
 function PlantCardImage({ image, alt }: { image: PlantImage | null; alt: string }) {
   const [failed, setFailed] = useState(false);
-  if (!image || failed) {
-    return <div className="plantcard-image-placeholder" aria-label="Plant image unavailable" role="img" />;
-  }
+  const thumbnailUrl = image?.thumbnailUrl ?? null;
 
-  const img = (
+  useEffect(() => {
+    setFailed(false);
+  }, [thumbnailUrl]);
+
+  const attribution = image ? plantImageAttribution(image) : null;
+  const context = image ? plantImageContext(image, attribution) : "Plant image unavailable";
+  const hasImage = Boolean(image && !failed);
+
+  const img = image ? (
     <img
       alt={alt}
       className="plantcard-image"
@@ -65,14 +71,73 @@ function PlantCardImage({ image, alt }: { image: PlantImage | null; alt: string 
       height="72"
       loading="lazy"
       onError={() => setFailed(true)}
+      title={context}
       src={image.thumbnailUrl}
-      width="96"
+      width="120"
     />
-  );
+  ) : null;
 
-  return image.sourceUrl ? (
-    <a className="plantcard-image-link" href={image.sourceUrl} rel="noreferrer" target="_blank">
-      {img}
-    </a>
-  ) : img;
+  const imageContent = hasImage && img
+    ? image.sourceUrl
+      ? (
+          <a
+            className="plantcard-image-link"
+            href={image.sourceUrl}
+            rel="noreferrer"
+            target="_blank"
+            aria-label={`Open image source for ${alt}. ${context}`}
+            title={context}
+          >
+            {img}
+          </a>
+        )
+      : img
+    : (
+        <div
+          className="plantcard-image-placeholder"
+          aria-label={image ? `Plant image unavailable. ${context}` : "Plant image unavailable"}
+          role="img"
+          title={context}
+        />
+      );
+
+  return (
+    <figure className="plantcard-media">
+      <div className="plantcard-image-frame">
+        {imageContent}
+      </div>
+      <figcaption className={`plantcard-attribution ${attribution ? "" : "plantcard-attribution-muted"}`}>
+        {image?.sourceUrl && attribution ? (
+          <a
+            href={image.sourceUrl}
+            rel="noreferrer"
+            target="_blank"
+            aria-label={`${attribution} source for ${alt}. ${context}`}
+            title={context}
+          >
+            {attribution}
+          </a>
+        ) : attribution ?? "No image"
+        }
+      </figcaption>
+    </figure>
+  );
+}
+
+function plantImageAttribution(image: PlantImage): string {
+  return (
+    image.credit?.trim() ||
+    image.creator?.trim() ||
+    image.publisher?.trim() ||
+    image.source.trim().replace(/[-_]+/g, " ").toUpperCase()
+  );
+}
+
+function plantImageContext(image: PlantImage, attribution: string | null): string {
+  const source = image.source.trim().replace(/[-_]+/g, " ").toUpperCase();
+  return [
+    attribution ? `Attribution: ${attribution}` : null,
+    source ? `Source: ${source}` : null,
+    image.license ? `License: ${image.license}` : null
+  ].filter(Boolean).join(". ");
 }
