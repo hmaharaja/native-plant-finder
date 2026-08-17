@@ -61,7 +61,6 @@ function PlantCardImage({ image, alt }: { image: PlantImage | null; alt: string 
 
   const attribution = image ? plantImageAttribution(image) : null;
   const context = image ? plantImageContext(image, attribution) : "Plant image unavailable";
-  const hasImage = Boolean(image && !failed);
 
   const img = image ? (
     <img
@@ -77,29 +76,30 @@ function PlantCardImage({ image, alt }: { image: PlantImage | null; alt: string 
     />
   ) : null;
 
-  const imageContent = hasImage && img
-    ? image.sourceUrl
-      ? (
-          <a
-            className="plantcard-image-link"
-            href={image.sourceUrl}
-            rel="noreferrer"
-            target="_blank"
-            aria-label={`Open image source for ${alt}. ${context}`}
-            title={context}
-          >
-            {img}
-          </a>
-        )
-      : img
-    : (
-        <div
-          className="plantcard-image-placeholder"
-          aria-label={image ? `Plant image unavailable. ${context}` : "Plant image unavailable"}
-          role="img"
-          title={context}
-        />
-      );
+  let imageContent: ReactNode;
+  if (image && !failed && img) {
+    imageContent = image.sourceUrl ? (
+      <a
+        className="plantcard-image-link"
+        href={image.sourceUrl}
+        rel="noreferrer"
+        target="_blank"
+        aria-label={`Open image source for ${alt}. ${context}`}
+        title={context}
+      >
+        {img}
+      </a>
+    ) : img;
+  } else {
+    imageContent = (
+      <div
+        className="plantcard-image-placeholder"
+        aria-label={image ? `Plant image unavailable. ${context}` : "Plant image unavailable"}
+        role="img"
+        title={context}
+      />
+    );
+  }
 
   return (
     <figure className="plantcard-media">
