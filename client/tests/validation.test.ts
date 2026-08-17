@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { isValidCoordinate, isValidLocationQuery, parseEcoregionPayload, parseManifest, safePlantDetailUrl, sanitizeLocationQuery } from "../src/validation";
+import { isValidCoordinate, isValidLocationQuery, parseEcoregionPayload, parseManifest, parsePlantImageIndex, parsePlantImageIndexWithStats, safePlantDetailUrl, safePlantImageSourceUrl, sanitizeLocationQuery } from "../src/validation";
 
 describe("validation", () => {
   it("sanitizes location input without preserving control characters", () => {
@@ -84,5 +84,95 @@ describe("validation", () => {
 
   it("rejects plant detail URLs without a plant id", () => {
     expect(safePlantDetailUrl("https://www.wildflower.org/plants/result.php")).toBeNull();
+  });
+
+  it("allows known HTTPS image source links", () => {
+    expect(safePlantImageSourceUrl("https://www.gbif.org/occurrence/123")).toBe("https://www.gbif.org/occurrence/123");
+    expect(safePlantImageSourceUrl("https://commons.wikimedia.org/wiki/File:Example.jpg")).toBe(
+      "https://commons.wikimedia.org/wiki/File:Example.jpg"
+    );
+  });
+
+  it("rejects unsafe or unexpected image source links", () => {
+    expect(safePlantImageSourceUrl("javascript:alert(1)")).toBeNull();
+    expect(safePlantImageSourceUrl("http://www.gbif.org/occurrence/123")).toBeNull();
+    expect(safePlantImageSourceUrl("https://example.test/source")).toBeNull();
+  });
+
+  it("parses valid image records and drops invalid records without failing the index", () => {
+    const payload = {
+      "123": {
+        usageKey: 123,
+        primaryImage: {
+          source: "gbif",
+          gbifId: "456",
+          imageUrl: "https://images.example.test/plant.jpg",
+          thumbnailUrl: "https://images.example.test/thumb.jpg",
+          sourceUrl: "https://www.gbif.org/occurrence/456",
+          license: "CC BY",
+          creator: "A Person",
+          credit: "A Person / Publisher",
+          publisher: "Publisher",
+          width: 320,
+          height: 240,
+          acceptedAt: "2026-08-06T00:00:00Z",
+          rank: 1
+        },
+        secondaryImage: null
+      },
+      "124": {
+        usageKey: 124,
+        primaryImage: {
+          source: "gbif",
+          gbifId: null,
+          imageUrl: "javascript:alert(1)",
+          thumbnailUrl: "https://images.example.test/thumb.jpg",
+          sourceUrl: "https://www.gbif.org/occurrence/456",
+          license: "CC BY",
+          creator: null,
+          credit: null,
+          publisher: null,
+          width: null,
+          height: null,
+          acceptedAt: null,
+          rank: 1
+        },
+        secondaryImage: null
+      },
+      "125": "not a record",
+      "126": {
+        usageKey: 127,
+        primaryImage: {
+          source: "gbif",
+          gbifId: "456",
+          imageUrl: "https://images.example.test/plant.jpg",
+          thumbnailUrl: "https://images.example.test/thumb.jpg",
+          sourceUrl: "https://www.gbif.org/occurrence/456",
+          license: "CC BY",
+          creator: null,
+          credit: null,
+          publisher: null,
+          width: null,
+          height: null,
+          acceptedAt: null,
+          rank: 1
+        },
+        secondaryImage: null
+      },
+      badKey: {
+        usageKey: 125
+      }
+    };
+    const result = parsePlantImageIndexWithStats(payload);
+    const index = parsePlantImageIndex(payload);
+
+    expect(Object.keys(index)).toEqual(["123"]);
+    expect(result.droppedRecordCount).toBe(4);
+    expect(result.droppedRecordKeys).toEqual(["124", "125", "126", "badKey"]);
+    expect(index["123"].primaryImage.sourceUrl).toBe("https://www.gbif.org/occurrence/456");
+  });
+
+  it("requires an object image index", () => {
+    expect(() => parsePlantImageIndex([])).toThrow(/plant image index/);
   });
 });

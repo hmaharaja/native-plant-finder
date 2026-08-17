@@ -6,6 +6,9 @@ import type {
   EcoregionManifestEntry,
   EcoregionPayload,
   Manifest,
+  PlantImage,
+  PlantImageIndex,
+  PlantImageIndexRecord,
   PlantRecord,
   RecommendationCategory
 } from "./types";
@@ -15,6 +18,15 @@ const COLLAPSED_SPACE = /\s+/g;
 const CONTROL_CHARS = /[\u0000-\u001f\u007f]/g;
 const ALLOWED_PLANT_DETAIL_HOST = "www.wildflower.org";
 const ALLOWED_PLANT_DETAIL_PATH = "/plants/result.php";
+const ALLOWED_IMAGE_SOURCE_HOSTS = new Set(["www.gbif.org", "gbif.org", "commons.wikimedia.org"]);
+
+export interface PlantImageIndexParseResult {
+  index: PlantImageIndex;
+  inputRecordCount: number;
+  parsedRecordCount: number;
+  droppedRecordCount: number;
+  droppedRecordKeys: string[];
+}
 
 export function sanitizeLocationQuery(raw: string): string {
   return raw
@@ -61,6 +73,27 @@ export function safePlantDetailUrl(rawUrl: string | null): string | null {
   } catch {
     return null;
   }
+}
+
+function safeHttpsUrl(rawUrl: unknown): string | null {
+  if (typeof rawUrl !== "string" || !rawUrl) {
+    return null;
+  }
+  try {
+    const url = new URL(rawUrl);
+    return url.protocol === "https:" ? url.toString() : null;
+  } catch {
+    return null;
+  }
+}
+
+export function safePlantImageSourceUrl(rawUrl: string | null): string | null {
+  const safeUrl = safeHttpsUrl(rawUrl);
+  if (!safeUrl) {
+    return null;
+  }
+  const url = new URL(safeUrl);
+  return ALLOWED_IMAGE_SOURCE_HOSTS.has(url.hostname) ? url.toString() : null;
 }
 
 function isObject(value: unknown): value is Record<string, unknown> {
@@ -155,6 +188,94 @@ function parsePlantRecord(value: unknown): PlantRecord {
     ...value,
     recommendationCategory: value.recommendationCategory ?? null
   } as unknown as PlantRecord;
+}
+
+function parsePlantImage(value: unknown): PlantImage | null {
+  if (!isObject(value)) {
+    return null;
+  }
+  const imageUrl = safeHttpsUrl(value.imageUrl);
+  const thumbnailUrl = safeHttpsUrl(value.thumbnailUrl);
+  if (!imageUrl || !thumbnailUrl || typeof value.source !== "string" || !isNumber(value.rank)) {
+    return null;
+  }
+  if (!isNullableString(value.gbifId)) {
+    return null;
+  }
+  if (
+    !isNullableString(value.license) ||
+    !isNullableString(value.creator) ||
+    !isNullableString(value.credit) ||
+    !isNullableString(value.publisher) ||
+    !isNullableNumber(value.width) ||
+    !isNullableNumber(value.height)
+  ) {
+    return null;
+  }
+  if (value.acceptedAt !== undefined && !isNullableString(value.acceptedAt)) {
+    return null;
+  }
+  return {
+    source: value.source,
+    gbifId: value.gbifId,
+    imageUrl,
+    thumbnailUrl,
+    sourceUrl: safePlantImageSourceUrl(isNullableString(value.sourceUrl) ? value.sourceUrl : null),
+    license: value.license,
+    creator: value.creator,
+    credit: value.credit,
+    publisher: value.publisher,
+    width: value.width,
+    height: value.height,
+    acceptedAt: value.acceptedAt ?? null,
+    rank: value.rank
+  };
+}
+
+function parsePlantImageIndexRecord(usageKey: string, value: unknown): PlantImageIndexRecord | null {
+  if (!isObject(value) || !isNumber(value.usageKey) || String(value.usageKey) !== usageKey) {
+    return null;
+  }
+  const primaryImage = parsePlantImage(value.primaryImage);
+  if (!primaryImage) {
+    return null;
+  }
+  const secondaryImage = value.secondaryImage === null ? null : parsePlantImage(value.secondaryImage);
+  return {
+    usageKey: value.usageKey,
+    primaryImage,
+    secondaryImage
+  };
+}
+
+export function parsePlantImageIndex(value: unknown): PlantImageIndex {
+  assert(isObject(value), "plant image index must be an object");
+  return parsePlantImageIndexWithStats(value).index;
+}
+
+export function parsePlantImageIndexWithStats(value: unknown): PlantImageIndexParseResult {
+  assert(isObject(value), "plant image index must be an object");
+  const index: PlantImageIndex = {};
+  const droppedRecordKeys: string[] = [];
+  for (const [usageKey, record] of Object.entries(value)) {
+    if (!/^\d+$/.test(usageKey)) {
+      droppedRecordKeys.push(usageKey);
+      continue;
+    }
+    const parsed = parsePlantImageIndexRecord(usageKey, record);
+    if (parsed) {
+      index[usageKey] = parsed;
+    } else {
+      droppedRecordKeys.push(usageKey);
+    }
+  }
+  return {
+    index,
+    inputRecordCount: Object.keys(value).length,
+    parsedRecordCount: Object.keys(index).length,
+    droppedRecordCount: droppedRecordKeys.length,
+    droppedRecordKeys
+  };
 }
 
 export function parseEcoregionPayload(value: unknown): EcoregionPayload {

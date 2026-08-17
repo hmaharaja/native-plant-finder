@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { findManifestEntry, loadBoundaries, loadEcoregionPayload, loadManifest, resetDataCachesForTests } from "../src/dataClient";
+import { findManifestEntry, loadBoundaries, loadEcoregionPayload, loadManifest, loadPlantImageIndex, resetDataCachesForTests } from "../src/dataClient";
 
 function mockFetch(responses: Record<string, unknown>) {
   return vi.fn(async (input: RequestInfo | URL) => {
@@ -69,6 +69,27 @@ describe("dataClient", () => {
             recommendationCategory: "conditional"
           }
         ]
+      },
+      "data/app_data/plant_images/index.json": {
+        "1": {
+          usageKey: 1,
+          primaryImage: {
+            source: "gbif",
+            gbifId: "2",
+            imageUrl: "https://images.example.test/plant.jpg",
+            thumbnailUrl: "https://images.example.test/thumb.jpg",
+            sourceUrl: "https://www.gbif.org/occurrence/2",
+            license: "CC BY",
+            creator: null,
+            credit: null,
+            publisher: null,
+            width: null,
+            height: null,
+            acceptedAt: null,
+            rank: 1
+          },
+          secondaryImage: null
+        }
       }
     });
     vi.stubGlobal("fetch", fetchMock);
@@ -80,7 +101,9 @@ describe("dataClient", () => {
     expect((await loadBoundaries()).ecoregions).toEqual([]);
     expect((await loadEcoregionPayload(entry!)).plants[0].canonicalName).toBe("Aster laevis");
     await loadEcoregionPayload(entry!);
-    expect(fetchMock).toHaveBeenCalledTimes(3);
+    expect((await loadPlantImageIndex())["1"].primaryImage.source).toBe("gbif");
+    await loadPlantImageIndex();
+    expect(fetchMock).toHaveBeenCalledTimes(4);
   });
 
   it("does not permanently cache failed manifest loads", async () => {
@@ -123,6 +146,45 @@ describe("dataClient", () => {
 
     await expect(loadEcoregionPayload(entry)).rejects.toThrow("500");
     await expect(loadEcoregionPayload(entry)).resolves.toMatchObject({ ecoregionId: 7 });
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
+
+  it("does not permanently cache concurrent failed image index loads", async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce({ ok: false, status: 503, json: async () => null })
+      .mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        json: async () => ({
+          "1": {
+            usageKey: 1,
+            primaryImage: {
+              source: "gbif",
+              gbifId: null,
+              imageUrl: "https://images.example.test/plant.jpg",
+              thumbnailUrl: "https://images.example.test/thumb.jpg",
+              sourceUrl: "https://www.gbif.org/occurrence/1",
+              license: "CC0",
+              creator: null,
+              credit: null,
+              publisher: null,
+              width: null,
+              height: null,
+              acceptedAt: null,
+              rank: 1
+            },
+            secondaryImage: null
+          }
+        })
+      });
+    vi.stubGlobal("fetch", fetchMock);
+
+    const first = loadPlantImageIndex();
+    const second = loadPlantImageIndex();
+    await expect(first).rejects.toThrow("503");
+    await expect(second).rejects.toThrow("503");
+    await expect(loadPlantImageIndex()).resolves.toHaveProperty("1");
     expect(fetchMock).toHaveBeenCalledTimes(2);
   });
 });
