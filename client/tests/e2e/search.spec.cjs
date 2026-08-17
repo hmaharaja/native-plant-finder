@@ -1,5 +1,7 @@
 const { expect, test } = require("@playwright/test");
 
+const ONE_PIXEL_GIF = Buffer.from("R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==", "base64");
+
 test("loads the search experience", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { name: "Native Plant Finder" })).toBeVisible();
@@ -58,6 +60,29 @@ function record(name, growthHabit, duration, min, max, recommendationCategory = 
     bloomColor: [],
     lbjUrl: null,
     recommendationCategory
+  };
+}
+
+function imageRecord(plant, overrides = {}) {
+  return {
+    usageKey: plant.usageKey,
+    primaryImage: {
+      source: "gbif",
+      gbifId: "123",
+      imageUrl: "https://images.example.test/plant.jpg",
+      thumbnailUrl: "https://images.example.test/thumb.jpg",
+      sourceUrl: "https://www.gbif.org/occurrence/123",
+      license: "CC BY",
+      creator: "Jane Botanist",
+      credit: null,
+      publisher: "GBIF test publisher",
+      width: 320,
+      height: 240,
+      acceptedAt: null,
+      rank: 1,
+      ...overrides
+    },
+    secondaryImage: null
   };
 }
 
@@ -165,43 +190,103 @@ test("shows a terminal empty state when a region has only excluded records", asy
 });
 
 test("loads plant image metadata without blocking search results", async ({ page }) => {
+  await page.setViewportSize({ width: 900, height: 700 });
   const imagePlant = record("Image plant", ["Herb"], "perennial", 1, 2, "good_default");
   await page.route("https://images.example.test/**", (route) =>
     route.fulfill({
       contentType: "image/gif",
-      body: Buffer.from("R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==", "base64")
+      body: ONE_PIXEL_GIF
     })
   );
   await mockSearch(
     page,
     [imagePlant],
     {
-      [String(imagePlant.usageKey)]: {
-        usageKey: imagePlant.usageKey,
-        primaryImage: {
-          source: "gbif",
-          gbifId: "123",
-          imageUrl: "https://images.example.test/plant.jpg",
-          thumbnailUrl: "https://images.example.test/thumb.jpg",
-          sourceUrl: "https://www.gbif.org/occurrence/123",
-          license: "CC BY",
-          creator: null,
-          credit: null,
-          publisher: null,
-          width: 320,
-          height: 240,
-          acceptedAt: null,
-          rank: 1
-        },
-        secondaryImage: null
-      }
+      [String(imagePlant.usageKey)]: imageRecord(imagePlant)
     },
-    250
+    1000
   );
 
   await submitSearch(page);
-  await expect(page.getByRole("heading", { name: "Image Plant" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Image Plant" })).toBeVisible({ timeout: 500 });
+  await expect(page.getByText("No image", { exact: true })).toBeVisible();
   await expect(page.getByRole("img", { name: "Image Plant" })).toBeVisible();
+  await expect(page.getByRole("link", { name: /Jane Botanist source for Image Plant/ })).toHaveAttribute("href", "https://www.gbif.org/occurrence/123");
+  const frameBox = await page.locator(".plantcard-image-frame").first().boundingBox();
+  expect(frameBox).not.toBeNull();
+  expect(Math.round(frameBox.width)).toBe(120);
+  expect(Math.round(frameBox.height)).toBe(90);
+});
+
+test("uses the placeholder when a plant thumbnail fails without resizing the card image slot", async ({ page }) => {
+  await page.setViewportSize({ width: 900, height: 700 });
+  const imagePlant = record("Broken image plant", ["Herb"], "perennial", 1, 2, "good_default");
+  await page.route("https://images.example.test/**", (route) =>
+    route.fulfill({
+      status: 404,
+      contentType: "image/jpeg",
+      body: ""
+    })
+  );
+  await mockSearch(
+    page,
+    [imagePlant],
+    {
+      [String(imagePlant.usageKey)]: imageRecord(imagePlant, {
+        credit: "Field Archive",
+        creator: "Jane Botanist",
+        thumbnailUrl: "https://images.example.test/missing-thumb.jpg"
+      })
+    }
+  );
+
+  await submitSearch(page);
+  const frame = page.locator(".plantcard-image-frame").first();
+  const beforeBox = await frame.boundingBox();
+  expect(beforeBox).not.toBeNull();
+  await expect(page.getByRole("img", { name: /Plant image unavailable/ })).toBeVisible();
+  await expect(page.getByRole("link", { name: /Field Archive source for Broken Image Plant/ })).toHaveAttribute("href", "https://www.gbif.org/occurrence/123");
+  const afterBox = await frame.boundingBox();
+  expect(afterBox).not.toBeNull();
+  expect(Math.round(afterBox.width)).toBe(Math.round(beforeBox.width));
+  expect(Math.round(afterBox.height)).toBe(Math.round(beforeBox.height));
+  expect(Math.round(afterBox.width)).toBe(120);
+  expect(Math.round(afterBox.height)).toBe(90);
+});
+
+test("uses compact non-overlapping plant image layout on mobile", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  const imagePlant = record("Mobile image plant", ["Herb"], "perennial", 1, 2, "good_default");
+  await page.route("https://images.example.test/**", (route) =>
+    route.fulfill({
+      contentType: "image/gif",
+      body: ONE_PIXEL_GIF
+    })
+  );
+  await mockSearch(
+    page,
+    [imagePlant],
+    {
+      [String(imagePlant.usageKey)]: imageRecord(imagePlant, {
+        credit: "Compact Credit"
+      })
+    }
+  );
+
+  await submitSearch(page);
+  await expect(page.getByRole("img", { name: "Mobile Image Plant" })).toBeVisible();
+  const frameBox = await page.locator(".plantcard-image-frame").first().boundingBox();
+  const nameBox = await page.locator(".plant-name-line").first().boundingBox();
+  const mediaBox = await page.locator(".plantcard-media").first().boundingBox();
+  const actionsBox = await page.locator(".plantcard-actions").first().boundingBox();
+  expect(frameBox).not.toBeNull();
+  expect(nameBox).not.toBeNull();
+  expect(mediaBox).not.toBeNull();
+  expect(actionsBox).not.toBeNull();
+  expect(Math.round(frameBox.width)).toBe(96);
+  expect(Math.round(frameBox.height)).toBe(72);
+  expect(frameBox.x + frameBox.width).toBeLessThanOrEqual(nameBox.x);
+  expect(actionsBox.y).toBeGreaterThanOrEqual(mediaBox.y + mediaBox.height - 1);
 });
 
 test("filters before and after search without duplicate geocoding and recovers from zero results", async ({ page }) => {
