@@ -20,6 +20,14 @@ const ALLOWED_PLANT_DETAIL_HOST = "www.wildflower.org";
 const ALLOWED_PLANT_DETAIL_PATH = "/plants/result.php";
 const ALLOWED_IMAGE_SOURCE_HOSTS = new Set(["www.gbif.org", "gbif.org", "commons.wikimedia.org"]);
 
+export interface PlantImageIndexParseResult {
+  index: PlantImageIndex;
+  inputRecordCount: number;
+  parsedRecordCount: number;
+  droppedRecordCount: number;
+  droppedRecordKeys: string[];
+}
+
 export function sanitizeLocationQuery(raw: string): string {
   return raw
     .replace(CONTROL_CHARS, "")
@@ -242,17 +250,32 @@ function parsePlantImageIndexRecord(usageKey: string, value: unknown): PlantImag
 
 export function parsePlantImageIndex(value: unknown): PlantImageIndex {
   assert(isObject(value), "plant image index must be an object");
+  return parsePlantImageIndexWithStats(value).index;
+}
+
+export function parsePlantImageIndexWithStats(value: unknown): PlantImageIndexParseResult {
+  assert(isObject(value), "plant image index must be an object");
   const index: PlantImageIndex = {};
+  const droppedRecordKeys: string[] = [];
   for (const [usageKey, record] of Object.entries(value)) {
     if (!/^\d+$/.test(usageKey)) {
+      droppedRecordKeys.push(usageKey);
       continue;
     }
     const parsed = parsePlantImageIndexRecord(usageKey, record);
     if (parsed) {
       index[usageKey] = parsed;
+    } else {
+      droppedRecordKeys.push(usageKey);
     }
   }
-  return index;
+  return {
+    index,
+    inputRecordCount: Object.keys(value).length,
+    parsedRecordCount: Object.keys(index).length,
+    droppedRecordCount: droppedRecordKeys.length,
+    droppedRecordKeys
+  };
 }
 
 export function parseEcoregionPayload(value: unknown): EcoregionPayload {

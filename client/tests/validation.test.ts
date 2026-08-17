@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { isValidCoordinate, isValidLocationQuery, parseEcoregionPayload, parseManifest, parsePlantImageIndex, safePlantDetailUrl, safePlantImageSourceUrl, sanitizeLocationQuery } from "../src/validation";
+import { isValidCoordinate, isValidLocationQuery, parseEcoregionPayload, parseManifest, parsePlantImageIndex, parsePlantImageIndexWithStats, safePlantDetailUrl, safePlantImageSourceUrl, sanitizeLocationQuery } from "../src/validation";
 
 describe("validation", () => {
   it("sanitizes location input without preserving control characters", () => {
@@ -100,7 +100,7 @@ describe("validation", () => {
   });
 
   it("parses valid image records and drops invalid records without failing the index", () => {
-    const index = parsePlantImageIndex({
+    const payload = {
       "123": {
         usageKey: 123,
         primaryImage: {
@@ -162,9 +162,13 @@ describe("validation", () => {
       badKey: {
         usageKey: 125
       }
-    });
+    };
+    const result = parsePlantImageIndexWithStats(payload);
+    const index = parsePlantImageIndex(payload);
 
     expect(Object.keys(index)).toEqual(["123"]);
+    expect(result.droppedRecordCount).toBe(4);
+    expect(result.droppedRecordKeys).toEqual(["124", "125", "126", "badKey"]);
     expect(index["123"].primaryImage.sourceUrl).toBe("https://www.gbif.org/occurrence/456");
   });
 
