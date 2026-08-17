@@ -68,7 +68,7 @@ function PlantCardImage({ image, alt }: { image: PlantImage | null; alt: string 
       alt={alt}
       className="plantcard-image"
       decoding="async"
-      height="72"
+      height="90"
       loading="lazy"
       onError={() => setFailed(true)}
       title={context}

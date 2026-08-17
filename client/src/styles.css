@@ -704,21 +704,43 @@ h1 {
 }
 
 .plantcard-head {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr) auto;
   gap: 16px;
   align-items: start;
 }
 
-.plantcard-image,
-.plantcard-image-placeholder {
-  display: block;
-  width: 96px;
+.plantcard-head > div {
+  min-width: 0;
+}
+
+.plantcard-media {
+  display: grid;
+  gap: 5px;
+  align-content: start;
+  width: 120px;
+  margin: 0;
+}
+
+.plantcard-image-frame {
+  position: relative;
+  width: 120px;
   aspect-ratio: 4 / 3;
-  flex: 0 0 96px;
+  overflow: hidden;
   border: 1px solid rgba(47, 46, 31, 0.22);
   border-radius: 6px;
-  background: var(--cream-strong);
+  background:
+    radial-gradient(circle at 24% 22%, rgba(147, 160, 113, 0.32) 0 13%, transparent 14%),
+    radial-gradient(circle at 68% 70%, rgba(183, 100, 53, 0.18) 0 16%, transparent 17%),
+    linear-gradient(135deg, rgba(147, 160, 113, 0.18), rgba(255, 242, 210, 0.92));
+}
+
+.plantcard-image,
+.plantcard-image-placeholder,
+.plantcard-image-link {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .plantcard-image {
@@ -727,13 +749,51 @@ h1 {
 }
 
 .plantcard-image-link {
-  flex: 0 0 96px;
+  color: inherit;
+  text-decoration: none;
 }
 
 .plantcard-image-placeholder {
+  position: relative;
   background:
-    linear-gradient(135deg, rgba(147, 160, 113, 0.2), rgba(199, 100, 67, 0.14)),
+    linear-gradient(148deg, transparent 0 46%, rgba(102, 118, 66, 0.22) 47% 49%, transparent 50%),
+    radial-gradient(ellipse at 34% 42%, rgba(102, 118, 66, 0.24) 0 17%, transparent 18%),
+    radial-gradient(ellipse at 64% 56%, rgba(129, 65, 35, 0.13) 0 13%, transparent 14%),
     var(--cream-strong);
+}
+
+.plantcard-image-placeholder::after {
+  position: absolute;
+  left: 50%;
+  top: 15%;
+  width: 1px;
+  height: 72%;
+  content: "";
+  transform: rotate(28deg);
+  background: rgba(70, 86, 38, 0.28);
+}
+
+.plantcard-attribution {
+  max-width: 120px;
+  min-height: 14px;
+  overflow: hidden;
+  color: var(--ink-soft);
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 0.63rem;
+  font-weight: 700;
+  line-height: 1.15;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.plantcard-attribution a {
+  color: var(--rust-dark);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.16em;
+}
+
+.plantcard-attribution-muted {
+  color: rgba(95, 91, 67, 0.72);
 }
 
 .plantcard h3 {
@@ -893,17 +953,21 @@ h1 {
   }
 
   .plantcard-head {
-    display: grid;
+    grid-template-columns: 96px minmax(0, 1fr);
+    gap: 12px;
   }
 
-  .plantcard-image,
-  .plantcard-image-placeholder,
-  .plantcard-image-link {
+  .plantcard-media,
+  .plantcard-image-frame {
     width: 96px;
-    max-width: 100%;
+  }
+
+  .plantcard-attribution {
+    max-width: 96px;
   }
 
   .plantcard-actions {
+    grid-column: 1 / -1;
     justify-content: flex-start;
   }
 
