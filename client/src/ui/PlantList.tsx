@@ -78,18 +78,7 @@ function PlantCardImage({ image, alt }: { image: PlantImage | null; alt: string 
 
   let imageContent: ReactNode;
   if (image && !failed && img) {
-    imageContent = image.sourceUrl ? (
-      <a
-        className="plantcard-image-link"
-        href={image.sourceUrl}
-        rel="noreferrer"
-        target="_blank"
-        aria-label={`Open image source for ${alt}. ${context}`}
-        title={context}
-      >
-        {img}
-      </a>
-    ) : img;
+    imageContent = img;
   } else {
     imageContent = (
       <div

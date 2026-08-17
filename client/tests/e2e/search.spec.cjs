@@ -212,6 +212,7 @@ test("loads plant image metadata without blocking search results", async ({ page
   await expect(page.getByText("No image", { exact: true })).toBeVisible();
   await expect(page.getByRole("img", { name: "Image Plant" })).toBeVisible();
   await expect(page.getByRole("link", { name: /Jane Botanist source for Image Plant/ })).toHaveAttribute("href", "https://www.gbif.org/occurrence/123");
+  await expect(page.locator(".plantcard-media a[href='https://www.gbif.org/occurrence/123']")).toHaveCount(1);
   const frameBox = await page.locator(".plantcard-image-frame").first().boundingBox();
   expect(frameBox).not.toBeNull();
   expect(Math.round(frameBox.width)).toBe(120);
@@ -246,6 +247,7 @@ test("uses the placeholder when a plant thumbnail fails without resizing the car
   expect(beforeBox).not.toBeNull();
   await expect(page.getByRole("img", { name: /Plant image unavailable/ })).toBeVisible();
   await expect(page.getByRole("link", { name: /Field Archive source for Broken Image Plant/ })).toHaveAttribute("href", "https://www.gbif.org/occurrence/123");
+  await expect(page.locator(".plantcard-media a[href='https://www.gbif.org/occurrence/123']")).toHaveCount(1);
   const afterBox = await frame.boundingBox();
   expect(afterBox).not.toBeNull();
   expect(Math.round(afterBox.width)).toBe(Math.round(beforeBox.width));
